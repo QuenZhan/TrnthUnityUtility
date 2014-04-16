@@ -3,8 +3,27 @@ using System.Collections;
 namespace TRNTH{
 [RequireComponent (typeof (CharacterController))]
 public class Creature:TRNTH.MonoBehaviour{
-	public void hurt(){
-		StartCoroutine(parameterOnce("hurt"));
+	public bool isGravity=true;
+	public bool isVital=true;
+	public bool onlyJumpWhileGrounded=true;
+	public float speedMoveForce=0.1f;
+	public float speedMoveMax=3f;
+	public float fJump=7f;
+	public float lookRate=0.03f;
+	public float lookDisMin=0.9f;
+	public float cdJump=0.2f;
+	public float disWalkThreshold=0.9f;
+	public Vector3 vecForce;
+	public Animator animator;
+	float fWalk=0.0f;
+	public float walkRate{
+		get{
+			var vec=new Vector3(vecForce.x,0,vecForce.z);
+			return vec.magnitude/speedMoveMax;
+		}
+	}
+	public void play(string str){
+		StartCoroutine(parameterOnce(str));
 	}
 	public void stand(){
 		vecForce.x*=0.69f;
@@ -20,6 +39,10 @@ public class Creature:TRNTH.MonoBehaviour{
 		tra.LookAt(tra.position+dirTarget);
 	}
 	public void walk(Vector3 posTarget){
+		if((posTarget-pos).magnitude<disWalkThreshold){
+			stand();
+			return;
+		}
 		Vector3 dvec=posTarget-transform.position;
 		dvec.Normalize();
 		fWalk+=speedMoveForce;
@@ -27,25 +50,6 @@ public class Creature:TRNTH.MonoBehaviour{
 		dvec*=speedMoveMax;
 		vecForce.x=dvec.x;
 		vecForce.z=dvec.z;
-	}
-	protected void triggerFx(Collider col){
-		if((Camera.main.transform.position-pos).magnitude>20f)return;
-		switch(col.gameObject.tag){
-		case"bush":
-			Audio.play(tra.position,Audio.a.bush,0.5f);
-			break;
-		case"leaf":
-			Audio.play(tra.position,Audio.a.bush,1f);
-			Fx.summon(Fx.f.leaves,tra.position);
-			break;
-		}
-	}
-	public IEnumerator parameterOnce(string str){
-		if(animator){
-			animator.SetBool(str,true);
-			yield return new WaitForSeconds(0);
-			animator.SetBool(str,false);
-		}
 	}
 	public void attack(){
 		if(!aCdAttack.a)return;
@@ -58,7 +62,7 @@ public class Creature:TRNTH.MonoBehaviour{
 		if(!aCdJump.a)return;
 		if(onlyJumpWhileGrounded&&!ccr.isGrounded)return;
 		vecForce+=Vector3.up*fJump;
-		aCdJump.s=0.2f;
+		aCdJump.s=cdJump;
 	}
 	protected CharacterController ccr;
 	protected Vector3 dirTarget=Vector3.zero;
@@ -66,25 +70,16 @@ public class Creature:TRNTH.MonoBehaviour{
 	Alarm aCdJump=new Alarm();
 	Alarm aCdAttack=new Alarm();
 	Alarm aPreAttack=new Alarm();
-	public bool isGravity=true;
-	public bool isVital=true;
-	public bool onlyJumpWhileGrounded=true;
-	public float speedMoveForce=0.1f;
-	public float speedMoveMax=3f;
-	public float fJump=7f;
-	public float lookRate=0.03f;
-	public float lookDisMin=0.9f;
-	public float disAtk=2.6f;
-	public float disAtkRadius=2.6f;
-	[HideInInspector]public Vector3 vecForce;
-	// public Vector3 posTarget;
-	public Animator animator;
-	public LayerMask layerHurt;
-	public LayerMask layerAttack;
-	float fWalk=0.0f;
 	string sur="";
 	// Alarm aAir=new Alarm();
 	// Vector3 prePos;
+	IEnumerator parameterOnce(string str){
+		if(animator){
+			animator.SetBool(str,true);
+			yield return new WaitForSeconds(0);
+			animator.SetBool(str,false);
+		}
+	}
 	public override void Awake(){
 		base.Awake();
 		ccr=GetComponent<CharacterController>();
@@ -105,34 +100,6 @@ public class Creature:TRNTH.MonoBehaviour{
 		Vector3 vec=vecForce*dt;
 		ccr.Move(vec);
 	}
-	public virtual void Update(){
-		float dt=Time.deltaTime;
-		// if(ccr.isGrounded)aAir.s=0.4f;
-		if(isVital){
-			switch(sur){
-			case"atk":
-				if(!aPreAttack.a)break;
-				sur="";
-				Collider[] cols=Physics.OverlapSphere(pos+dirTarget*disAtk,layerAttack.value);
-				foreach(Collider col in cols){
-					Creature creature=col.GetComponent<Creature>();
-					if(creature)creature.hurt();
-				}
-				break;
-			}
-			// if(animator){
-				// animator.SetFloat("speed",Vector3.Scale(vecForce,new Vector3(1,0,1)).magnitude/speedMoveMax);
-				// animator.SetBool("air",!ccr.isGrounded);
-			// }
-		}
-	}
-	public virtual void OnTriggerExit(Collider col){
-		triggerFx(col);
-	}
-	public virtual void OnTriggerEnter(Collider col){
-		// Debug.Log(1<<col.gameObject.layer&layerHurt.value);
-		if((1<<col.gameObject.layer&layerHurt.value)!=0)hurt();
-		triggerFx(col);
-	}
+	public virtual void Update(){}
 }
 }

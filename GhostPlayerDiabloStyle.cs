@@ -2,7 +2,7 @@
 using System.Collections;
 namespace TRNTH{ 
 [RequireComponent(typeof(Control))]
-public class GhostPlayerDiabloStyle:Ghost{
+public class GhostPlayerDiabloStyle:GhostNpc{
 	Control control;
 	public LayerMask layerAttack;
 	public float disToAtk=3.2f;
