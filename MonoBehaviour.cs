@@ -58,6 +58,9 @@ public class MonoBehaviour:UnityEngine.MonoBehaviour{
 		}
 		return nearest;
 	}
+	public Transform Spawn(GameObject gobj){
+		return Spawn(gobj.transform);
+	}
 	public Transform Spawn(Transform tra){
 		var instance=PoolManager.Pools["TRNTH"].Spawn(tra);
 		if(instance)instance.position=pos;

@@ -41,6 +41,9 @@ public class Creature:TRNTH.MonoBehaviour{
 		vec.x=0;
 		ccr.transform.eulerAngles=vec;
 	}
+	public void walkTo(GameObject gobj){
+		walk(gobj.transform.position);	
+	}
 	public void walk(Vector3 posTarget){
 		// if((posTarget-pos).magnitude<disWalkThreshold){
 		// 	stand();
