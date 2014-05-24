@@ -57,26 +57,10 @@ public class Creature:TRNTH.MonoBehaviour{
 		vecForce.x=dvec.x;
 		vecForce.z=dvec.z;
 	}
-	public void attack(){
-		if(!aCdAttack.a)return;
-		aCdAttack.s=0.2f;
-		aPreAttack.s=0.12f;
-		sur="atk";
-		StartCoroutine(parameterOnce("atk"));
-	}
-	public void jump(){
-		if(!aCdJump.a)return;
-		if(onlyJumpWhileGrounded&&!ccr.isGrounded)return;
-		vecForce+=Vector3.up*fJump;
-		aCdJump.s=cdJump;
-	}
+	public void attack(){}
+	public void jump(){}
 	public CharacterController ccr;
 	protected Vector3 dirTarget=Vector3.zero;
-	Alarm aLook=new Alarm();
-	Alarm aCdJump=new Alarm();
-	Alarm aCdAttack=new Alarm();
-	Alarm aPreAttack=new Alarm();
-	string sur="";
 	// Alarm aAir=new Alarm();
 	// Vector3 prePos;
 	IEnumerator parameterOnce(string str){

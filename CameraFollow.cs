@@ -47,7 +47,6 @@ public class CameraFollow:MonoBehaviour{
 		case"fixed":
 			RaycastHit hit;
 			tra.position=posSelf;
-			Vector3 dvec=posSelf-posTarget;
 			if(Physics.Raycast(posTarget,posSelfOffset,out hit,posSelfOffset.magnitude*1.0f,layerObstacle.value)
 				||Physics.Raycast(posTarget,Vector3.forward+Vector3.up,out hit,3,layerObstacle.value)){
 				als[0].s=timeKeepWhileObstacle;

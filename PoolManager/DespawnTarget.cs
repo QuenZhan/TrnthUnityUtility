@@ -7,7 +7,7 @@ public class DespawnTarget : TRNTH.PoolBase {
 		enabled=false;
 		Despawn(targetToDespawn.transform,delay);
 	}
-	void Awake(){
+	public override void Awake(){
 		base.Awake();
 		if(!targetToDespawn)targetToDespawn=gameObject;
 	}

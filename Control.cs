@@ -86,7 +86,7 @@ public class Control:MonoBehaviour{
 			return Input.GetKey(KeyCode.LeftControl);
 		}
 	}
-	public Vector3 coor{
+	public Vector3 coorMouse{
 		get{
 			Vector3 coor=Input.touches.Length>0?((Vector3)Input.touches[0].position):Input.mousePosition;
 			coor.y=Screen.height-coor.y;
@@ -98,7 +98,6 @@ public class Control:MonoBehaviour{
 			return _hit;
 		}
 	}
-	Alarm aClick=new Alarm();
 	RaycastHit _hit;
 }
 }

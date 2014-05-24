@@ -8,8 +8,8 @@ public class Rogdoll : MonoBehaviour {
 	public void inactivate(){
 		toggle(false);
 	}
-	[ContextMenu ("active")]
-	public void active(){
+	[ContextMenu ("activate")]
+	public void activate(){
 		toggle(true);		
 
 	}
