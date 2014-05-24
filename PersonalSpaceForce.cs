@@ -4,7 +4,10 @@ namespace TRNTH{
 [RequireComponent (typeof (Collider))]
 public class PersonalSpaceForce:MonoBehaviour{
 	public Creature creature;
+	public float value=0.5f;
 	void OnTriggerStay(Collider col){
-		creature.vecForce+=(pos-col.transform.position).normalized*1f;
+		//Debug.Log("ddd");
+		var vec=pos-col.transform.position;
+		creature.vecForce+=vec.normalized*(collider.bounds.extents.magnitude-vec.magnitude)*value;
 	}
 }}

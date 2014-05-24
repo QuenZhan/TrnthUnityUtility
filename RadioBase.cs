@@ -25,5 +25,9 @@ public class RadioBase{
 			rate=value*1f/length;
 		}
 	}
+	public void clamp(){
+		if(rate<0)rate=0;
+		if(rate>1)rate=1;
+	}
 }
 }

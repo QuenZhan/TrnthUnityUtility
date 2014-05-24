@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 namespace TRNTH{
-[RequireComponent (typeof (CharacterController))]
+// [RequireComponent (typeof (CharacterController))]
 public class Creature:TRNTH.MonoBehaviour{
 	public bool isGravity=true;
 	public bool isVital=true;
@@ -36,13 +36,16 @@ public class Creature:TRNTH.MonoBehaviour{
 		if(U.dVecY(pos,this.pos).magnitude<lookDisMin)return;
 		Transform tra=transform;
 		dirTarget=Vector3.Slerp(dirTarget,(new Vector3(pos.x,tra.position.y,pos.z)-tra.position).normalized,dt*6);
-		tra.LookAt(tra.position+dirTarget);
+		ccr.transform.LookAt(tra.position+dirTarget);
+		var vec=ccr.transform.eulerAngles;
+		vec.x=0;
+		ccr.transform.eulerAngles=vec;
 	}
 	public void walk(Vector3 posTarget){
-		if((posTarget-pos).magnitude<disWalkThreshold){
-			stand();
-			return;
-		}
+		// if((posTarget-pos).magnitude<disWalkThreshold){
+		// 	stand();
+		// 	return;
+		// }
 		Vector3 dvec=posTarget-transform.position;
 		dvec.Normalize();
 		fWalk+=speedMoveForce;
@@ -64,7 +67,7 @@ public class Creature:TRNTH.MonoBehaviour{
 		vecForce+=Vector3.up*fJump;
 		aCdJump.s=cdJump;
 	}
-	protected CharacterController ccr;
+	public CharacterController ccr;
 	protected Vector3 dirTarget=Vector3.zero;
 	Alarm aLook=new Alarm();
 	Alarm aCdJump=new Alarm();
@@ -77,12 +80,13 @@ public class Creature:TRNTH.MonoBehaviour{
 		if(animator){
 			animator.SetBool(str,true);
 			yield return new WaitForSeconds(0);
+			// if(!this)return false;
 			animator.SetBool(str,false);
 		}
 	}
 	public override void Awake(){
 		base.Awake();
-		ccr=GetComponent<CharacterController>();
+		if(!ccr)ccr=GetComponent<CharacterController>();
 		if(!animator){
 			foreach(Transform e in transform){
 				var ani=e.GetComponent<Animator>();

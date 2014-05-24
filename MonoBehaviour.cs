@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using PathologicalGames;
 namespace TRNTH{
 public class MonoBehaviour:UnityEngine.MonoBehaviour{
 	internal Transform tra;
@@ -12,7 +13,7 @@ public class MonoBehaviour:UnityEngine.MonoBehaviour{
 	}
 	public Vector3 pos{
 		get{
-			return tra.position;
+			return (!tra)?transform.position:tra.position;
 		}
 		set{
 			tra.position=value;
@@ -56,6 +57,23 @@ public class MonoBehaviour:UnityEngine.MonoBehaviour{
 			if(this.dis(e)<this.dis(nearest))nearest=e;
 		}
 		return nearest;
+	}
+	public Transform Spawn(Transform tra){
+		var instance=PoolManager.Pools["TRNTH"].Spawn(tra);
+		if(instance)instance.position=pos;
+		return instance;
+
+	}
+	public void Despawn(Transform tra){
+		if(!tra.gameObject.activeInHierarchy)return;
+		PoolManager.Pools["TRNTH"].Despawn(tra);		
+	}
+	public void Despawn(GameObject gobj){
+		Despawn(gobj.transform);
+	}
+	public void Despawn(Transform tra,float delay){
+		if(!tra.gameObject.activeInHierarchy)return;
+		PoolManager.Pools["TRNTH"].Despawn(tra,delay);
 	}
 }
 }

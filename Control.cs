@@ -1,13 +1,25 @@
 ﻿using UnityEngine;
 namespace TRNTH{
-public class Control:MonoBehaviour{
+public class Control:MonoBehaviour{	
+	public Transform traLocator;
+	public LayerMask layerMask=-1;
+	public float disNearPlane=3f;
+	public Collider colTarget;
+	public Vector3 posWorld;
+	public Vector3 coorScreen;
 	public bool hover(int mask){
 		return hover(this.disNearPlane,mask);
 	}
 	public bool hover(float dis,int mask){
 		Ray mspTRay=Camera.main.ScreenPointToRay(Input.mousePosition);
 		mspTRay.origin+=mspTRay.direction*dis;
-		bool iss=Physics.Raycast(mspTRay,out _hit,100,mask);
+		bool iss=false;
+		if(colTarget)iss=colTarget.Raycast(mspTRay,out _hit,100);
+		else iss=Physics.Raycast(mspTRay,out _hit,100,mask);
+		if(iss){
+			posWorld=_hit.point;
+			coorScreen=Input.mousePosition;
+		}
 		if(traLocator)traLocator.position=hit.point;
 		return iss;
 	}
@@ -88,8 +100,5 @@ public class Control:MonoBehaviour{
 	}
 	Alarm aClick=new Alarm();
 	RaycastHit _hit;
-	public LayerMask layerMask=-1;
-	public float disNearPlane=3f;
-	public Transform traLocator;
 }
 }
