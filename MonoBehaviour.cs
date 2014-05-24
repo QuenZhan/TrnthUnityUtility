@@ -67,6 +67,9 @@ public class MonoBehaviour:UnityEngine.MonoBehaviour{
 		return instance;
 
 	}
+	public void DespawnTarget(GameObject gobj){
+		Despawn(gobj);
+	}
 	public void Despawn(Transform tra){
 		if(!tra.gameObject.activeInHierarchy)return;
 		PoolManager.Pools["TRNTH"].Despawn(tra);		
