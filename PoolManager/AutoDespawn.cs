@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 namespace TRNTH{
-public class AutoDespawn : MonoBehaviour {
+public class AutoDespawn : PoolBase {
 	public ParticleSystem ps;
 	public ParticleEmitter emiiter;
 	public Transform target;

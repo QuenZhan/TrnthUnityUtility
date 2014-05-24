@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
-
-public class DespawnParticle : TRNTH.MonoBehaviour {
+using TRNTH;
+public class DespawnParticle : PoolBase {
 	public ParticleSystem ps;
 	public GameObject targetToDespawn;
 	public bool emitOnSpawned=true;

@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-
-public class DespawnTarget : TRNTH.MonoBehaviour {
+public class DespawnTarget : TRNTH.PoolBase {
 	public GameObject targetToDespawn;
 	public float delay;
 	public void excute(){

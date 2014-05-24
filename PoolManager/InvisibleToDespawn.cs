@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using TRNTH;
-public class InvisibleToDespawn : TRNTH.MonoBehaviour {
+public class InvisibleToDespawn : PoolBase {
 	public GameObject target;
 	public float delay;
 	public void excute(){
