@@ -20,11 +20,14 @@ public class AutoDespawn : MonoBehaviour {
 		if(!a.a)return;
 		// return;
 		int num=0;
+				//
+
 		if(emiiter){
 			num=emiiter.particleCount;
 			if(num==0)excute();
 		}
 		if(ps&&!ps.IsAlive())excute();
+		Debug.Log(ps.IsAlive());
 		//if(num>count)count=num;
 	}
 	void OnSpawned(){
