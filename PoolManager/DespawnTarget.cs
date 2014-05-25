@@ -2,16 +2,24 @@
 using System.Collections;
 public class DespawnTarget : TRNTH.PoolBase {
 	public GameObject targetToDespawn;
+	public bool executeOnSpawned=true;
 	public float delay;
-	public void excute(){
+	public virtual void excute(){
 		enabled=false;
-		Despawn(targetToDespawn.transform,delay);
+		StartCoroutine(boo());
 	}
 	public override void Awake(){
 		base.Awake();
 		if(!targetToDespawn)targetToDespawn=gameObject;
 	}
+	IEnumerator boo(){
+        yield return new WaitForSeconds(delay);
+		Despawn(targetToDespawn.transform);
+    }
 	void OnEnable(){
 		excute();
+	}
+	public virtual void OnSpawned(){
+		if(executeOnSpawned)excute();	
 	}
 }

@@ -6,6 +6,7 @@ public class SpawnHere : TRNTH.PoolBase{
 	public void execute(){
 		var instance=Spawn(prefab);
 		instance.transform.position=pos;
+		enabled=false;
 	}
 	void OnEnable(){
 		execute();
