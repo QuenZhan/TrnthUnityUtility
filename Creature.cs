@@ -4,6 +4,7 @@ namespace TRNTH{
 // [RequireComponent (typeof (CharacterController))]
 public class Creature:TRNTH.MonoBehaviour{
 	// public bool isVital=true;
+	public bool isGravity=true;
 	public bool onlyJumpWhileGrounded=true;
 	public float scaleGravity=1;
 	public float speedMoveForce=0.1f;

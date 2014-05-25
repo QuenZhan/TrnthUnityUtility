@@ -22,7 +22,7 @@ public class AutoDespawn : PoolBase {
 			if(num==0)excute();
 		}
 		if(ps&&!ps.IsAlive())excute();
-		Debug.Log(ps.IsAlive());
+		//Debug.Log(ps.IsAlive());
 	}
 	void OnSpawned(){
 		a.s=0.2f;
