@@ -5,6 +5,9 @@ public class DespawnTarget : TRNTH.PoolBase {
 	public bool executeOnSpawned=true;
 	public float delay;
 	public virtual void excute(){
+		execute();
+	}
+	public virtual void execute(){
 		enabled=false;
 		StartCoroutine(boo());
 	}
@@ -17,9 +20,9 @@ public class DespawnTarget : TRNTH.PoolBase {
 		Despawn(targetToDespawn.transform);
     }
 	void OnEnable(){
-		excute();
+		execute();
 	}
 	public virtual void OnSpawned(){
-		if(executeOnSpawned)excute();	
+		if(executeOnSpawned)execute();	
 	}
 }

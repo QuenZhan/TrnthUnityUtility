@@ -6,12 +6,15 @@ public class DespawnParticle : DespawnTarget {
 	public ParticleEmitter emitter;
 	public bool emitOnSpawned=true;
 	public override void excute(){
+		execute();	
+	}
+	public override void execute(){
 		if(ps)ps.enableEmission=false;
 		if(emitter){
 			emitter.emit=false;
 			Debug.Log("ddd");
 		}
-		base.excute();
+		base.execute();
 		//Despawn(targetToDespawn.transform,5);
 	}
 	public override void OnSpawned(){
