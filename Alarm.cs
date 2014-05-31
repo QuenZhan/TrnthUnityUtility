@@ -18,16 +18,19 @@ public class Alarm{
 	public Alarm(float time){
 		this.s=time;
 	}
-	float start=0.0f;
-	float end=1.0f;
+	public bool isRealTime=false;
 	public bool a{
 		get {
+			if(isRealTime){
+				return Time.realtimeSinceStartup>end;
+			}
 			return Time.time>end;;
 		}
 	}
 	public float s{
 		set{
 			start=Time.time;
+			if(isRealTime)start=Time.realtimeSinceStartup;
 			end=start+value;
 		 }
 	}
@@ -52,5 +55,7 @@ public class Alarm{
 		s=(time);
 		boo();
 	}
+	float start=0.0f;
+	float end=1.0f;
 }
 }

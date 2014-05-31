@@ -23,6 +23,6 @@ public class DespawnTarget : TRNTH.PoolBase {
 		execute();
 	}
 	public virtual void OnSpawned(){
-		if(executeOnSpawned)execute();	
+		if(executeOnSpawned)execute();
 	}
 }
