@@ -1,4 +1,5 @@
 ﻿#pragma strict
+var materialAlive:Material;
 var material:Material;
 var rdr:Renderer;
 private var materialOrin:Material;
@@ -8,7 +9,7 @@ function excute(){
 function Awake(){
 	materialOrin=rdr.material;
 }
-function OnSpawend(){
+function OnSpawned(){
 	rdr.material=materialOrin;
 }
 function die(){

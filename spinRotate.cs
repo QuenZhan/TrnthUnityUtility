@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+[ExecuteInEditMode]
 public class SpinRotate:TRNTH.MonoBehaviour{
 	public float speed=30f;
 	public Space type;

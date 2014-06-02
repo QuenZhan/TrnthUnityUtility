@@ -1,0 +1,104 @@
+﻿using UnityEngine;
+public class TrnthInput:TRNTH.MonoBehaviour{	
+	public GameObject locator;
+	public Collider colTarget;
+	public TrnthCharacterControllerCreature ccc;
+	public bool hover(){
+		return hover(0);
+	}
+	public bool hover(float dis){
+		Ray mspTRay=Camera.main.ScreenPointToRay(Input.mousePosition);
+		mspTRay.origin+=mspTRay.direction*dis;
+		bool iss=false;
+		if(!colTarget)return false;
+		iss=colTarget.Raycast(mspTRay,out _hit,100);
+		if(iss){
+			if(locator)locator.transform.position=_hit.point;
+		}
+		return iss;
+	}
+	virtual public bool isHover{
+		get{
+			return hover(0);
+		}
+	}
+	virtual public bool isClick{
+		get{
+			return Input.GetMouseButtonDown(0)
+				||Input.GetMouseButtonDown(1)
+				||Input.GetKeyDown(KeyCode.LeftShift)
+				||Input.GetKeyDown(KeyCode.RightShift)
+				||Input.GetKeyDown(KeyCode.Space)
+				||Input.GetKeyDown(KeyCode.Z)
+				||(Input.touches.Length>0&&Input.touches[0].phase==TouchPhase.Began);
+		}
+	}
+	virtual public bool isDown{
+		get{
+			return Input.GetMouseButtonDown(0)
+				||Input.GetMouseButtonDown(1)
+				||Input.GetKeyDown(KeyCode.LeftShift)
+				||Input.GetKeyDown(KeyCode.RightShift)
+				||Input.GetKeyDown(KeyCode.Space)
+				||Input.GetKeyDown(KeyCode.Z)
+				||(Input.touches.Length>0&&Input.touches[0].phase==TouchPhase.Began)
+				;
+		}
+	}
+	virtual public bool isUp{
+		get{
+			return Input.GetMouseButtonUp(0)
+				||Input.GetMouseButtonUp(1)
+				||Input.GetKeyUp(KeyCode.LeftShift)
+				||Input.GetKeyUp(KeyCode.RightShift)
+				||Input.GetKeyUp(KeyCode.Space)
+				||Input.GetKeyUp(KeyCode.Z)
+				;
+		}
+	}
+	virtual public bool isHold{
+		get{
+			// aClick
+			return Input.GetMouseButton(0)
+				||Input.GetMouseButton(1)
+				||Input.GetKey(KeyCode.LeftShift)
+				||Input.GetKey(KeyCode.RightShift)
+				||Input.GetKey(KeyCode.Space)
+				||Input.GetKey(KeyCode.Z)
+				||Input.touches.Length>0;
+		}
+	}
+	virtual public bool isCancel{
+		get{
+			return Input.GetKeyDown(KeyCode.Escape)
+				||Input.GetMouseButtonDown(1)
+				||Input.GetKeyDown(KeyCode.X);
+		}
+	}
+	virtual public bool isSkip{
+		get{
+			return Input.GetKey(KeyCode.LeftControl);
+		}
+	}
+	public Vector3 coorMouse{
+		get{
+			Vector3 coor=Input.touches.Length>0?((Vector3)Input.touches[0].position):Input.mousePosition;
+			coor.y=Screen.height-coor.y;
+			return coor;
+		}
+	}
+	public RaycastHit hit{
+		get{
+			return _hit;
+		}
+	}
+	RaycastHit _hit;
+	void Update(){
+		hover();
+		if(ccc){
+			ccc.targetPersitant=isHold?locator:null;
+			if(isDown)SendMessage("OnInputDown",SendMessageOptions.DontRequireReceiver);
+			if(isUp)SendMessage("OnInputUp",SendMessageOptions.DontRequireReceiver);
+		}
+	}
+}

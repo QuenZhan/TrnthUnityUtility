@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class TrnthAnimatorSpeed : TrnthAnimator {
+public class TrnthAnimatorSpeedVertical : TrnthAnimator {
 	public TrnthCharacterControllerCreature ccc;
 	void Update (){
-		animator.SetFloat(parameterName,ccc.walkRate);
+		animator.SetFloat(parameterName,ccc.rateFall);
 	}
 }
