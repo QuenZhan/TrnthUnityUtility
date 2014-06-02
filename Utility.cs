@@ -34,6 +34,13 @@ namespace TRNTH{
 			}
 			return list.ToArray();
 		}
+		static public Transform chooseChild(Transform tra){
+			var list=new List<Transform>();
+			foreach(Transform e in tra){
+				list.Add(e);
+			}
+			return choose<Transform>(list.ToArray());
+		}
 		static public T choose<T>(Object[] arr)where T:Object{
 			if(arr.Length<1)return null;
 			return arr[Random.Range(0,arr.Length)] as T;
