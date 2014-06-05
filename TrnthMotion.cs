@@ -1,8 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+[RequireComponent (typeof (Rigidbody))]
+[RequireComponent (typeof (Collider))]
 public class TrnthMotion : MonoBehaviour {
+	public enum Condition{stay,enter,exit}
 	public TrnthMotionExecuter executor;
+	public Condition condition=Condition.stay;
 	public int priority;
 	public float delayAnimator;
 	public float delayForce;
@@ -12,6 +15,13 @@ public class TrnthMotion : MonoBehaviour {
 	public Vector3 forceLocal;
 	public TrnthAntenna[] antennasNeeded;
 	public TrnthAntenna[] antennasFree;
+	public GameObject toDeactivate;
+	public void execute(){
+		if(!enabled)return;
+		if(!isOff())return;
+		if(!isOn())return;
+		executor.add(this);
+	}
 	bool isOn(){
 		foreach(TrnthAntenna e in antennasNeeded){
 			if(!e.isTriggerStay)return false;
@@ -24,9 +34,14 @@ public class TrnthMotion : MonoBehaviour {
 		}
 		return true;
 	}
+	void Start(){}
+	void OnCollistionStay(){
+		execute();
+	}
 	void OnTriggerStay(){
-		if(!isOff())return;
-		if(!isOn())return;
-		executor.add(this);
+		if(condition==Condition.stay)execute();
+	}
+	void OnTriggerExit(){
+		if(condition==Condition.exit)execute();
 	}
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using TRNTH;
 public class TrnthMotionExecuter : TRNTH.MonoBehaviour {
 	public Animator animator;
-	public TrnthCharacterControllerCreature ccc;
+	public TrnthCreature ccc;
 	public void add(TrnthMotion motion){
 		if(!a.a)return;
 		enabled=true;
@@ -12,6 +12,10 @@ public class TrnthMotionExecuter : TRNTH.MonoBehaviour {
 	public void execute(TrnthMotion motion){
 		if(!motion)return;
 		if(!a.a)return;
+		if(motion.toDeactivate){
+			motion.toDeactivate.SetActive(false);
+			Invoke("_deactivate",motion.cooldown);
+		}
 		Invoke("_force",motion.delayForce);
 		Invoke("_animator",motion.delayAnimator);
 		a.s=motion.cooldown;		
@@ -36,7 +40,11 @@ public class TrnthMotionExecuter : TRNTH.MonoBehaviour {
 	}
 	void _animator(){
 		animator.SetTrigger(motion.animatorParameter);
-	}	
+	}
+	void _deactivate(){
+		if(!motion.toDeactivate)return;
+		motion.toDeactivate.SetActive(true);
+	}
 	void Update(){
 		motion=chooseMotion();
 		execute(motion);

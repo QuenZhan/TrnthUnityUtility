@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class TrnthAnimatorSpeed : TrnthAnimator {
-	public TrnthCharacterControllerCreature ccc;
+	public TrnthCreature ccc;
 	void Update (){
 		animator.SetFloat(parameterName,ccc.walkRate);
 	}

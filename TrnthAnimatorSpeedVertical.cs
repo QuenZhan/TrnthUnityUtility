@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class TrnthAnimatorSpeedVertical : TrnthAnimator {
-	public TrnthCharacterControllerCreature ccc;
+	public TrnthCreature ccc;
 	void Update (){
 		animator.SetFloat(parameterName,ccc.rateFall);
 	}

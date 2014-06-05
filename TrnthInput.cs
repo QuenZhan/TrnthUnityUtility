@@ -2,7 +2,7 @@
 public class TrnthInput:TRNTH.MonoBehaviour{	
 	public GameObject locator;
 	public Collider colTarget;
-	public TrnthCharacterControllerCreature ccc;
+	public TrnthCreature ccc;
 	public bool hover(){
 		return hover(0);
 	}
