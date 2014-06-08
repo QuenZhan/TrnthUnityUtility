@@ -2,7 +2,7 @@
 using System.Collections;
 using TRNTH;
 public class TrnthCreature:TRNTH.MonoBehaviour{
-	public GameObject root;
+	// public GameObject root;
 	public GameObject targetPersitant;
 	public TrnthAntenna aStand;
 	public bool isVital=true;
@@ -56,7 +56,7 @@ public class TrnthCreature:TRNTH.MonoBehaviour{
 	}
 	float fWalk;
 	void OnSpawned(){
-		root.transform.localPosition=Vector3.zero;
+		// root.transform.localPosition=Vector3.zero;
 		vecForce=Vector3.zero;
 	}
 }
