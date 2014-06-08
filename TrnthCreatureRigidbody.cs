@@ -9,14 +9,14 @@ public class TrnthCreatureRigidbody:TrnthCreature{
 		if(isVital){
 			if(targetPersitant){
 				walkTo(targetPersitant);
-				if(lookAtTarget)lookAt(targetPersitant.transform.position);
 			}else stand();			
 		}
 		vecForce+=Physics.gravity*dt*scaleGravity;
 		vecForce.y*=0.97f;
-		if(!aGrounded.isTriggerStay){
-		}
-		else if(vecForce.y<0)vecForce.y=0;
+		// if(!aGrounded.isTriggerStay){
+		// }
+		// else 
+			if(vecForce.y<0)vecForce.y=0;
 		Vector3 vec=vecForce*dt;
 		// vec.y=rig.velocity.y;
 		// rig.MovePosition(rig.transform.position+vec);

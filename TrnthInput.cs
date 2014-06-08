@@ -95,10 +95,11 @@ public class TrnthInput:TRNTH.MonoBehaviour{
 	RaycastHit _hit;
 	void Update(){
 		hover();
+		// if(isHold)SendMessage("OnInputHold",SendMessageOptions.DontRequireReceiver);
+		if(isDown)SendMessage("OnInputDown",SendMessageOptions.DontRequireReceiver);
+		if(isUp)SendMessage("OnInputUp",SendMessageOptions.DontRequireReceiver);
 		if(ccc){
 			ccc.targetPersitant=isHold?locator:null;
-			if(isDown)SendMessage("OnInputDown",SendMessageOptions.DontRequireReceiver);
-			if(isUp)SendMessage("OnInputUp",SendMessageOptions.DontRequireReceiver);
 		}
 	}
 }

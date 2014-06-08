@@ -1,11 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
+using TRNTH;
 [RequireComponent (typeof (Rigidbody))]
 [RequireComponent (typeof (Collider))]
-public class TrnthMotion : MonoBehaviour {
-	public enum Condition{stay,enter,exit}
+public class TrnthMotion : TRNTH.MonoBehaviour {
+	public enum Condition{stay,enter,exit,everyframe,none,free}
 	public TrnthMotionExecuter executor;
 	public Condition condition=Condition.stay;
+	public bool groundedNeeded;
 	public int priority;
 	public float delayAnimator;
 	public float delayForce;
@@ -16,12 +18,20 @@ public class TrnthMotion : MonoBehaviour {
 	public TrnthAntenna[] antennasNeeded;
 	public TrnthAntenna[] antennasFree;
 	public GameObject toDeactivate;
+	public CharacterController ccr;
+	public void executed(){
+		a.s=cooldown;
+	}
 	public void execute(){
-		if(!enabled)return;
+		// if(!enabled)return;
+		if(condition==Condition.none)return;
 		if(!isOff())return;
 		if(!isOn())return;
+		if(!a.a)return;
+		if(groundedNeeded&&!ccr.isGrounded)return;
 		executor.add(this);
 	}
+	Alarm a=new Alarm();
 	bool isOn(){
 		foreach(TrnthAntenna e in antennasNeeded){
 			if(!e.isTriggerStay)return false;
@@ -43,5 +53,15 @@ public class TrnthMotion : MonoBehaviour {
 	}
 	void OnTriggerExit(){
 		if(condition==Condition.exit)execute();
+	}
+	void Update(){
+		if(condition!=Condition.everyframe){
+			enabled=false;
+			return;
+		}
+		execute();
+	}
+	void OnFree(){
+		if(condition==Condition.free)execute();
 	}
 }

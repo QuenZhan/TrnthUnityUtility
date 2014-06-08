@@ -4,13 +4,12 @@ using TRNTH;
 public class TrnthCreature:TRNTH.MonoBehaviour{
 	public GameObject root;
 	public GameObject targetPersitant;
-	public bool lookAtTarget;
+	public TrnthAntenna aStand;
 	public bool isVital=true;
 	public float scaleGravity=1;
 	public float speedMoveMax=3f;
 	public float speedMoveTimeToMax=2;
 	public float stepMin=0.4f;
-	public float lookRate=0.03f;
 	public Vector3 vecForce;
 	// public CollisionFlags flag;
 	public void jump(float force){
@@ -31,16 +30,8 @@ public class TrnthCreature:TRNTH.MonoBehaviour{
 		vecForce.z*=0.69f;
 	}
 	public void lookAt(Vector3 pos){
-		lookAt(pos,lookRate);
 	}
 	public virtual void lookAt(Vector3 pos,float dt){
-		if(U.dVecY(pos,this.pos).magnitude<stepMin)return;
-		Transform tra=transform;
-		dirTarget=Vector3.Slerp(dirTarget,(new Vector3(pos.x,tra.position.y,pos.z)-tra.position).normalized,dt*6);
-		root.transform.LookAt(tra.position+dirTarget);
-		var vec=root.transform.eulerAngles;
-		vec.x=0;
-		root.transform.eulerAngles=vec;
 	}
 	public void walkTo(GameObject gobj){
 		walk(gobj.transform.position);	

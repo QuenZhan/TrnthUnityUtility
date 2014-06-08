@@ -1,26 +1,35 @@
 ﻿using UnityEngine;
 using System.Collections;
+using TRNTH;
 [RequireComponent (typeof (Rigidbody))]
 [RequireComponent (typeof (Collider))]
-public class TrnthAntenna : MonoBehaviour{
+public class TrnthAntenna : TRNTH.MonoBehaviour{
 	public bool isTriggerStay;
-	//Alarm a=new Alarm();
-	void OnCollisiionStay(){
+	public void stay(){
 		isTriggerStay=true;
 		enabled=true;
+		a.s=0.03f;
+	}
+	Alarm a=new Alarm();
+	void OnCollisiionEnter(){
+		stay();
+	}
+	void OnCollisiionStay(){
+		stay();
 	}
 	void OnCollisiionExit(){
 		// isTriggerStay=false;
 	}
 	void OnTriggerStay(){
-		isTriggerStay=true;
-		enabled=true;
+		stay();
 	}
 	void OnTriggerExit(){
 		// isTriggerStay=false;
 	}
 	void Update(){
+		if(!a.a)return;
 		enabled=false;
 		isTriggerStay=false;
+		SendMessage("OnFree",SendMessageOptions.DontRequireReceiver);
 	}
 }

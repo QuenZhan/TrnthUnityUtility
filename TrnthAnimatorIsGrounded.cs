@@ -3,7 +3,8 @@ using System.Collections;
 
 public class TrnthAnimatorIsGrounded : TrnthAnimator {
 	public TrnthAntenna antenna;
+	public CharacterController ccr;
 	void Update () {
-		animator.SetBool(parameterName,antenna.isTriggerStay);
+		animator.SetBool(parameterName,ccr.isGrounded);
 	}
 }

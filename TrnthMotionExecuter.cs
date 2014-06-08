@@ -5,7 +5,7 @@ public class TrnthMotionExecuter : TRNTH.MonoBehaviour {
 	public Animator animator;
 	public TrnthCreature ccc;
 	public void add(TrnthMotion motion){
-		if(!a.a)return;
+		//if(!a.a)return;
 		enabled=true;
 		list.Add(motion);
 	}
@@ -16,9 +16,13 @@ public class TrnthMotionExecuter : TRNTH.MonoBehaviour {
 			motion.toDeactivate.SetActive(false);
 			Invoke("_deactivate",motion.cooldown);
 		}
+		forceWorld=motion.forceWorld;
+		forceLocal=motion.forceLocal;
+		animatorParameter=motion.animatorParameter;
 		Invoke("_force",motion.delayForce);
 		Invoke("_animator",motion.delayAnimator);
-		a.s=motion.cooldown;		
+		a.s=0.4f;
+		motion.executed();
 	}
 	public TrnthMotion chooseMotion(){
 		if(list.Count<1)return null;
@@ -30,16 +34,20 @@ public class TrnthMotionExecuter : TRNTH.MonoBehaviour {
 	} 
 	public void clear(){
 		list.Clear();
+		motion=null;
 		enabled=false;
 	}
 	TrnthMotion motion;
 	List<TrnthMotion> list=new List<TrnthMotion>();
+	Vector3 forceWorld;
+	Vector3 forceLocal;
+	string animatorParameter;
 	Alarm a=new Alarm();
 	void _force(){
-		ccc.vecForce=motion.forceWorld+ccc.transform.TransformDirection(motion.forceLocal);
+		ccc.vecForce=forceWorld+ccc.transform.TransformDirection(forceLocal);
 	}
 	void _animator(){
-		animator.SetTrigger(motion.animatorParameter);
+		animator.SetTrigger(animatorParameter);
 	}
 	void _deactivate(){
 		if(!motion.toDeactivate)return;
