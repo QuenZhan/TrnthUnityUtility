@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
-using PathologicalGames;
 namespace TRNTH{
 public class MonoBehaviour:UnityEngine.MonoBehaviour{
 	internal Transform tra;
