@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-public class TrnthInput:TRNTH.MonoBehaviour{	
+public class TrnthInput:TrnthMonoBehaviour{	
 	public GameObject locator;
 	public Collider colTarget;
 	public TrnthCreature ccc;

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 namespace TRNTH{
 [ExecuteInEditMode]
-public class CameraFollow:MonoBehaviour{
+public class CameraFollow:TrnthMonoBehaviour{
 	public void setTarget(Transform tra){
 		canSkip=false;
 		traTarget=tra;

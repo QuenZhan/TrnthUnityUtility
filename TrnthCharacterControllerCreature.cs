@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using TRNTH;
-public class TrnthCharacterControllerCreature:TRNTH.MonoBehaviour{
+public class TrnthCharacterControllerCreature:TrnthMonoBehaviour{
 	public CharacterController ccr;
 	public GameObject targetPersitant;
 	public bool lookAtTarget;

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class TrnthRigidFollow : TRNTH.MonoBehaviour {
+public class TrnthRigidFollow : TrnthMonoBehaviour {
 	public GameObject target;
 	public float speed;
 	Rigidbody _rigidbody;

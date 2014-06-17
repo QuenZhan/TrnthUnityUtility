@@ -3,7 +3,7 @@ using System.Collections;
 using TRNTH;
 [RequireComponent (typeof (Rigidbody))]
 [RequireComponent (typeof (Collider))]
-public class TrnthMotion : TRNTH.MonoBehaviour {
+public class TrnthMotion : TrnthMonoBehaviour {
 	public enum Condition{stay,enter,exit,everyframe,none,free}
 	public TrnthMotionExecuter executor;
 	public Condition condition=Condition.stay;

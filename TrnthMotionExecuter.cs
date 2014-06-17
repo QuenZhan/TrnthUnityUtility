@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using TRNTH;
-public class TrnthMotionExecuter : TRNTH.MonoBehaviour {
+public class TrnthMotionExecuter : TrnthMonoBehaviour {
 	public Animator animator;
 	public TrnthCreature ccc;
 	public void add(TrnthMotion motion){

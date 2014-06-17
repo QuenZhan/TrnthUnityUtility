@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class TrnthTransformAverageConstraint : TRNTH.MonoBehaviour {
+public class TrnthTransformAverageConstraint : TrnthMonoBehaviour {
 	public Transform[] targets;
 	void Update(){
 		var vec=Vector3.zero;

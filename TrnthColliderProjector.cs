@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class TrnthColliderProjector : TRNTH.MonoBehaviour {
+public class TrnthColliderProjector : TrnthMonoBehaviour {
 	public GameObject target;
 	void Update () {
 		RaycastHit hit;

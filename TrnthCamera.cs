@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 namespace TRNTH{
 [ExecuteInEditMode]
-public class TrnthCamera:MonoBehaviour{
+public class TrnthCamera:TrnthMonoBehaviour{
 	public void setTarget(Transform tra){
 		canSkip=false;
 		traTarget=tra;

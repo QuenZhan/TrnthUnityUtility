@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 namespace TRNTH{
-public class Constrain : MonoBehaviour {
+public class Constrain : TrnthMonoBehaviour {
 	public Transform traTarget;
 	public bool keepHierarchy=false;
 	public Vector3 offset;

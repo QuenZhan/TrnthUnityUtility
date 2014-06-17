@@ -3,7 +3,7 @@ using System.Collections;
 using TRNTH;
 [RequireComponent (typeof (Rigidbody))]
 [RequireComponent (typeof (Collider))]
-public class TrnthAntenna : TRNTH.MonoBehaviour{
+public class TrnthAntenna : TrnthMonoBehaviour{
 	public bool isTriggerStay;
 	public void stay(){
 		isTriggerStay=true;

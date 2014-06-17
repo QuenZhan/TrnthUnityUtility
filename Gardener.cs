@@ -5,7 +5,7 @@ using UnityEditor;
 namespace TRNTH{
 [RequireComponent (typeof (Renderer))]
 [ExecuteInEditMode]
-public class Gardener:TRNTH.MonoBehaviour{
+public class Gardener:TrnthMonoBehaviour{
 	public bool fromTopToBottom=true;
 	public float padding=0.0f;
 	public float space=20.0f;

@@ -2,7 +2,7 @@
 using System.Collections;
 namespace TRNTH{
 [ExecuteInEditMode]
-public class NguiAnchor : MonoBehaviour {
+public class NguiAnchor : TrnthMonoBehaviour {
 	public Transform ngui;
 	public Vector3 offset;
 	void Update(){

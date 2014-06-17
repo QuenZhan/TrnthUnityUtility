@@ -2,8 +2,8 @@
 using System.Collections;
 namespace TRNTH{
 [RequireComponent (typeof (Collider))]
-public class PersonalSpacer:MonoBehaviour{
-	public CharacterControllerCreature creature;
+public class PersonalSpacer:TrnthMonoBehaviour{
+	public TrnthCharacterControllerCreature creature;
 	public float value=0.5f;
 	void OnTriggerStay(Collider col){
 		var ps=col.GetComponent<PersonalSpacer>();

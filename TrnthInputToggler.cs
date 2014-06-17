@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 [RequireComponent (typeof (TrnthInput))]
-public class TrnthInputToggler:TRNTH.MonoBehaviour{
+public class TrnthInputToggler:TrnthMonoBehaviour{
 	public GameObject[] gobjs;
 	public TrnthInput input;
 	public bool reverse;

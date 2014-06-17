@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using TRNTH;
-public class TrnthCreature:TRNTH.MonoBehaviour{
+public class TrnthCreature:TrnthMonoBehaviour{
 	// public GameObject root;
 	public GameObject targetPersitant;
 	public TrnthAntenna aStand;

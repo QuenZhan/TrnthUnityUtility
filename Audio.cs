@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 namespace TRNTH{
-public class Audio:MonoBehaviour{
+public class Audio:TrnthMonoBehaviour{
 	static public void play(AudioSource aus,AudioClip[] clips){
 		play(aus,clips,1);
 	}

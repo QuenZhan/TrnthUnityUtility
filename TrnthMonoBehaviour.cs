@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
-namespace TRNTH{
 public class TrnthMonoBehaviour:UnityEngine.MonoBehaviour{
 	internal Transform tra;
 	internal GameObject gobj;
@@ -57,5 +56,4 @@ public class TrnthMonoBehaviour:UnityEngine.MonoBehaviour{
 		}
 		return nearest;
 	}
-}
 }

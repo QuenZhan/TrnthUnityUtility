@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class TrnthCccRandomTarget : TRNTH.MonoBehaviour {
+public class TrnthCccRandomTarget : TrnthMonoBehaviour {
 	public TrnthCreature ccc;
 	public float radius;
 	public float time;
