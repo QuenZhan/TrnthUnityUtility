@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 namespace TRNTH{
-public class MonoBehaviour:UnityEngine.MonoBehaviour{
+public class TrnthMonoBehaviour:UnityEngine.MonoBehaviour{
 	internal Transform tra;
 	internal GameObject gobj;
 	internal Transform[] children;
