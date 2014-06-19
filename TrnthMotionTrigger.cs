@@ -1,8 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
 using TRNTH;
-public class TrnthMotion : TrnthMonoBehaviour {
+[RequireComponent (typeof (Rigidbody))]
+[RequireComponent (typeof (Collider))]
+public class TrnthMotionTrigger : TrnthMotion {
+	public enum Condition{stay,enter,exit,everyframe,none,free}
 	public TrnthMotionExecuter executor;
+	public Condition condition=Condition.stay;
 	public bool groundedNeeded;
 	public int priority;
 	public float delayAnimator;
@@ -19,6 +23,8 @@ public class TrnthMotion : TrnthMonoBehaviour {
 		a.s=cooldown;
 	}
 	public void execute(){
+		// if(!enabled)return;
+		if(condition==Condition.none)return;
 		if(!isOff())return;
 		if(!isOn())return;
 		if(!a.a)return;
@@ -37,5 +43,25 @@ public class TrnthMotion : TrnthMonoBehaviour {
 			if(e.isTriggerStay)return false;
 		}
 		return true;
+	}
+	void Start(){}
+	void OnCollistionStay(){
+		execute();
+	}
+	void OnTriggerStay(){
+		if(condition==Condition.stay)execute();
+	}
+	void OnTriggerExit(){
+		if(condition==Condition.exit)execute();
+	}
+	void Update(){
+		if(condition!=Condition.everyframe){
+			enabled=false;
+			return;
+		}
+		execute();
+	}
+	void OnFree(){
+		if(condition==Condition.free)execute();
 	}
 }

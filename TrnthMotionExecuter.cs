@@ -47,6 +47,7 @@ public class TrnthMotionExecuter : TrnthMonoBehaviour {
 		ccc.vecForce=forceWorld+ccc.transform.TransformDirection(forceLocal);
 	}
 	void _animator(){
+		if(!animator)return;
 		animator.SetTrigger(animatorParameter);
 	}
 	void _deactivate(){

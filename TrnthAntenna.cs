@@ -21,7 +21,7 @@ public class TrnthAntenna : TrnthMonoBehaviour{
 		// isTriggerStay=false;
 	}
 	void OnTriggerStay(){
-		stay();
+		// stay();
 	}
 	void OnTriggerExit(){
 		// isTriggerStay=false;

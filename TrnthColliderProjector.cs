@@ -1,12 +1,18 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+[ExecuteInEditMode]
 public class TrnthColliderProjector : TrnthMonoBehaviour {
+	public bool isHit;
+	public float distance;
+	public string sendMsg;
 	public GameObject target;
-	void Update () {
+	public LayerMask layermask;
+	void Update (){
 		RaycastHit hit;
-		if(Physics.Raycast(pos,transform.forward,out hit)){
+		isHit=Physics.Raycast(pos,transform.forward,out hit,distance,layermask.value);
+		if(isHit){
 			target.transform.position=hit.point;
+			if(sendMsg!="")SendMessage(sendMsg);
 		}
 
 	}
