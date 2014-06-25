@@ -4,7 +4,7 @@ using TRNTH;
 [RequireComponent (typeof (Rigidbody))]
 [RequireComponent (typeof (Collider))]
 public class TrnthAntenna : TrnthMonoBehaviour{
-	public bool isTriggerStay;
+	[HideInInspector]public bool isTriggerStay;
 	public void stay(){
 		isTriggerStay=true;
 		enabled=true;

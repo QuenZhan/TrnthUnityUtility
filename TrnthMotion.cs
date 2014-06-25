@@ -14,6 +14,8 @@ public class TrnthMotion : TrnthMonoBehaviour {
 	public TrnthAntenna[] antennasNeeded;
 	public TrnthAntenna[] antennasFree;
 	public GameObject toDeactivate;
+	public GameObject toLookAt;
+	public Collider[] attackers;
 	public CharacterController ccr;
 	public void executed(){
 		a.s=cooldown;
@@ -24,6 +26,7 @@ public class TrnthMotion : TrnthMonoBehaviour {
 		if(!a.a)return;
 		if(groundedNeeded&&!ccr.isGrounded)return;
 		executor.add(this);
+		// Debug.Log("ddd");
 	}
 	Alarm a=new Alarm();
 	bool isOn(){

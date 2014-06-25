@@ -4,6 +4,8 @@ using TRNTH;
 public class TrnthMotionExecuter : TrnthMonoBehaviour {
 	public Animator animator;
 	public TrnthCreature ccc;
+	public PathologicalGames.LookAtConstraint constraintLookAt;
+	public TrnthAnimationEventReceiver aer;
 	public void add(TrnthMotion motion){
 		//if(!a.a)return;
 		enabled=true;
@@ -16,6 +18,8 @@ public class TrnthMotionExecuter : TrnthMonoBehaviour {
 			motion.toDeactivate.SetActive(false);
 			Invoke("_deactivate",motion.cooldown);
 		}
+		if(motion.toLookAt&&constraintLookAt)constraintLookAt.target=motion.toLookAt.transform;
+		if(aer)aer.cols=motion.attackers;
 		forceWorld=motion.forceWorld;
 		forceLocal=motion.forceLocal;
 		animatorParameter=motion.animatorParameter;

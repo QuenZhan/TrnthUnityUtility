@@ -11,9 +11,11 @@ public class TrnthMonoBehaviour:UnityEngine.MonoBehaviour{
 	}
 	public Vector3 pos{
 		get{
-			return (!tra)?transform.position:tra.position;
+			if(!tra)tra=transform;
+			return tra.position;
 		}
 		set{
+			if(!tra)tra=transform;
 			tra.position=value;
 		}
 	}
