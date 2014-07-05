@@ -15,6 +15,7 @@ public class TrnthMotion : TrnthMonoBehaviour {
 	public TrnthAntenna[] antennasFree;
 	public GameObject toDeactivate;
 	public GameObject toLookAt;
+	public GameObject[] onExecuted;
 	public Collider[] attackers;
 	public CharacterController ccr;
 	public void executed(){
