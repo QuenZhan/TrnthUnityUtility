@@ -58,4 +58,7 @@ public class TrnthMonoBehaviour:UnityEngine.MonoBehaviour{
 		}
 		return nearest;
 	}
+	public void activate(GameObject[] gos){
+		foreach(var e in gos)e.SetActive(true);
+	}
 }
