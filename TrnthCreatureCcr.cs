@@ -28,5 +28,7 @@ public class TrnthCreatureCcr:TrnthCreature{
 		var vec=-hit.moveDirection;
 		vec.y=0;
 		vecForce+=vec*fSpacer;
+		var creature=hit.gameObject.GetComponent<TrnthCreature>();
+		if(creature)creature.vecForce-=vec*fSpacer;
 	}
 }
