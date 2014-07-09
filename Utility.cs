@@ -26,6 +26,19 @@ namespace TRNTH{
 			Vector3 pa=vec-pro;
 			return pro+Mathf.Cos(theta)*pa+Vector3.Cross(vec,nor).normalized*Mathf.Sin(theta)*pa.magnitude;
 		}
+		static public T[] shuffle<T>(T[] arrOrin) where T:Object{
+			List<T> list=new List<T>(arrOrin);
+			var rng = new System.Random();  
+		    int n = list.Count;  
+		    while (n > 1) {  
+		        n--;  
+		        int k = rng.Next(n + 1);  
+		        T value = list[k];  
+		        list[k] = list[n];  
+		        list[n] = value;  
+		    } 
+		   	return list.ToArray();
+		}
 		static public Object[] shuffle(Object[] arrOrin){
 			List<Object> list=new List<Object>();
 			int ll=arrOrin.Length;
