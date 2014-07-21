@@ -26,6 +26,7 @@ public class Utility{
 		return pro+Mathf.Cos(theta)*pa+Vector3.Cross(vec,nor).normalized*Mathf.Sin(theta)*pa.magnitude;
 	}
 	static public T[] shuffle<T>(T[] arrOrin) where T:Object{
+		if(arrOrin.Length<1)return null;
 		List<T> list=new List<T>(arrOrin);
 		var rng = new System.Random();  
 	    int n = list.Count;
