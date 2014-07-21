@@ -6,7 +6,9 @@ public class TrnthCountDown : MonoBehaviour {
 	public float second;
 	void update(){
 		second-=1;
-		label.text=second+"";
+		int min=(int)(second/60);
+		int sec=(int)(second%60);
+		label.text=(min<10?"0":"")+min+":"+(sec<10?"0":"")+sec;
 		if(enabled)Invoke("update",1);
 	}
 	void Start(){
