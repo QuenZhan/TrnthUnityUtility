@@ -3,6 +3,9 @@ using System.Collections.Generic;
 namespace TRNTH{
 public class U:Utility{}
 public class Utility{
+	static public string stringWithNumber(int number,int digit){
+		return "";
+	}
 	static public T[] filter<T>(Component[] arr)where T:Component{
 		var list=new List<T>();
 		foreach(Component e in arr){
