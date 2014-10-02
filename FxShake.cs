@@ -3,6 +3,7 @@ namespace TRNTH{
 public class FxShake:MonoBehaviour{
 	public bool reversed=true;
 	public bool hasOrinPos=true; 
+	public bool loop=false;
 	public float time=0.1f;
 	public float value=0.3f;
 	public float noise=1.0f;
@@ -49,7 +50,7 @@ public class FxShake:MonoBehaviour{
 		}else{
 			transform.position+=vec;
 		}
-		if(a.a){
+		if(a.a&&!loop){
 			// Destroy(this);
 			enabled=false;
 		}
