@@ -9,7 +9,7 @@ public class TrnthRepeater : MonoBehaviour {
 	public int length;
 	public void wave(){		
 		waveNow-=1;
-		target.SendMessage(nameMethod);
+		if(target.gameObject.activeInHierarchy)target.SendMessage(nameMethod);
 		if(waveNow>0){
 			Invoke("wave",delay+Random.value*noise);
 		}

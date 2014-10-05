@@ -17,7 +17,8 @@ public class FxShake:MonoBehaviour{
 		case Space.World:posOrin=transform.position;break;
 		}
 	}
-	Alarm a=new Alarm(); 
+	Alarm a=new Alarm();
+	// [SerializeField]
 	Vector3 posOrin;
 	float _value=0;
 	void end(){
@@ -28,10 +29,12 @@ public class FxShake:MonoBehaviour{
 			}
 		}
 	}
-	void Start(){
+	void Awake(){
 		switch(space){
 		case Space.Self:posOrin=transform.localPosition;break;
 		}
+	}
+	void Start(){
 		play();
 	}
 	void OnEnable(){
