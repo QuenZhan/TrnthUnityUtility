@@ -15,7 +15,7 @@ public class TrnthGridIndexer : TrnthMonoBehaviour {
 	public void update(float rate){
 		clamp();
 		var yy=orgin+index*margin;
-		var vec=tra.localPosition;
+		var vec=transform.localPosition;
 		switch(directioin){
 		case Directioin.down:
 			vec.y+=(yy-vec.y)*rate;	
@@ -28,7 +28,7 @@ public class TrnthGridIndexer : TrnthMonoBehaviour {
 			vec.x+=(yy-vec.x)*rate;
 			break;
 		}
-		tra.localPosition=vec;
+		transform.localPosition=vec;
 	}
 	public void setRounded(){
 		var delta=0f;
