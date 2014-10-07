@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class TrnthActivate : MonoBehaviour {
+public class TrnthActivator : MonoBehaviour {
 	public GameObject target;
 	public float delay=1;
 	public bool toggle;
