@@ -75,6 +75,9 @@ public class Utility{
 	static public GameObject choose(List<GameObject> list){
 		return choose(list.ToArray());
 	}
+	static public Transform choose(Transform gos){
+		return chooseChild(gos);
+	}
 	static public GameObject choose(GameObject[] gos){
 		if(gos.Length<1)return null;
 		return gos[Random.Range(0,gos.Length)];
