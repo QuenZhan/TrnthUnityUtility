@@ -19,10 +19,11 @@ public class TrnthCreatureCcr:TrnthCreature{
 			vecForce.y*=0.97f;
 		}
 		Vector3 vec=vecForce*dt;
+		positionDelta=pos;
 		var flag=ccr.Move(vec);
 		if ((flag & CollisionFlags.Above) != 0
 			&&vecForce.y>0)vecForce.y=0;
-
+		positionDelta=pos-positionDelta;
 	}
 	void OnControllerColliderHit(ControllerColliderHit hit){
 		var vec=-hit.moveDirection;

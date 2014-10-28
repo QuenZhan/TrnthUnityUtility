@@ -5,12 +5,13 @@ public class TrnthCreature:TrnthMonoBehaviour{
 	// public GameObject root;
 	public GameObject targetPersitant;
 	public TrnthAntenna aStand;
-	public bool isVital=true;
+	// public bool isVital=true;
 	public float scaleGravity=1;
 	public float speedMoveMax=3f;
 	public float speedMoveTimeToMax=2;
 	public float stepMin=0.4f;
 	public Vector3 vecForce;
+	public Vector3 positionDelta{get;protected set;}
 	// public CollisionFlags flag;
 	public void jump(float force){
 		vecForce.y=force;

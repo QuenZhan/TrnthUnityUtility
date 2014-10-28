@@ -6,11 +6,11 @@ public class TrnthCreatureRigidbody:TrnthCreature{
 	public TrnthAntenna aGrounded;
 	void FixedUpdate(){
 		float dt=Time.deltaTime;
-		if(isVital){
-			if(targetPersitant){
-				walkTo(targetPersitant);
-			}else stand();			
-		}
+		// if(isVital){
+		// 	if(targetPersitant){
+		// 		walkTo(targetPersitant);
+		// 	}else stand();			
+		// }
 		vecForce+=Physics.gravity*dt*scaleGravity;
 		vecForce.y*=0.97f;
 		// if(!aGrounded.isTriggerStay){
