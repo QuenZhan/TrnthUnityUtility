@@ -29,7 +29,7 @@ public class TrnthMotion : TrnthMonoBehaviour {
 		executor.add(this);
 		// Debug.Log("ddd");
 	}
-	Alarm a=new Alarm();
+	TrnthAlarm a=new TrnthAlarm();
 	bool isOn(){
 		foreach(TrnthAntenna e in antennasNeeded){
 			if(!e.isTriggerStay)return false;

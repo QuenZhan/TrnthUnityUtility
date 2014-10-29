@@ -2,7 +2,7 @@
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
-namespace TRNTH{
+using TRNTH;
 [RequireComponent (typeof (Renderer))]
 [ExecuteInEditMode]
 public class Gardener:TrnthMonoBehaviour{
@@ -85,5 +85,4 @@ public class Gardener:TrnthMonoBehaviour{
 			plant();
 		}
 	}
-}
 }

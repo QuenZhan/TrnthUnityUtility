@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
-namespace TRNTH{
-public class DebugActivator : MonoBehaviour {
+using TRNTH;
+public class TrnthDebugActivator : MonoBehaviour {
 	void konami(KeyCode key){
 		if(Input.anyKeyDown){
 			if(Input.GetKeyDown(key))inputIntRecord+=1;
@@ -34,5 +34,4 @@ public class DebugActivator : MonoBehaviour {
 		}
 		if(Input.GetKeyDown(KeyCode.Break))activate();
 	}
-}
 }

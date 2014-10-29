@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
-public class OnewayPlatformRigidbody : MonoBehaviour {
+public class TrnthOnewayPlatformRigidbody : MonoBehaviour {
 	void toggle(Collider self,Collider other,bool yes){
 		if(self==other)return;
-		var trigger=other.GetComponent<OnewayPlatformTrigger>();
+		var trigger=other.GetComponent<TrnthOnewayPlatformTrigger>();
 		if(!trigger)return;
 		other=trigger.platformSolid;
 		if(!self.gameObject.activeInHierarchy)return;

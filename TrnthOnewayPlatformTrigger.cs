@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class OnewayPlatformTrigger : MonoBehaviour {
+public class TrnthOnewayPlatformTrigger : MonoBehaviour {
 	public Collider platformSolid;
 }

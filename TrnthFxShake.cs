@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
-namespace TRNTH{
-public class FxShake:MonoBehaviour{
+using TRNTH;
+public class TrnthFxShake:MonoBehaviour{
+	public Transform target;
 	public bool reversed=true;
 	public bool hasOrinPos=true; 
 	public bool loop=false;
@@ -14,24 +15,25 @@ public class FxShake:MonoBehaviour{
 		a.s=time;
 		_value=(noise-Random.value)*value;
 		switch(space){
-		case Space.World:posOrin=transform.position;break;
+		case Space.World:posOrin=target.position;break;
 		}
 	}
-	Alarm a=new Alarm();
+	TrnthAlarm a=new TrnthAlarm();
 	// [SerializeField]
 	Vector3 posOrin;
 	float _value=0;
 	void end(){
 		if(hasOrinPos){
 			switch(space){
-			case Space.Self:transform.localPosition=posOrin;break;
-			case Space.World:transform.position=posOrin;break;
+			case Space.Self:target.localPosition=posOrin;break;
+			case Space.World:target.position=posOrin;break;
 			}
 		}
 	}
 	void Awake(){
+		if(!target)target=transform;
 		switch(space){
-		case Space.Self:posOrin=transform.localPosition;break;
+		case Space.Self:posOrin=target.localPosition;break;
 		}
 	}
 	void Start(){
@@ -47,11 +49,11 @@ public class FxShake:MonoBehaviour{
 		Vector3 vec=Random.insideUnitSphere*curve.Evaluate(reversed?(1-a.rate):a.rate)*_value;
 		if(hasOrinPos){
 			switch(space){
-			case Space.Self:transform.localPosition=posOrin+vec;break;
-			case Space.World:transform.position=posOrin+vec;break;
+			case Space.Self:target.localPosition=posOrin+vec;break;
+			case Space.World:target.position=posOrin+vec;break;
 			}
 		}else{
-			transform.position+=vec;
+			target.position+=vec;
 		}
 		if(a.a&&!loop){
 			// Destroy(this);
@@ -61,5 +63,4 @@ public class FxShake:MonoBehaviour{
 	void OnDestroy(){
 		end();
 	}
-}
 }

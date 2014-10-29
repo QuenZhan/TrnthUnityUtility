@@ -10,7 +10,7 @@ public class TrnthAntenna : TrnthMonoBehaviour{
 		enabled=true;
 		a.s=0.03f;
 	}
-	Alarm a=new Alarm();
+	TrnthAlarm a=new TrnthAlarm();
 	void OnCollisiionEnter(){
 		stay();
 	}
