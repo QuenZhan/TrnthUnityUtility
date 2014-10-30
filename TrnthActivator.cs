@@ -5,7 +5,7 @@ public class TrnthActivator : MonoBehaviour {
 	public GameObject target;
 	public float delay=1;
 	public bool toggle;
-	public void execute(){
+	public virtual void execute(){
 		target.SetActive(toggle);
 	}
 	void OnEnable () {

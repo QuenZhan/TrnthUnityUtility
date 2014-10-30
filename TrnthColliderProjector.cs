@@ -4,24 +4,23 @@ using System.Collections;
 public class TrnthColliderProjector : TrnthMonoBehaviour {
 	public bool isHit;
 	public float distance=10;
-	public float radius=0;
+	public float radius=0;	
 	public string sendMsgToSelf;
 	public string sendMsgToHit;
-	public string nameContain="";
 	public GameObject target;
 	public GameObject[] onHit;
+	public GameObject[] onHiting;
 	public LayerMask layermask;
-	void Update (){
+	public void update(){
 		RaycastHit hit;
+		var _isHit=isHit;
 		if(radius==0){
 			isHit=Physics.Raycast(pos,transform.forward,out hit,distance,layermask.value);
 		}else{
 			isHit=Physics.SphereCast(pos,radius,transform.forward,out hit,distance,layermask.value);
 		}
-		// isHit=isHit;
-		// isHit=isHit&&hit.collider.name.Contains(nameContain);
 		if(isHit){
-			target.transform.position=hit.point;
+			target.transform.position=hit.point;			
 			if(sendMsgToSelf!=""){
 				// Debug.Log()
 				SendMessage(sendMsgToSelf);
@@ -30,12 +29,14 @@ public class TrnthColliderProjector : TrnthMonoBehaviour {
 				// Debug.Log()
 				hit.collider.SendMessage(sendMsgToHit);
 			}
-			Debug.Log(hit.collider.name);
-			
+			if(_isHit!=isHit){
+				foreach(var e in onHit)e.SetActive(true);
+			}
 		}
-		if(onHit.Length>0){
-			foreach(var e in onHit){e.SetActive(isHit);}
-			
-		}
+		foreach(var e in onHiting){if(e)e.SetActive(isHit);}
+	}
+
+	void Update (){
+		update();
 	}
 }
