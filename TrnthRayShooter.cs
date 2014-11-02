@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class TrnthRayShooter : TrnthColliderProjector {
+public class TrnthRayShooter : TrnthPhysicsCast {
 }

@@ -2,6 +2,7 @@
 using System.Collections;
 
 public class TrnthRepeater : MonoBehaviour {
+	public GameObject targetGo;
 	public Component target;
 	public string nameMethod;
 	public float delay=1;
@@ -9,7 +10,8 @@ public class TrnthRepeater : MonoBehaviour {
 	public int length;
 	public void wave(){		
 		waveNow-=1;
-		if(target.gameObject.activeInHierarchy)target.SendMessage(nameMethod);
+		if(targetGo)targetGo.SetActive(true);
+		if(target&&target.gameObject.activeInHierarchy)target.SendMessage(nameMethod);
 		if(waveNow>0){
 			Invoke("wave",delay+Random.value*noise);
 		}
