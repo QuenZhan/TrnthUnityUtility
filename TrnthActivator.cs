@@ -4,12 +4,22 @@ using System.Collections;
 public class TrnthActivator : MonoBehaviour {
 	public GameObject target;
 	public float delay=1;
+	public float noise=0;
 	public bool toggle;
+	public bool onEnable=true;
+	public bool onDisable;
 	public virtual void execute(){
-		target.SetActive(toggle);
+		// invokeExecute();
+		if(target)target.SetActive(toggle);
+	}
+	void invokeExecute(){
+		Invoke("execute",delay+Random.value*noise);
 	}
 	void OnEnable () {
-		Invoke("execute",delay);
+		if(onEnable)invokeExecute();
+	}
+	void OnDisable(){
+		if(onDisable)invokeExecute();
 	}
 	void Awake(){
 		if(!target)target=gameObject;

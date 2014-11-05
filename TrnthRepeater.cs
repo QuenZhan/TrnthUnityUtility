@@ -17,12 +17,17 @@ public class TrnthRepeater : MonoBehaviour {
 		}
 	}
 	public void start(){
+		CancelInvoke();
 		if(length==0)waveNow=Mathf.Infinity;
 		else waveNow=length;
-		wave();
+		Invoke("wave",delay+Random.value*noise);
+		// wave();
 	}
 	float waveNow=0;
-	void Start(){
+	void OnEnable(){
 		start();
+	}
+	void Start(){
+		// start();
 	}
 }

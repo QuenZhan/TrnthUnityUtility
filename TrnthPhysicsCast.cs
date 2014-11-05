@@ -10,10 +10,11 @@ public class TrnthPhysicsCast : TrnthMonoBehaviour {
 	public GameObject[] onHit;
 	public GameObject[] onHiting;
 	public LayerMask layermask;
+	public Collider[] colliders;
 	public void update(){
 		var _isHit=isHit;
 		var point=Vector3.zero;
-		Collider[] colliders=new Collider[0];
+		// Collider[] colliders=new Collider[0];
 		if(distance==0){
 			colliders=Physics.OverlapSphere(pos,radius,layermask.value);
 			isHit=colliders.Length>0;
