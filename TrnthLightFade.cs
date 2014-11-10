@@ -7,7 +7,7 @@ public class TrnthLightFade : MonoBehaviour {
 	public float to;
 	public float duration;
 	float yVelocity;
-	void OnEnabled(){
+	void OnEnable(){
 		theLight.intensity=from;
 	}
 	void Update(){
