@@ -30,4 +30,7 @@ public class TrnthRadio:MonoBehaviour{
 	public string stringPercent(){
 		return (int)(rate*100)+"%";
 	}
+	void OnEnable(){
+		toggle=true;
+	}
 }

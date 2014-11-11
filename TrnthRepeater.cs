@@ -18,6 +18,7 @@ public class TrnthRepeater : MonoBehaviour {
 	}
 	public void start(){
 		CancelInvoke();
+		// if(delay==0)delay=Time.deltaT
 		if(length==0)waveNow=Mathf.Infinity;
 		else waveNow=length;
 		Invoke("wave",delay+Random.value*noise);
