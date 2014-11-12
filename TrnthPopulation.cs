@@ -8,10 +8,15 @@ public class TrnthPopulation : MonoBehaviour {
 		get{
 			return _now;
 		}set{
+			var isChanged=false;
+			if(_now!=value&&onChange!=null)isChanged=true;
 			_now=value;
-			// sum+=1;
 			if(value>max)max=value;
+			if(isChanged)onChange();
 		}
 	}
+	public delegate void EHandler();
+	public event EHandler onChange;
 	int _now=0;
+	// 安安
 }
