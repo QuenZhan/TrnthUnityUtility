@@ -52,4 +52,13 @@ public class TrnthPhysicsCast : TrnthMonoBehaviour {
 	void OnEnable(){
 		update();
 	}
+	void OnDrawGizmosSelected() {
+		var pos1=pos;
+		var pos2=pos+transform.forward*distance;
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(pos1,radius);
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(pos2,radius);
+        Gizmos.DrawLine(pos1,pos2);
+    }
 }
