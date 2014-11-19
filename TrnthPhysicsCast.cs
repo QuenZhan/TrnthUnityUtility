@@ -1,20 +1,28 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Linq;
 [ExecuteInEditMode]
 public class TrnthPhysicsCast : TrnthMonoBehaviour {
+	[Header("PhysicsCast")]
 	public float distance=10;
 	public float radius=0;
+	public GameObject target;
+	public LayerMask layermask;
+	[Header("Filter")]
+	public bool filter;
+	public string[] include;
+	public string[] exclude;
+	[Header("Result")]
+	public Collider[] colliders;
+	[Header("Event")]
 	public string sendMsgToSelf;
 	public string sendMsgToHit;
-	public GameObject target;
 	public GameObject[] onHit;
 	public GameObject[] onHiting;
-	public LayerMask layermask;
-	public Collider[] colliders;
 	public void update(){
 		var _isHit=isHit;
 		var point=Vector3.zero;
-		// Collider[] colliders=new Collider[0];
+		// getcolliders
 		if(distance==0){
 			colliders=Physics.OverlapSphere(pos,radius,layermask.value);
 			isHit=colliders.Length>0;
@@ -28,6 +36,22 @@ public class TrnthPhysicsCast : TrnthMonoBehaviour {
 			point=hit.point;
 			colliders=new Collider[]{hit.collider};
 		}
+		// filter colliders
+		if(filter){
+			var q=from collider in colliders
+				from inc in include
+				// from exc in exclude
+				where (collider.name.Contains(inc))
+				// where (include.Length < 1||collider.name.Contains(inc))
+					// &&(exclude.Length < 1||!collider.name.Contains(exc))
+				select collider;
+			// q=from collider in q
+			// 	from filter in exclude
+			// 	where (!collider.name.Contains(filter))
+			// 	select collider;
+			colliders=q.ToArray();			
+		}
+		// send msg to colliders hit
 		if(isHit){
 			if(target)target.transform.position=point;
 			if(sendMsgToSelf!=""){
