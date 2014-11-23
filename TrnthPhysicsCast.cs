@@ -3,17 +3,17 @@ using System.Collections;
 using System.Linq;
 [ExecuteInEditMode]
 public class TrnthPhysicsCast : TrnthMonoBehaviour {
-	[Header("PhysicsCast")]
+	// [Header("PhysicsCast")]
+	public bool log;
 	public float distance=10;
 	public float radius=0;
 	public GameObject target;
 	public LayerMask layermask;
+	public Collider[] colliders;
 	[Header("Filter")]
 	public bool filter;
 	public string[] include;
 	public string[] exclude;
-	[Header("Result")]
-	public Collider[] colliders;
 	[Header("Event")]
 	public string sendMsgToSelf;
 	public string sendMsgToHit;
@@ -51,6 +51,7 @@ public class TrnthPhysicsCast : TrnthMonoBehaviour {
 			// 	select collider;
 			colliders=q.ToArray();			
 		}
+		if(log)Debug.Log(colliders);
 		// send msg to colliders hit
 		if(isHit){
 			if(target)target.transform.position=point;

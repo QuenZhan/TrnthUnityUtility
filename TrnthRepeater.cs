@@ -4,7 +4,7 @@ using System.Collections;
 public class TrnthRepeater : MonoBehaviour {
 	public GameObject targetGo;
 	public Component target;
-	public string nameMethod;
+	public string nameMethod="execute";
 	public float delay=1;
 	public float noise=0;
 	public int length;
@@ -28,7 +28,7 @@ public class TrnthRepeater : MonoBehaviour {
 	void OnEnable(){
 		start();
 	}
-	void Start(){
-		// start();
+	void OnDisable(){
+		CancelInvoke();
 	}
 }

@@ -12,4 +12,7 @@ public class TrnthLevelLoad : MonoBehaviour {
 	void OnEnable(){
 		loadLevel();
 	}
+	void OnClick(){
+		loadLevel();	
+	}
 }
