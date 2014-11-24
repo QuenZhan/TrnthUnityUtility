@@ -2,6 +2,7 @@
 using TRNTH;
 public class TrnthFxShake:MonoBehaviour{
 	public Transform target;
+	public string findTarget;
 	public bool reversed=true;
 	public bool hasOrinPos=true; 
 	public bool loop=false;
@@ -31,6 +32,10 @@ public class TrnthFxShake:MonoBehaviour{
 		}
 	}
 	void Awake(){
+		if(!target){
+			var go=GameObject.Find(findTarget);
+			if(go)target=go.transform;
+		}
 		if(!target)target=transform;
 		switch(space){
 		case Space.Self:posOrin=target.localPosition;break;

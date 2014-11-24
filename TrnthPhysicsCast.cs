@@ -18,9 +18,10 @@ public class TrnthPhysicsCast : TrnthMonoBehaviour {
 	public string sendMsgToSelf;
 	public string sendMsgToHit;
 	public GameObject[] onHit;
+	public GameObject[] onNotHit;
 	public GameObject[] onHiting;
 	public void update(){
-		var _isHit=isHit;
+		// var _isHit=isHit;
 		var point=Vector3.zero;
 		// getcolliders
 		if(distance==0){
@@ -64,9 +65,11 @@ public class TrnthPhysicsCast : TrnthMonoBehaviour {
 					e.SendMessage(sendMsgToHit);
 				}
 			}
-			if(_isHit!=isHit){
 				foreach(var e in onHit)e.SetActive(true);
-			}
+			// if(_isHit!=isHit){
+			// }
+		}else{
+			foreach(var e in onNotHit)e.SetActive(true);
 		}
 		foreach(var e in onHiting){if(e)e.SetActive(isHit);}
 	}
