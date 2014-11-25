@@ -19,7 +19,7 @@ public class TrnthMotionExecuter : TrnthMonoBehaviour {
 			Invoke("_deactivate",motion.cooldown);
 		}
 		if(locator)locator.transform.position=motion.toLookAt.transform.position;
-		if(aer)aer.cols=motion.attackers;
+		// if(aer)aer.cols=motion.attackers;
 		foreach(var e in motion.onExecuted)e.SetActive(true);
 		forceWorld=motion.forceWorld;
 		forceLocal=motion.forceLocal;

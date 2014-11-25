@@ -9,7 +9,8 @@ public class TrnthCreatureCcr:TrnthCreature{
 		float dt=Time.deltaTime;
 		bool isStand=(aStand&&aStand.isTriggerStay)
 			||!targetPersitant
-			||!targetPersitant.activeInHierarchy;
+			// ||!targetPersitant.activeInHierarchy
+			;
 		if(walkInTheAir||ccr.isGrounded){
 			if(!isStand)walkTo(targetPersitant);
 			else stand();

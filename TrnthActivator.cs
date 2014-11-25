@@ -9,9 +9,14 @@ public class TrnthActivator : MonoBehaviour {
 	public bool toggle;
 	public bool onEnable=true;
 	public bool onDisable;
+	public bool trigger;
 	public virtual void execute(){
 		// invokeExecute();
 		if(target)target.SetActive(toggle);
+		if(trigger){
+			target.SetActive(!toggle);
+			// Debug.Log("安安");
+		}
 	}
 	void invokeExecute(){
 		Invoke("execute",delay+Random.value*noise);
