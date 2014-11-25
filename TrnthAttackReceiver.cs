@@ -19,7 +19,10 @@ public class TrnthAttackReceiver : MonoBehaviour {
 		// instance.GetComponent<
 		if(onHit)onHit.SetActive(true);
 		if(hp.rate<0){
-			if(onDead)onDead.SetActive(true);
+			if(onDead){
+				onDead.SetActive(true);
+				// onDead.SetActive(false);
+			}
 		}
 	}
 	public void hurt(){

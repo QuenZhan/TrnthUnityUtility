@@ -8,10 +8,15 @@ public class TrnthRepeater : MonoBehaviour {
 	public float delay=1;
 	public float noise=0;
 	public int length;
+	public bool log;
 	public void wave(){		
 		waveNow-=1;
+		if(log)Debug.Log("Repeater:"+name);
 		if(targetGo)targetGo.SetActive(true);
-		if(target&&target.gameObject.activeInHierarchy)target.SendMessage(nameMethod);
+		if(target&&target.gameObject.activeInHierarchy){
+			if(log)Debug.Log(target.name+" . "+nameMethod);
+			target.SendMessage(nameMethod);
+		}
 		if(waveNow>0){
 			Invoke("wave",delay+Random.value*noise);
 		}
