@@ -2,7 +2,8 @@
 using System.Collections;
 
 public class TrnthPositionResetOnSpawned : TrnthMonoBehaviour {
-	void OnSpawned(){
+	void OnDespawned(){
+		Debug.Log("dfsdf");
 		tra.localPosition=Vector3.zero;
 	}
 }
