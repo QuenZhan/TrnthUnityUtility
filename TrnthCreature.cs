@@ -27,8 +27,8 @@ public class TrnthCreature:TrnthMonoBehaviour{
 	}
 	public void stand(){
 		fWalk=0;
-		vecForce.x*=0.69f;
-		vecForce.z*=0.69f;
+		vecForce.x*=0;
+		vecForce.z*=0;
 	}
 	public void lookAt(Vector3 pos){
 	}

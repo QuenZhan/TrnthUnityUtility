@@ -4,7 +4,7 @@ using System.Collections;
 public class TrnthActivator : MonoBehaviour {
 	public GameObject target;
 	public string findTarget;
-	public float delay=1;
+	public float delay;
 	public float noise=0;
 	public bool toggle;
 	public bool onEnable=true;
@@ -22,6 +22,7 @@ public class TrnthActivator : MonoBehaviour {
 		Invoke("execute",delay+Random.value*noise);
 	}
 	void OnEnable () {
+		CancelInvoke();
 		if(onEnable)invokeExecute();
 	}
 	void OnDisable(){

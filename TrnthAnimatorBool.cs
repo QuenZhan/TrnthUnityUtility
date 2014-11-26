@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class TrnthAnimatorBool : TrnthAnimator {
-	public bool yes;
+	public bool yes=true;
 	void OnEnable(){
 		animator.SetBool(parameterName,yes);
 	}

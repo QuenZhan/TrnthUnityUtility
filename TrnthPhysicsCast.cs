@@ -4,6 +4,7 @@ using System.Linq;
 [ExecuteInEditMode]
 public class TrnthPhysicsCast : TrnthMonoBehaviour {
 	// [Header("PhysicsCast")]
+	public bool isHit=false;
 	public bool log;
 	public float distance=10;
 	public float radius=0;
@@ -73,7 +74,6 @@ public class TrnthPhysicsCast : TrnthMonoBehaviour {
 		}
 		foreach(var e in onHiting){if(e)e.SetActive(isHit);}
 	}
-	bool isHit=false;
 	void Update (){
 		update();
 	}
