@@ -7,7 +7,7 @@ public class TrnthAttackReceiver : MonoBehaviour {
 	public GameObject onHit;
 	public TrnthSpawn spawner;
 	public float cooldown=0;
-	public void hurtWith(TrnthAttack attack){
+	public virtual void hurtWith(TrnthAttack attack){
 		if(!a.a)return;
 		a.s=cooldown;		
 		hp-=attack.damage;

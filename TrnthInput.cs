@@ -6,6 +6,7 @@ public class TrnthInput:TrnthMonoBehaviour{
 	public GameObject[] onHolding;
 	public Collider colTarget;
 	public TrnthCreature ccc;
+	public bool mouseRight;
 	public bool hover(){
 		return hover(0);
 	}
@@ -28,7 +29,7 @@ public class TrnthInput:TrnthMonoBehaviour{
 	virtual public bool isClick{
 		get{
 			return Input.GetMouseButtonDown(0)
-				||Input.GetMouseButtonDown(1)
+				|| (Input.GetMouseButtonDown(1)&&mouseRight)
 				||Input.GetKeyDown(KeyCode.LeftShift)
 				||Input.GetKeyDown(KeyCode.RightShift)
 				||Input.GetKeyDown(KeyCode.Space)
@@ -39,7 +40,7 @@ public class TrnthInput:TrnthMonoBehaviour{
 	virtual public bool isDown{
 		get{
 			return Input.GetMouseButtonDown(0)
-				||Input.GetMouseButtonDown(1)
+				||(Input.GetMouseButtonDown(1)&&mouseRight)
 				||Input.GetKeyDown(KeyCode.LeftShift)
 				||Input.GetKeyDown(KeyCode.RightShift)
 				||Input.GetKeyDown(KeyCode.Space)
@@ -51,7 +52,7 @@ public class TrnthInput:TrnthMonoBehaviour{
 	virtual public bool isUp{
 		get{
 			return Input.GetMouseButtonUp(0)
-				||Input.GetMouseButtonUp(1)
+				||(Input.GetMouseButtonUp(1)&&mouseRight)
 				||Input.GetKeyUp(KeyCode.LeftShift)
 				||Input.GetKeyUp(KeyCode.RightShift)
 				||Input.GetKeyUp(KeyCode.Space)
@@ -63,7 +64,7 @@ public class TrnthInput:TrnthMonoBehaviour{
 		get{
 			// aClick
 			return Input.GetMouseButton(0)
-				||Input.GetMouseButton(1)
+				||(Input.GetMouseButton(1)&&mouseRight)
 				||Input.GetKey(KeyCode.LeftShift)
 				||Input.GetKey(KeyCode.RightShift)
 				||Input.GetKey(KeyCode.Space)
@@ -74,7 +75,7 @@ public class TrnthInput:TrnthMonoBehaviour{
 	virtual public bool isCancel{
 		get{
 			return Input.GetKeyDown(KeyCode.Escape)
-				||Input.GetMouseButtonDown(1)
+				||(Input.GetMouseButtonDown(1)&&mouseRight)
 				||Input.GetKeyDown(KeyCode.X);
 		}
 	}
