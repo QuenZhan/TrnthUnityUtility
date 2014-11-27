@@ -4,11 +4,11 @@ using System.Collections.Generic;
 public class TrnthInputToggler:TrnthMonoBehaviour{
 	public GameObject[] onHolding;
 	public TrnthInput input;
-	bool reverse;
+	// bool reverse;
 	public void toggle(bool yes){
-		foreach(GameObject e in onHolding){
-			e.SetActive(reverse?!yes:yes);
-		}
+		// foreach(GameObject e in onHolding){
+		// 	e.SetActive(reverse?!yes:yes);
+		// }
 	}
 	public int add(GameObject obj){
 		var list=new List<GameObject>();
