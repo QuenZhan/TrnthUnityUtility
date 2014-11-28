@@ -9,6 +9,9 @@ public class TrnthAnimatorSpeed : TrnthAnimator {
 	void Start(){
 		if(!ccc&&!target)Destroy(gameObject);
 	}
+	void OnDisable(){
+		animator.SetFloat(parameterName,0);
+	}
 	void Update (){
 		if(ccc)animator.SetFloat(parameterName,ccc.walkRate);
 		if(target&&_pos!=target.position){

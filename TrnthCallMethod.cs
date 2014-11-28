@@ -6,7 +6,7 @@ public class TrnthCallMethod : MonoBehaviour {
 	public string methodName;
 	public float delay;
 	public void execute(){
-		target.SendMessage(methodName);
+		if(target.activeInHierarchy)target.SendMessage(methodName);
 	}
 	void OnEnable(){
 		Invoke("execute",delay);
