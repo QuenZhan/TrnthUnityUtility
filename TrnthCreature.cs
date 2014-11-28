@@ -3,12 +3,13 @@ using System.Collections;
 using TRNTH;
 public class TrnthCreature:TrnthMonoBehaviour{
 	// public GameObject root;
+	public Transform traSelf;
 	public GameObject targetPersitant;
 	public TrnthAntenna aStand;
 	// public bool isVital=true;
 	public float scaleGravity=1;
 	public float speedMoveMax=3f;
-	public float speedMoveTimeToMax=2;
+	public float speedMoveTimeToMax=0.1f;
 	public float stepMin=0.4f;
 	public Vector3 vecForce;
 	public Vector3 positionDelta{get;protected set;}
@@ -38,7 +39,7 @@ public class TrnthCreature:TrnthMonoBehaviour{
 		walk(gobj.transform.position);	
 	}
 	public void walk(Vector3 posTarget){
-		Vector3 dvec=posTarget-transform.position;
+		Vector3 dvec=posTarget-traSelf.position;
 		var dt=Time.deltaTime;
 		if(dvec.magnitude<stepMin){
 			stand();

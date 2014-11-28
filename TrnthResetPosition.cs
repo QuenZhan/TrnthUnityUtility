@@ -1,12 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class TrnthResetPosition : MonoBehaviour {
+public class TrnthResetPosition : TrnthTriggerBase {
 	public Transform target;
-	void Awake(){
-		if(!target)target=transform;
-	}
-	void OnDisable(){
+	public override void execute(){
 		target.localPosition=Vector3.zero;
 	}
 }
