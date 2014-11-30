@@ -10,4 +10,7 @@ public class TrnthFSMManager : MonoBehaviour {
 		}
 		// if(!stateNow.activeInHierarchy)stateNow.SetActive(true);
 	}
+	void Start(){
+		update();
+	}
 }

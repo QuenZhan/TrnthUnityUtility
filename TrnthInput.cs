@@ -2,7 +2,7 @@
 public class TrnthInput:TrnthMonoBehaviour{	
 	public GameObject locator;
 	public Transform locatorOnHold;
-	public GameObject[] onClick;
+	public GameObject[] onDown;
 	public GameObject[] onHolding;
 	public Collider colTarget;
 	public TrnthCreature ccc;
@@ -102,10 +102,10 @@ public class TrnthInput:TrnthMonoBehaviour{
 		// if(isHold)SendMessage("OnInputHold",SendMessageOptions.DontRequireReceiver);
 		if(isDown){
 			SendMessage("OnInputDown",SendMessageOptions.DontRequireReceiver);
-			foreach(var e in onClick)e.SetActive(true);
+			foreach(var e in onDown)e.SetActive(true);
 		}
 		if(isUp)SendMessage("OnInputUp",SendMessageOptions.DontRequireReceiver);
-		if(isHold){
+		if(isHold&&locatorOnHold){
 			locatorOnHold.position=_hit.point;
 		}
 		foreach(var e in onHolding)e.SetActive(isHold);

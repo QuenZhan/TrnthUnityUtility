@@ -14,7 +14,7 @@ public class TrnthFxShake:MonoBehaviour{
 	public void play(){
 		enabled=true;
 		a.s=time;
-		_value=(noise-Random.value)*value;
+		_value=value+(Random.value)*noise;
 		switch(space){
 		case Space.World:posOrin=target.position;break;
 		}

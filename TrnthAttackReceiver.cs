@@ -13,8 +13,10 @@ public class TrnthAttackReceiver : MonoBehaviour {
 		hp-=attack.damage;
 		if(spawner){
 			var instance=spawner.execute();
-			var bn=instance.GetComponent<TrnthBoucingNumber>();
-			bn.setup((int)attack.damage);			
+			if(instance){
+				var bn=instance.GetComponent<TrnthBoucingNumber>();
+				bn.setup((int)attack.damage);							
+			}
 		}
 		// instance.GetComponent<
 		if(onHit)onHit.SetActive(true);

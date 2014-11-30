@@ -15,8 +15,7 @@ public class TrnthColliderTriggerMsg : TrnthMonoBehaviour {
 		var q=from tag in include
 			where col.name.Contains(tag)
 			select tag;
-		if(include.Length  >0&&q.ToArray().Length>0);
-		else return;
+		if(!(include.Length  >0&&q.ToArray().Length>0))return;
 		if(methodName!=""
 			&&target
 			&&target.activeInHierarchy
