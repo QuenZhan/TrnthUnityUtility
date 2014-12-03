@@ -5,7 +5,7 @@ public class TrnthCreature:TrnthMonoBehaviour{
 	// public GameObject root;
 	public Transform traSelf;
 	public GameObject targetPersitant;
-	public TrnthAntenna aStand;
+	// public TrnthAntenna aStand;
 	// public bool isVital=true;
 	public float scaleGravity=1;
 	public float speedMoveMax=3f;

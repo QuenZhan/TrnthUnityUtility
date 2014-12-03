@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class TrnthRepeater : MonoBehaviour {
-	public GameObject targetGo;
+	// public GameObject targetGo;
 	public Component target;
 	public string nameMethod="execute";
 	public float delay=1;
@@ -12,7 +12,7 @@ public class TrnthRepeater : MonoBehaviour {
 	public void wave(){		
 		waveNow-=1;
 		if(log)Debug.Log("Repeater:"+name);
-		if(targetGo)targetGo.SetActive(true);
+		// if(targetGo)targetGo.SetActive(true);
 		if(target&&target.gameObject.activeInHierarchy){
 			if(log)Debug.Log(target.name+" . "+nameMethod);
 			target.SendMessage(nameMethod);
