@@ -25,6 +25,7 @@ public class TrnthPhysicsCast : TrnthMonoBehaviour {
 		// var _isHit=isHit;
 		var point=Vector3.zero;
 		// getcolliders
+		colliders=new Collider[0];
 		if(distance==0){
 			colliders=Physics.OverlapSphere(pos,radius,layermask.value);
 			isHit=colliders.Length>0;
@@ -34,9 +35,12 @@ public class TrnthPhysicsCast : TrnthMonoBehaviour {
 				isHit=Physics.Raycast(pos,transform.forward,out hit,distance,layermask.value);
 			}else{
 				isHit=Physics.SphereCast(pos,radius,transform.forward,out hit,distance,layermask.value);
+				// Debug.Log(isHit);
 			}		
-			point=hit.point;
-			colliders=new Collider[]{hit.collider};
+			if(isHit){
+				point=hit.point;
+				colliders=new Collider[]{hit.collider};				
+			}
 		}
 		// filter colliders
 		if(filter){
@@ -70,7 +74,7 @@ public class TrnthPhysicsCast : TrnthMonoBehaviour {
 			// if(_isHit!=isHit){
 			// }
 		}else{
-			foreach(var e in onNotHit)e.SetActive(true);
+			foreach(GameObject e in onNotHit)if(e)e.SetActive(true);
 		}
 		foreach(var e in onHiting){if(e)e.SetActive(isHit);}
 	}

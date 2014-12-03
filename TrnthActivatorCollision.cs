@@ -7,10 +7,14 @@ using System.Linq;
 public class TrnthActivatorCollision : TrnthActivator {
 	public string[] include;
 	void filter(Collider col){
+		if(include.Length <1){
+			execute();
+			return ;
+		}
 		var q=from tag in include
 			where col.name.Contains(tag)
 			select tag;
-		if(!(include.Length  >0&&q.ToArray().Length>0))return;
+		if(q.ToArray().Length <1)return;
 		execute();
 	}
 	void OnTriggerEnter(Collider col){
