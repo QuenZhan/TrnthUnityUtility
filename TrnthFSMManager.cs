@@ -3,6 +3,7 @@ using System.Collections;
 
 public class TrnthFSMManager : MonoBehaviour {
 	public GameObject stateNow;
+	[ContextMenu("update")]
 	public void update(){
 		foreach(Transform e in transform){
 			// if(e.gameObject.activeInHierarchy)e.gameObject.SetActive(false);

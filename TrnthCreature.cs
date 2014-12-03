@@ -40,6 +40,7 @@ public class TrnthCreature:TrnthMonoBehaviour{
 	}
 	public void walk(Vector3 posTarget){
 		Vector3 dvec=posTarget-traSelf.position;
+		dvec.y=0;
 		var dt=Time.deltaTime;
 		if(dvec.magnitude<stepMin){
 			stand();
