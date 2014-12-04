@@ -3,7 +3,7 @@ using System.Collections;
 
 public class TrnthTimeScale : TrnthTriggerBase {
 	public float value;
-	public void execute(){
+	public override void execute(){
 		Time.timeScale=value;
 	}
 }

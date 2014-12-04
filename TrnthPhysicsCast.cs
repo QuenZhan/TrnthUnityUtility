@@ -14,7 +14,7 @@ public class TrnthPhysicsCast : TrnthMonoBehaviour {
 	[Header("Filter")]
 	public bool filter;
 	public string[] include;
-	public string[] exclude;
+	// public string[] exclude;
 	[Header("Event")]
 	public string sendMsgToSelf;
 	public string sendMsgToHit;
@@ -59,7 +59,8 @@ public class TrnthPhysicsCast : TrnthMonoBehaviour {
 		}
 		if(log)Debug.Log(colliders);
 		// send msg to colliders hit
-		if(isHit){
+
+		if(isHit&&Application.isPlaying){
 			if(target)target.transform.position=point;
 			if(sendMsgToSelf!=""){
 				// Debug.Log()
