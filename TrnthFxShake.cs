@@ -8,7 +8,7 @@ public class TrnthFxShake:MonoBehaviour{
 	public bool loop=false;
 	public float time=0.1f;
 	public float value=0.3f;
-	public float noise=1.0f;
+	public float noise=0.0f;
 	public Space space=Space.Self;
 	public AnimationCurve curve;
 	public void play(){
