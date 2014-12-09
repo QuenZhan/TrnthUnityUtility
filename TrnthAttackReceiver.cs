@@ -3,12 +3,17 @@ using System.Collections;
 
 public class TrnthAttackReceiver : MonoBehaviour {
 	public TrnthRadio hp;
+	public TrnthAttack from;
 	public GameObject onDead;
 	public GameObject onHit;
+	public Transform direction;
+	public TrnthFSMManagerApply knockback;
+	public TrnthFSMManagerApply toHurt;
 	public TrnthSpawn spawner;
 	public float cooldown=0;
 	public virtual void hurtWith(TrnthAttack attack){
 		if(!a.a)return;
+		from=attack;
 		a.s=cooldown;		
 		hp-=attack.damage;
 		if(spawner){
@@ -17,6 +22,15 @@ public class TrnthAttackReceiver : MonoBehaviour {
 				var bn=instance.GetComponent<TrnthBoucingNumber>();
 				bn.setup((int)attack.damage);							
 			}
+		}
+		if(direction){
+			direction.transform.position=transform.position;
+			direction.LookAt(attack.transform);
+		}
+		if(attack.knockback){
+			if(knockback)knockback.execute();
+		}else{
+			if(toHurt)toHurt.execute();
 		}
 		// instance.GetComponent<
 		if(onHit)onHit.SetActive(true);
