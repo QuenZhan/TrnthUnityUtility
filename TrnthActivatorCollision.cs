@@ -8,6 +8,7 @@ public class TrnthActivatorCollision : TrnthActivator {
 	public string[] include;
 	public bool onEnter=true;
 	public bool onExit;
+	public bool onTrigger;
 	void filter(Collider col){
 		if(include.Length <1){
 			execute();
@@ -20,7 +21,7 @@ public class TrnthActivatorCollision : TrnthActivator {
 		execute();
 	}
 	void OnTriggerEnter(Collider col){
-		if(!onEnter)return;
+		if(!onEnter||!onTrigger)return;
 		if(log)Debug.Log(name+" : "+col.name+" , trigger");
 		filter(col);
 	}
@@ -30,7 +31,7 @@ public class TrnthActivatorCollision : TrnthActivator {
 		filter(collision.collider);
 	}
 	void OnTriggerExit(Collider col){
-		if(!onExit)return;
+		if(!onExit||!onTrigger)return;
 		if(log)Debug.Log(name+" : "+col.name+" , trigger");
 		filter(col);
 	}
