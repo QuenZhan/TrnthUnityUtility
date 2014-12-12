@@ -3,11 +3,7 @@ using System.Collections;
 
 public class TrnthAnimatorBool : TrnthAnimator {
 	public bool yes=true;
-	public void execute(){
-		animator.SetBool(parameterName,yes);
-		
-	}
-	void OnEnable(){
-		execute();
+	public override void execute(){
+		animator.SetBool(parameterName,yes);		
 	}
 }
