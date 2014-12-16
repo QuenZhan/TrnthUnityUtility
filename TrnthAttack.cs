@@ -2,15 +2,18 @@
 using System.Collections;
 
 public class TrnthAttack : MonoBehaviour {
-	public float damage;
+	public GameObject onReact;
+	public float damageBase=30;
 	public bool knockback;
-	// Use this for initialization
-	void Start () {
-	
+	public bool showDamage=false;
+	public virtual void react(float damage){
+		if(onReact){
+			onReact.SetActive(true);
+			onReact.SetActive(false);			
+		}
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+	public virtual float damage{get{
+		// var damage=damageBase;
+		return damageBase;
+	}}
 }

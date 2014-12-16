@@ -11,16 +11,20 @@ public class TrnthAttackReceiver : MonoBehaviour {
 	public TrnthFSMManagerApply toHurt;
 	public TrnthSpawn spawner;
 	public float cooldown=0;
+	// public float damage
 	public virtual void hurtWith(TrnthAttack attack){
 		if(!a.a)return;
 		from=attack;
-		a.s=cooldown;		
-		hp-=attack.damage;
-		if(spawner){
+		a.s=cooldown;
+		var damage=attack.damage;
+		var crit=attack.showDamage;
+		hp-=damage;
+		attack.react(damage);
+		if(spawner&&crit){
 			var instance=spawner.execute();
 			if(instance){
 				var bn=instance.GetComponent<TrnthBoucingNumber>();
-				bn.setup((int)attack.damage);							
+				bn.setup((int)damage);
 			}
 		}
 		if(direction){
@@ -33,10 +37,13 @@ public class TrnthAttackReceiver : MonoBehaviour {
 			if(toHurt)toHurt.execute();
 		}
 		// instance.GetComponent<
-		if(onHit)onHit.SetActive(true);
+		if(onHit){
+			onHit.SetActive(true);
+		}
 		if(hp.rate<0){
 			if(onDead){
 				onDead.SetActive(true);
+				onDead.SetActive(false);
 				// onDead.SetActive(false);
 			}
 		}

@@ -4,7 +4,11 @@ using System.Collections;
 public class TrnthGridIndexerButton : TrnthMonoBehaviour {
 	public TrnthGridIndexer indexer;
 	public int index;
-	void OnClick(){
+	public void execute(){
 		indexer.index=index;
+	}
+	void OnClick(){
+		execute();
+		// indexer.index=index;
 	}
 }

@@ -11,5 +11,6 @@ public class TrnthRadioUpdate : MonoBehaviour {
 		if(onEnd){
 			if(radio.rate>1||radio.rate<0)onEnd.SetActive(true);			
 		}
+		radio.clamp();
 	}
 }
