@@ -18,6 +18,6 @@ public class TrnthActivator : TrnthTriggerBase {
 			target=GameObject.Find(findTarget);
 			// target=go;
 		}
-		if(!target)target=gameObject;
+		if(!target&&findTarget=="")target=gameObject;
 	}
 }
