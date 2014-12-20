@@ -1,14 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class TrnthAttackReceiver : MonoBehaviour {
+public class TrnthAttackReceiver : TrnthHVSCondition {
 	public TrnthRadio hp;
 	public TrnthAttack from;
-	public GameObject onDead;
-	public GameObject onHit;
 	public Transform direction;
 	public TrnthFSMManagerApply knockback;
 	public TrnthFSMManagerApply toHurt;
+	public TrnthHVSAction toDie;
 	public TrnthSpawn spawner;
 	public float cooldown=0;
 	// public float damage
@@ -36,15 +35,9 @@ public class TrnthAttackReceiver : MonoBehaviour {
 		}else{
 			if(toHurt)toHurt.execute();
 		}
-		// instance.GetComponent<
-		if(onHit){
-			onHit.SetActive(true);
-		}
 		if(hp.rate<0){
-			if(onDead){
-				onDead.SetActive(true);
-				onDead.SetActive(false);
-				// onDead.SetActive(false);
+			if(toDie){
+				toDie.execute();
 			}
 		}
 	}
