@@ -48,18 +48,5 @@ public class TrnthAttackReceiver : MonoBehaviour {
 			}
 		}
 	}
-	public void hurt(){
-		if(!a.a)return;
-		a.s=cooldown;
-		// Debug.Log("ddd");
-		// hp+=-1*60*Time.deltaTime;
-		if(onHit)onHit.SetActive(true);
-		if(hp.rate<0){
-			if(onDead)onDead.SetActive(true);
-		}
-	}
 	TrnthAlarm a=new TrnthAlarm();
-	void OnSpawned(){
-		hp.toggle=(true);
-	}
 }
