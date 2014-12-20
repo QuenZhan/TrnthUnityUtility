@@ -2,21 +2,29 @@
 using System.Collections;
 
 public class TrnthAnimatorSpeed : TrnthAnimator {
-	public TrnthCreature ccc;
+	public CharacterController ccr;
+	// public TrnthCreature ccc;
+	// public AIPath aiPath;
 	public Transform target;
 	public float deltaMax;
 	Vector3 _pos;
 	void Start(){
-		if(!ccc&&!target)Destroy(gameObject);
+		if(!target&&!ccr)Destroy(this);
 	}
 	void OnDisable(){
 		animator.SetFloat(parameterName,0);
 	}
 	void Update (){
-		if(ccc)animator.SetFloat(parameterName,ccc.walkRate);
+		// if(ccc)animator.SetFloat(parameterName,ccc.speedNow);
+		// if(aiPath)animator.SetFloat(parameterName,aiPath.speed);
+		if(ccr){
+			animator.SetFloat(parameterName,ccr.velocity.magnitude);
+			// Debug.Log(ccr.velocity);
+		}
 		if(target&&_pos!=target.position){
 			var delta=target.position-_pos;
-			animator.SetFloat(parameterName,delta.magnitude/deltaMax);
+			var dt=Time.deltaTime;
+			animator.SetFloat(parameterName,delta.magnitude/dt);
 			_pos=target.position;
 		}
 	}

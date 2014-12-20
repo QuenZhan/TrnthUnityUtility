@@ -5,6 +5,7 @@ public class TrnthPositionSet : TrnthTriggerBase {
 	public Transform target;
 	public UnityEngine.Space space=Space.Self;
 	public Vector3 pos;
+	public Transform posWorld;
 	public override void execute(){
 		switch(space){
 		case Space.Self:
@@ -14,5 +15,6 @@ public class TrnthPositionSet : TrnthTriggerBase {
 			target.position=pos;
 			break;
 		}
+		if(posWorld)target.position=posWorld.position;
 	}
 }

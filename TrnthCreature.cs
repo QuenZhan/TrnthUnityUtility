@@ -13,7 +13,7 @@ public class TrnthCreature:TrnthMonoBehaviour{
 	public float stepMin=0.4f;
 	public Vector3 vecForce;
 	public Vector3 positionDelta{get;protected set;}
-	// public CollisionFlags flag;
+	public float speedNow{get{return fWalk;}}
 	public void jump(float force){
 		vecForce.y=force;
 	}
