@@ -62,4 +62,7 @@ public class TrnthCreature:TrnthMonoBehaviour{
 		// root.transform.localPosition=Vector3.zero;
 		vecForce=Vector3.zero;
 	}
+	void OnDisable(){
+		vecForce*=0;
+	}
 }

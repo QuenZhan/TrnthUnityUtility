@@ -3,12 +3,12 @@ using System.Collections;
 
 public class TrnthAttackReceiver : TrnthHVSCondition {
 	public TrnthRadio hp;
-	public TrnthAttack from;
+	internal TrnthAttack from;
 	public Transform direction;
-	public TrnthFSMManagerApply knockback;
-	public TrnthFSMManagerApply toHurt;
+	public TrnthHVSAction knockback;
+	public TrnthHVSAction toHurt;
 	public TrnthHVSAction toDie;
-	public TrnthSpawn spawner;
+	public TrnthSpawnBoucingNumber spawner;
 	public float cooldown=0;
 	// public float damage
 	public virtual void hurtWith(TrnthAttack attack){
@@ -20,11 +20,8 @@ public class TrnthAttackReceiver : TrnthHVSCondition {
 		hp-=damage;
 		attack.react(damage);
 		if(spawner&&crit){
-			var instance=spawner.execute();
-			if(instance){
-				var bn=instance.GetComponent<TrnthBoucingNumber>();
-				bn.setup((int)damage);
-			}
+			spawner.damage=(int)damage;
+			spawner.execute();
 		}
 		if(direction){
 			direction.transform.position=transform.position;

@@ -2,11 +2,12 @@
 using System.Collections;
 
 public class TrnthHVSActionFSMTransition : TrnthHVSAction {
-	public TrnthFSMManager fsmManager;
+	// public TrnthFSMManager fsmManager;
 	public GameObject state;
 	public override string extraMsg{get{return "Transition";}}
-	public override void execute(){
-		base.execute();
+	protected override void _execute(){
+		base._execute();
+		var fsmManager=state.transform.parent.GetComponent<TrnthFSMManager>();
 		fsmManager.stateNow=state;
 		fsmManager.update();
 	}

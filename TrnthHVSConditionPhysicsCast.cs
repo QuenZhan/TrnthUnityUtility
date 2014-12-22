@@ -7,14 +7,14 @@ public class TrnthHVSConditionPhysicsCast : TrnthHVSCondition {
 	public bool isHit=false;
 	public float distance=10;
 	public float radius=0;
-	public GameObject target;
+	public string[] include;
 	public LayerMask layermask;
 	public Collider[] colliders;
 	public bool filter;
-	public string[] include;
+	public TrnthHVSAction onHitNot;
 	public void update(){
 		// var _isHit=isHit;
-		var point=Vector3.zero;
+		// var point=Vector3.zero;
 		pos=transform.position;
 		// getcolliders
 		colliders=new Collider[0];
@@ -29,7 +29,7 @@ public class TrnthHVSConditionPhysicsCast : TrnthHVSCondition {
 				isHit=Physics.SphereCast(pos,radius,transform.forward,out hit,distance,layermask.value);
 			}		
 			if(isHit){
-				point=hit.point;
+				// point=hit.point;
 				colliders=new Collider[]{hit.collider};				
 			}
 		}
@@ -39,10 +39,13 @@ public class TrnthHVSConditionPhysicsCast : TrnthHVSCondition {
 				from inc in include
 				where (collider.name.Contains(inc))
 				select collider;
-			colliders=q.ToArray();			
+			colliders=q.ToArray();
+			isHit=colliders.Length>0;
 		}
 		if(isHit){
 			execute();
+		}else{
+			if(onHitNot)onHitNot.execute();
 		}
 	}
 	Vector3 pos;

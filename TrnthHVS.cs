@@ -3,8 +3,8 @@ using System.Collections;
 
 public class TrnthHVS : MonoBehaviour {
 	public bool debugLog;
-	public virtual string extraMsg{get{return"TrnthHVS";}}
-	public virtual void log(){
+	public virtual string extraMsg{get{return"";}}
+	protected virtual void log(){
 		if(debugLog){
 			var parentName="";
 			if(transform.parent)parentName=transform.parent.name+"/";
