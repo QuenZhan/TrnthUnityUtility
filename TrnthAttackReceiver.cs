@@ -1,15 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class TrnthAttackReceiver : MonoBehaviour {
+public class TrnthAttackReceiver : TrnthHVSCondition {
 	public TrnthRadio hp;
-	public TrnthAttack from;
-	public GameObject onDead;
-	public GameObject onHit;
+	internal TrnthAttack from;
 	public Transform direction;
-	public TrnthFSMManagerApply knockback;
-	public TrnthFSMManagerApply toHurt;
-	public TrnthSpawn spawner;
+	public TrnthHVSAction knockback;
+	public TrnthHVSAction toHurt;
+	public TrnthHVSAction toDie;
+	public TrnthSpawnBoucingNumber spawner;
 	public float cooldown=0;
 	// public float damage
 	public virtual void hurtWith(TrnthAttack attack){
@@ -23,11 +22,8 @@ public class TrnthAttackReceiver : MonoBehaviour {
 		hp.clamp();
 		attack.react(damage);
 		if(spawner&&crit){
-			var instance=spawner.execute();
-			if(instance){
-				var bn=instance.GetComponent<TrnthBoucingNumber>();
-				bn.setup((int)damage);
-			}
+			spawner.damage=(int)damage;
+			spawner.execute();
 		}
 		if(direction){
 			direction.transform.position=transform.position;
@@ -38,30 +34,11 @@ public class TrnthAttackReceiver : MonoBehaviour {
 		}else{
 			if(toHurt)toHurt.execute();
 		}
-		// instance.GetComponent<
-		if(onHit){
-			onHit.SetActive(true);
-		}
 		if(hp.rate<=0&&_hp<=0){
-			if(onDead){
-				onDead.SetActive(true);
-				onDead.SetActive(false);
-				// onDead.SetActive(false);
+			if(toDie){
+				toDie.execute();
 			}
 		}
 	}
-	public void hurt(){
-		if(!a.a)return;
-		a.s=cooldown;
-		// Debug.Log("ddd");
-		// hp+=-1*60*Time.deltaTime;
-		if(onHit)onHit.SetActive(true);
-		if(hp.rate<0){
-			if(onDead)onDead.SetActive(true);
-		}
-	}
 	TrnthAlarm a=new TrnthAlarm();
-	void OnSpawned(){
-		hp.toggle=(true);
-	}
 }

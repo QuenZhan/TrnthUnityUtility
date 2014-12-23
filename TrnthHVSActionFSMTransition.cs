@@ -1,11 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class TrnthFSMManagerApply : TrnthTriggerBase {
+public class TrnthHVSActionFSMTransition : TrnthHVSAction {
 	// public TrnthFSMManager fsmManager;
 	public GameObject state;
-	public override void execute(){
-		if(log)Debug.Log(name);
+	public override string extraMsg{get{return "Transition";}}
+	protected override void _execute(){
+		base._execute();
 		var fsmManager=state.transform.parent.GetComponent<TrnthFSMManager>();
 		fsmManager.stateNow=state;
 		fsmManager.update();
