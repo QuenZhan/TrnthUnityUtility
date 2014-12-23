@@ -18,7 +18,9 @@ public class TrnthAttackReceiver : MonoBehaviour {
 		a.s=cooldown;
 		var damage=attack.damage;
 		var crit=attack.showDamage;
+		var _hp=hp.rate;
 		hp-=damage;
+		hp.clamp();
 		attack.react(damage);
 		if(spawner&&crit){
 			var instance=spawner.execute();
@@ -40,7 +42,7 @@ public class TrnthAttackReceiver : MonoBehaviour {
 		if(onHit){
 			onHit.SetActive(true);
 		}
-		if(hp.rate<0){
+		if(hp.rate<=0&&_hp<=0){
 			if(onDead){
 				onDead.SetActive(true);
 				onDead.SetActive(false);
