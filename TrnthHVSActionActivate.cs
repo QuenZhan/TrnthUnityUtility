@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 public class TrnthHVSActionActivate : TrnthHVSAction {
-	public enum Mode{activate,deactivate,toggle}
+	public enum Mode{on,off,toggle,trigger}
 	public enum Target{self,allChildren,parent}
 	public GameObject target;
 	public Mode mode;
@@ -15,8 +15,8 @@ public class TrnthHVSActionActivate : TrnthHVSAction {
 		base._execute();
 		var yes=true;
 		switch(mode){
-		case Mode.activate:yes=true;break;
-		case Mode.deactivate:yes=false;break;
+		case Mode.on:yes=true;break;
+		case Mode.off:yes=false;break;
 		case Mode.toggle:yes=!target.activeSelf;break;
 		}
 		var targets=new GameObject[]{this.target};

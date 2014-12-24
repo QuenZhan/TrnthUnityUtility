@@ -4,9 +4,9 @@ using System.Collections;
 public class TrnthHVSConditionColliderEnter : TrnthHVSCondition {
 	public bool includeTrigger=true;
 	void OnTriggerEnter(){
-		if(includeTrigger)execute();
+		if(includeTrigger)send();
 	}
 	void OnCollisionEnter(){
-		execute();	
+		send();	
 	}
 }

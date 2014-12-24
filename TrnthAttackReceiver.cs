@@ -8,13 +8,13 @@ public class TrnthAttackReceiver : TrnthHVSCondition {
 	public TrnthHVSAction knockback;
 	public TrnthHVSAction toHurt;
 	public TrnthHVSAction toDie;
+	public TrnthHVSCondition onHurt;
+	public TrnthHVSCondition onDie;
+	public TrnthHVSCondition onKnockback;
 	public TrnthSpawnBoucingNumber spawner;
-	public float cooldown=0;
-	// public float damage
+	public bool persistent;
 	public virtual void hurtWith(TrnthAttack attack){
-		if(!a.a)return;
 		from=attack;
-		a.s=cooldown;
 		var damage=attack.damage;
 		var crit=attack.showDamage;
 		var _hp=hp.rate;
@@ -31,14 +31,19 @@ public class TrnthAttackReceiver : TrnthHVSCondition {
 		}
 		if(attack.knockback){
 			if(knockback)knockback.execute();
+			if(onKnockback)onKnockback.send();
 		}else{
 			if(toHurt)toHurt.execute();
+			if(onHurt)onHurt.send();
 		}
-		if(hp.rate<=0&&_hp<=0){
+		var isDead=hp.rate<=0;
+		if(persistent)isDead=hp.rate<=0&&_hp<=0;
+		if(isDead){
 			if(toDie){
 				toDie.execute();
 			}
+			if(onDie)onDie.send();
 		}
+		send();
 	}
-	TrnthAlarm a=new TrnthAlarm();
 }

@@ -5,6 +5,6 @@ public class TrnthHVSConditionProxy : TrnthHVSCondition {
 	public override string extraMsg{get{return"TrnthHVSConditionProxy";}}
 	public TrnthHVSCondition target;
 	void Awake(){
-		target.callback+=execute;
+		target.callback+=send;
 	}
 }

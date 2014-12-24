@@ -8,7 +8,7 @@ public class TrnthHVS : MonoBehaviour {
 		if(debugLog){
 			var parentName="";
 			if(transform.parent)parentName=transform.parent.name+"/";
-			Debug.Log(transform.root.name+"/../"+parentName+name+" TrnthHVS"+" ,"+extraMsg);
+			Debug.Log(transform.root.name+"/../"+parentName+name+" TrnthHVS"+" ,"+extraMsg,transform);
 		}
 	}
 }

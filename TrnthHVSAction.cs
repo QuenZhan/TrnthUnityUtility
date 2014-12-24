@@ -15,7 +15,9 @@ public class TrnthHVSAction : TrnthHVS {
 	}
 	[ContextMenu("subscribe")]
 	public void subscribe(){
-		if(debugLog)Debug.Log("subscribe");
+		// if(debugLog)Debug.Log("subscribe");
+		if(isSubscribed)return;
+		isSubscribed=true;
 		var conditions=GetComponents<TrnthHVSCondition>();
 		foreach(var e in conditions){
 			e.callback-=execute;
@@ -27,7 +29,5 @@ public class TrnthHVSAction : TrnthHVS {
 	protected virtual void _execute(){
 		log();
 	}
-	void Awake(){
-		subscribe();
-	}
+	bool isSubscribed;
 }

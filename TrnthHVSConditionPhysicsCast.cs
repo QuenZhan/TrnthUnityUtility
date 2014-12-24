@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Linq;
-[ExecuteInEditMode]
+
 public class TrnthHVSConditionPhysicsCast : TrnthHVSCondition {
 	// [Header("PhysicsCast")]
 	public bool isHit=false;
@@ -43,7 +43,7 @@ public class TrnthHVSConditionPhysicsCast : TrnthHVSCondition {
 			isHit=colliders.Length>0;
 		}
 		if(isHit){
-			execute();
+			send();
 		}else{
 			if(onHitNot)onHitNot.execute();
 		}
