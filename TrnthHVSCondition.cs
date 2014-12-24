@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 public class TrnthHVSCondition : TrnthHVS {
+	public override string extraMsg{get{return"Condition";}}
 	[ContextMenu("execute")]
 	public void executeContextMenu(){
 		execute();

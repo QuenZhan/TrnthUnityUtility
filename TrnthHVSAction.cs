@@ -15,6 +15,7 @@ public class TrnthHVSAction : TrnthHVS {
 	}
 	[ContextMenu("subscribe")]
 	public void subscribe(){
+		if(debugLog)Debug.Log("subscribe");
 		var conditions=GetComponents<TrnthHVSCondition>();
 		foreach(var e in conditions){
 			e.callback-=execute;
@@ -22,7 +23,7 @@ public class TrnthHVSAction : TrnthHVS {
 			// log();
 		}
 	}
-	public override string extraMsg{get{return "TrnthHVSAction";}}
+	public override string extraMsg{get{return "Action";}}
 	protected virtual void _execute(){
 		log();
 	}
