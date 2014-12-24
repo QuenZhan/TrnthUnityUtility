@@ -4,6 +4,8 @@ public class TrnthInput:TrnthMonoBehaviour{
 	public Transform locatorOnHold;
 	public GameObject[] onDown;
 	public GameObject[] onHolding;
+	public TrnthHVSAction onInputDown;
+	public TrnthHVSAction onInputHold;
 	public Collider colTarget;
 	public TrnthCreature ccc;
 	public bool mouseRight;
@@ -100,14 +102,18 @@ public class TrnthInput:TrnthMonoBehaviour{
 	void Update(){
 		hover();
 		// if(isHold)SendMessage("OnInputHold",SendMessageOptions.DontRequireReceiver);
+		var isHold=this.isHold;
 		if(isDown){
 			SendMessage("OnInputDown",SendMessageOptions.DontRequireReceiver);
 			foreach(var e in onDown)e.SetActive(true);
+			if(onInputDown)onInputDown.execute();
 		}
 		if(isUp)SendMessage("OnInputUp",SendMessageOptions.DontRequireReceiver);
 		if(isHold&&locatorOnHold){
 			locatorOnHold.position=_hit.point;
+			// if(onInputHold)onInputHold.execute();
 		}
+		if(isHold&&onInputHold)onInputHold.execute();
 		foreach(var e in onHolding)e.SetActive(isHold);
 		if(ccc){
 			ccc.targetPersitant=isHold?locator:null;

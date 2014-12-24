@@ -17,7 +17,9 @@ public class TrnthAttackReceiver : TrnthHVSCondition {
 		a.s=cooldown;
 		var damage=attack.damage;
 		var crit=attack.showDamage;
+		var _hp=hp.rate;
 		hp-=damage;
+		hp.clamp();
 		attack.react(damage);
 		if(spawner&&crit){
 			spawner.damage=(int)damage;
@@ -32,7 +34,7 @@ public class TrnthAttackReceiver : TrnthHVSCondition {
 		}else{
 			if(toHurt)toHurt.execute();
 		}
-		if(hp.rate<0){
+		if(hp.rate<=0&&_hp<=0){
 			if(toDie){
 				toDie.execute();
 			}
