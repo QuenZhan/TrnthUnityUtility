@@ -5,7 +5,7 @@ public class TrnthHVSActionEnable : TrnthHVSAction {
 	public TrnthHVSActionActivate.Mode mode;
 	public Behaviour behaviour;
 	protected override void _execute(){
-		var yes=true;
+		// var yes=true;
 		switch(mode){
 		case TrnthHVSActionActivate.Mode.on		:behaviour.enabled=true;break;
 		case TrnthHVSActionActivate.Mode.off	:behaviour.enabled=false;break;

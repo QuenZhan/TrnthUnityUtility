@@ -3,9 +3,9 @@ using System.Collections;
 
 public class TrnthHVSActionFSMRendererTransit : TrnthHVSAction {
 	public TrnthFSM fsmManger;
-	public Renderer renderer;
+	public Renderer rdr;
 	protected override void _execute(){
 		base._execute();
-		fsmManger.transit(renderer);
+		fsmManger.transit(rdr);
 	}
 }
