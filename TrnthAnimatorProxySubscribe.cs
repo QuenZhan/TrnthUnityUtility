@@ -6,7 +6,7 @@ public class TrnthAnimatorProxySubscribe : MonoBehaviour {
 	public TrnthAnimatorProxy proxy;
 	public GameObject targetToggle;
 	public void callback(){
-		if(log)Debug.Log("安安");
+		// if(log)Debug.Log("安安");
 		targetToggle.SetActive(true);
 		targetToggle.SetActive(false);
 	}

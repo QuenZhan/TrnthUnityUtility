@@ -4,7 +4,7 @@ using System.Collections;
 public class TrnthFSMTransform : TrnthFSM {
 	public virtual bool transit(Component state){
 		foreach(Transform e in transform){
-			e.gameObject.SetActive(this.state==state);
+			e.gameObject.SetActive(e==state);
 		}
 		return base.transit(state);
 	}
