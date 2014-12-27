@@ -7,8 +7,8 @@ public class TrnthFSM : MonoBehaviour {
 	[ContextMenu("transit")]
 	public virtual bool transit(Component state){
 		if(this.state==state)return false;
-		if(onChange)onChange.send();
 		this.state=state;
+		if(onChange)onChange.send();
 		return true;
 	}
 }
