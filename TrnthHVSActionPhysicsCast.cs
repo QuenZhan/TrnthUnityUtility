@@ -3,7 +3,7 @@ using System.Collections;
 using System.Linq;
 
 public class TrnthHVSActionPhysicsCast : TrnthHVSAction {
-	public bool isHit=false;
+	public bool isHit{get;private set;}
 	public float distance=10;
 	public float radius=0;
 	public string[] include;
