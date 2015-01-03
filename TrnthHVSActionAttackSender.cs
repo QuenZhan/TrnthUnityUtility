@@ -3,11 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class TrnthHVSActionAttackSender : TrnthHVSAction {
-	public TrnthHVSConditionPhysicsCast pc;
+	public TrnthHVSActionPhysicsCast pc;
+	public TrnthFSMPhysicsCast proxy;
 	public TrnthAttack attack;
 	// public int damage;
 	protected override void _execute(){
 		base._execute();
+		if(proxy)pc=proxy.physicsCast;
 		if(pc)colliders=pc.colliders;
 		foreach(Collider e in colliders){
 			var dr=e.GetComponent<TrnthAttackReceiver>();
