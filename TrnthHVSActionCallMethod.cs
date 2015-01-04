@@ -2,8 +2,8 @@
 using System.Collections;
 
 public class TrnthHVSActionCallMethod : TrnthHVSAction {
-	public GameObject target;
 	public string findTarget;
+	public GameObject target;
 	public string methodName;
 	public void find(){
 		if(target)return;
@@ -12,10 +12,7 @@ public class TrnthHVSActionCallMethod : TrnthHVSAction {
 	}
 	protected override void _execute(){
 		base._execute();
+		if(!target)find();
 		if(target.activeInHierarchy)target.SendMessage(methodName);
-	}
-	void Awake(){
-		subscribe();
-		find();
 	}
 }

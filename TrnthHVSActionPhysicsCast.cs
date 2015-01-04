@@ -6,10 +6,10 @@ public class TrnthHVSActionPhysicsCast : TrnthHVSAction {
 	public bool isHit{get;private set;}
 	public float distance=10;
 	public float radius=0;
-	public string[] include;
+	// public string[] include;
 	public LayerMask layermask;
-	public Collider[] colliders;
-	public bool filter;
+	public Collider[] colliders{get;private set;}
+	// bool filter;
 	public TrnthHVSCondition onHit;
 	public TrnthHVSCondition onHitNot;
 	public void update(){
@@ -20,7 +20,7 @@ public class TrnthHVSActionPhysicsCast : TrnthHVSAction {
 			colliders=Physics.OverlapSphere(pos,radius,layermask.value);
 			isHit=colliders.Length>0;
 		}else{
-			RaycastHit hit;
+			// RaycastHit hit;
 			if(radius==0){
 				isHit=Physics.Raycast(pos,transform.forward,out hit,distance,layermask.value);
 			}else{
@@ -31,14 +31,14 @@ public class TrnthHVSActionPhysicsCast : TrnthHVSAction {
 			}
 		}
 		// filter colliders
-		if(filter){
-			var q=from collider in colliders
-				from inc in include
-				where (collider.name.Contains(inc))
-				select collider;
-			colliders=q.ToArray();
-			isHit=colliders.Length>0;
-		}
+		// if(filter){
+		// 	var q=from collider in colliders
+		// 		from inc in include
+		// 		where (collider.name.Contains(inc))
+		// 		select collider;
+		// 	colliders=q.ToArray();
+		// 	isHit=colliders.Length>0;
+		// }
 		if(isHit){
 			if(onHit)onHit.send();
 		}else{
@@ -49,6 +49,7 @@ public class TrnthHVSActionPhysicsCast : TrnthHVSAction {
 		base._execute();
 		update();
 	}
+	protected RaycastHit hit;
 	void OnDrawGizmosSelected() {
 		var pos=transform.position;
 		var pos1=pos;

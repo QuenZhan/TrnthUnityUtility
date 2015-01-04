@@ -37,6 +37,7 @@ public class TrnthAttackReceiver : TrnthHVSCondition {
 			if(onHurt)onHurt.send();
 		}
 		var isDead=hp.rate<=0;
+		// Debug.Log(hp.rate,attack);
 		if(persistent)isDead=hp.rate<=0&&_hp<=0;
 		if(isDead){
 			if(toDie){
