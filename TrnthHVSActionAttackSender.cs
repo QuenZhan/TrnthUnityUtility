@@ -17,7 +17,7 @@ public class TrnthHVSActionAttackSender : TrnthHVSAction {
 			dr.hurtWith(attack);
 		}
 	}
-	Collider[] colliders;
+	Collider[] colliders=new Collider[0];
 	void OnTriggerEnter(Collider collider){
 		// Debug.Log(collider.name);
 		colliders=new Collider[]{collider};
