@@ -21,8 +21,8 @@ public class TrnthAttackReceiver : TrnthHVSCondition {
 		hp-=damage;
 		hp.clamp();
 		attack.react(damage);
-		if(spawner&&crit){
-			spawner.damage=(int)damage;
+		if(spawner&&crit&&damage>=1){
+			spawner.damage=(int)Mathf.Ceil(damage);
 			spawner.execute();
 		}
 		if(direction){

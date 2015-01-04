@@ -11,6 +11,7 @@ public class TrnthHVSActionPhysicsCast : TrnthHVSAction {
 	public Collider[] colliders{get;private set;}
 	// bool filter;
 	public TrnthHVSCondition onHit;
+	// public TrnthHVSCondition onHitDown;
 	public TrnthHVSCondition onHitNot;
 	public void update(){
 		var pos=transform.position;

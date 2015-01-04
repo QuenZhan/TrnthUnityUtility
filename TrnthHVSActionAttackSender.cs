@@ -10,7 +10,7 @@ public class TrnthHVSActionAttackSender : TrnthHVSAction {
 	protected override void _execute(){
 		base._execute();
 		if(proxy)pc=proxy.physicsCast;
-		if(pc)colliders=pc.colliders;
+		if(pc&&pc.colliders!=null)colliders=pc.colliders;
 		foreach(Collider e in colliders){
 			var dr=e.GetComponent<TrnthAttackReceiver>();
 			if(!dr)continue;
