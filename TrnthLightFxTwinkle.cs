@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using System.Collections;
-[ExecuteInEditMode]
 public class TrnthLightFxTwinkle : MonoBehaviour {
 	public float min;
 	public float noise;
