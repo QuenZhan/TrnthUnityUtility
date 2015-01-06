@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class TrnthHVSActionCallMethod : TrnthHVSAction {
+public class TrnthHVSActionSendMessage : TrnthHVSAction {
 	public string findTarget;
 	public GameObject target;
 	public string methodName;

@@ -62,7 +62,7 @@ public class TrnthFxShake:MonoBehaviour{
 		}
 		if(a.a&&!loop){
 			// Destroy(this);
-			// enabled=false;
+			enabled=false;
 		}
 	}
 	void OnDestroy(){
