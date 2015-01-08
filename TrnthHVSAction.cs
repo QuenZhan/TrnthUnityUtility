@@ -14,22 +14,11 @@ public class TrnthHVSAction : TrnthHVS {
 			Invoke("_execute",delay);
 		}
 	}
-	// [ContextMenu("subscribe")]
-	public void subscribe(){
-		if(isSubscribed)return;
-		isSubscribed=true;
-		var conditions=GetComponents<TrnthHVSCondition>();
-		foreach(var e in conditions){
-			e.callback-=execute;
-			e.callback+=execute;
-		}
-	}
 	public override string extraMsg{get{return "Action";}}
 	protected virtual void _execute(){
 		if(!variable)variable=GetComponent<TrnthVariable>();
 		log();
 	}
-	bool isSubscribed;
 	void Start(){
 		// for show enabled / disabled checkbox on inspector
 	}
