@@ -14,6 +14,10 @@ public class TrnthHVSActionLightFade : TrnthHVSAction {
 		lightfade.to=to;
 		lightfade.duration=duration;
 		lightfade.start();
+		Invoke("end",duration);
+	}
+	void end(){
+		lightfade.enabled=false;
 	}
 	TrnthLightFade lightfade;
 }
