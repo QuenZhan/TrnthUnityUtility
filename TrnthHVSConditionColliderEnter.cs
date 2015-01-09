@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using System.Collections;
-[RequireComponent(typeof(Collider))]
 public class TrnthHVSConditionColliderEnter : TrnthHVSCondition {
 	public bool includeTrigger=true;
 	public override string extraMsg{get{

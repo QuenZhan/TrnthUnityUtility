@@ -12,7 +12,7 @@ public class TrnthAttackSender : MonoBehaviour {
 		foreach(Collider e in colliders){
 			var dr=e.GetComponent<TrnthAttackReceiver>();
 			if(!dr)continue;
-			dr.hurtWith(attack);
+			dr.hurtWith(attack,null);
 		}
 	}
 	void OnTriggerEnter(Collider collider){
