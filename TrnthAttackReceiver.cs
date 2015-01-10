@@ -3,6 +3,7 @@ using System.Collections;
 
 public class TrnthAttackReceiver : TrnthHVSCondition {
 	public float damage{get;private set;}
+	public float hpBeforeHit{get;private set;}
 	public TrnthAttack attack{get;private set;}
 	public TrnthRadio hp;
 	public Transform direction;
@@ -17,19 +18,18 @@ public class TrnthAttackReceiver : TrnthHVSCondition {
 	public virtual void hurtWith(TrnthAttack attack,TrnthHVSActionPhysicsCast physicsCast){
 		this.attack=attack;
 		damage=attack.damage;
-		// var crit=attack.showDamage;
-		var _hp=hp.rate;
-		hp-=damage;
-		hp.clamp();
-		attack.react(damage);
-		// if(spawner&&crit&&damage>=1){
-			// spawner.damage=(int)Mathf.Ceil(damage);
-			// spawner.execute();
-		// }
+		hpBeforeHit=hp.value;
 		if(direction){
 			direction.transform.position=transform.position;
 			direction.LookAt(physicsCast.transform);
 		}
+		conditionSend();
+		hp-=damage;
+		hp.clamp();
+		attack.react(damage);
+		send();
+	}
+	public virtual void conditionSend(){
 		if(attack.knockback){
 			if(knockback)knockback.execute();
 			if(onKnockback)onKnockback.send();
@@ -37,15 +37,13 @@ public class TrnthAttackReceiver : TrnthHVSCondition {
 			if(toHurt)toHurt.execute();
 			if(onHurt)onHurt.send();			
 		}
-		var isDead=hp.rate<=0;
-		// Debug.Log(hp.rate,attack);
-		if(persistent)isDead=hp.rate<=0&&_hp<=0;
+		var isDead=damage>hp.value;
+		if(persistent)isDead=damage>hp.value&&hp.rate==0;
 		if(isDead){
 			if(toDie){
 				toDie.execute();
 			}
 			if(onDie)onDie.send();
 		}
-		send();
 	}
 }

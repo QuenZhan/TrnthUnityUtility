@@ -24,6 +24,7 @@ public class TrnthFxShake:MonoBehaviour{
 	Vector3 posOrin;
 	float _value=0;
 	void end(){
+		if(!target)return;
 		if(hasOrinPos){
 			switch(space){
 			case Space.Self:target.localPosition=posOrin;break;
@@ -64,8 +65,5 @@ public class TrnthFxShake:MonoBehaviour{
 			// Destroy(this);
 			enabled=false;
 		}
-	}
-	void OnDestroy(){
-		end();
 	}
 }

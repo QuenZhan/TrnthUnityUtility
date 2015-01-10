@@ -6,6 +6,7 @@ public class TrnthFxCurveLight : TrnthFxCurve {
 	public Light targetLight;
 	public Property property;
 	protected override void update(){
+		base.update();
 		var value=this.curveValue;
 		switch(property){
 		case Property.intensity:targetLight.intensity=value;break;
