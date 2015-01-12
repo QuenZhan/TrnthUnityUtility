@@ -15,19 +15,21 @@ public class TrnthAttackReceiver : TrnthHVSCondition {
 	public TrnthHVSCondition onKnockback;
 	// public TrnthSpawnBoucingNumber spawner;
 	public bool persistent;
+	// public override string extraMsg{get{return }}
 	public virtual void hurtWith(TrnthAttack attack,TrnthHVSActionPhysicsCast physicsCast){
 		this.attack=attack;
 		damage=attack.damage;
 		hpBeforeHit=hp.value;
 		if(direction){
 			direction.transform.position=transform.position;
-			direction.LookAt(physicsCast.transform);
+			direction.LookAt(attack.transform);
 		}
 		conditionSend();
 		hp-=damage;
 		hp.clamp();
 		attack.react(damage);
-		send();
+		// send();
+		log();
 	}
 	public virtual void conditionSend(){
 		if(attack.knockback){
