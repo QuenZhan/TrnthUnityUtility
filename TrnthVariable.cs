@@ -11,6 +11,7 @@ public class TrnthVariable : MonoBehaviour {
 		return yes;
 	}
 	public T read<T>() where T:Component{
+		if(!this.value)return null;
 		var value=this.value as T;
 		if(value)return value;
 		value=this.value.GetComponent<T>();

@@ -3,7 +3,16 @@ using System.Collections;
 
 public class TrnthConstraint : MonoBehaviour {
 	public Transform target;
-	void Awake(){
+	public virtual void setup(){
 		if(!target)target=transform;
+	}
+	public virtual void update(){
+
+	}
+	void Awake(){
+		setup();
+	}
+	void Update(){
+		update();
 	}
 }
