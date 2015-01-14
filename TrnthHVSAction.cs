@@ -4,6 +4,13 @@ using System.Collections;
 public class TrnthHVSAction : TrnthHVS {
 	protected TrnthVariable variable;
 	public float delay=0;
+	[HideInInspector]
+	[SerializeField]
+	protected float _delayNoise=0;
+	[ContextMenu("set noise as delay")]
+	public void setNoise(){
+		_delayNoise=delay;
+	}
 	[ContextMenu("execute")]
 	public void execute(){
 		if(!enabled)return;
@@ -11,7 +18,7 @@ public class TrnthHVSAction : TrnthHVS {
 			_execute();
 		}else {
 			CancelInvoke();
-			Invoke("_execute",delay);
+			Invoke("_execute",delay+Random.value*_delayNoise);
 		}
 	}
 	public override string extraMsg{get{return "Action";}}
