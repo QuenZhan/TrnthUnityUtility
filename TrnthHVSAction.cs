@@ -4,6 +4,13 @@ using System.Collections;
 public class TrnthHVSAction : TrnthHVS {
 	protected TrnthVariable variable;
 	public float delay=0;
+	[HideInInspector]
+	[SerializeField]
+	protected float _delayNoise=0;
+	[ContextMenu("set noise as delay")]
+	public void setNoise(){
+		_delayNoise=delay;
+	}
 	[ContextMenu("execute")]
 	public void execute(){
 		if(!enabled)return;
@@ -11,17 +18,7 @@ public class TrnthHVSAction : TrnthHVS {
 			_execute();
 		}else {
 			CancelInvoke();
-			Invoke("_execute",delay);
-		}
-	}
-	// [ContextMenu("subscribe")]
-	public void subscribe(){
-		if(isSubscribed)return;
-		isSubscribed=true;
-		var conditions=GetComponents<TrnthHVSCondition>();
-		foreach(var e in conditions){
-			e.callback-=execute;
-			e.callback+=execute;
+			Invoke("_execute",delay+Random.value*_delayNoise);
 		}
 	}
 	public override string extraMsg{get{return "Action";}}
@@ -29,7 +26,6 @@ public class TrnthHVSAction : TrnthHVS {
 		if(!variable)variable=GetComponent<TrnthVariable>();
 		log();
 	}
-	bool isSubscribed;
 	void Start(){
 		// for show enabled / disabled checkbox on inspector
 	}
