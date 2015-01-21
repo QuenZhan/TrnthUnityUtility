@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class TrnthEditorRenameOrder : MonoBehaviour {
+public class TrnthRenameOrder : MonoBehaviour {
 	public string prefix="renamed : ";
 	[ContextMenu("execute")]
 	public void execute(){

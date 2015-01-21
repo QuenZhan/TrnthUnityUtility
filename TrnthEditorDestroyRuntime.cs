@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-public class TrnthDeactivateInRunTime : MonoBehaviour {
+public class TrnthEditorDestroyRuntime : MonoBehaviour {
 	void Awake(){
 		Destroy(this);
 		// gameObject.SetActive(false);
