@@ -6,6 +6,7 @@ using System.Linq;
 public class TrnthEditorNetNode : MonoBehaviour {
 	static List<TrnthEditorNetNode> _nodes=new List<TrnthEditorNetNode>();
 	public float radius=10;
+	public bool gizmosRadius=true;
 	public int connectMAx=2;
 	public Color color=Color.white;
 	public TrnthEditorNetNode[] connected{get{
@@ -18,11 +19,9 @@ public class TrnthEditorNetNode : MonoBehaviour {
 	public bool isEnd;
 	[ContextMenu("refresh")]
 	public void refresh(){
-		var nodeGroup=GetComponentInParent<TrnthEditorNetGroup>();
+		if(!nodeGroup)nodeGroup=GetComponentInParent<TrnthEditorNetGroup>();
 		nodeGroup.refresh();
 		_nodes=nodeGroup.nodes.ToList();
-		// _nodes.Clear();
-		// Start();
 	}
 	public void update(){
 		if(_nodes.Count<1)refresh();
@@ -40,6 +39,7 @@ public class TrnthEditorNetNode : MonoBehaviour {
 		isEnd=inRadius.Count<=1;
 	}
 	List<TrnthEditorNetNode> inRadius=new List<TrnthEditorNetNode>();
+	TrnthEditorNetGroup nodeGroup;
 	void Start(){
 		refresh();
 	}
@@ -59,6 +59,7 @@ public class TrnthEditorNetNode : MonoBehaviour {
 		}
 	}
 	void OnDrawGizmosSelected(){
+		if(!gizmosRadius)return;
 		Gizmos.color=color;
 		Gizmos.DrawWireSphere(transform.position,radius);
 	}
