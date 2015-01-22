@@ -26,6 +26,7 @@ public class TrnthEditorNetCollider : TrnthEditor {
 			capsule.direction=2;
 			capsule.center=Vector3.forward*distance*0.5f;
 			go.transform.parent=transform;
+			go.layer=gameObject.layer;
 		}
 	}
 
