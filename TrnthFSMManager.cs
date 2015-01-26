@@ -13,6 +13,11 @@ public class TrnthFSMManager : MonoBehaviour {
 			e.gameObject.SetActive(e.gameObject==stateNow);
 		}
 	}
+	public virtual void transit(string name){
+		foreach(Transform e in transform){
+			e.gameObject.SetActive(e.name==name);
+		}
+	}
 	void Awake(){
 		transit(stateNow);
 	}
