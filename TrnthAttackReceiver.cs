@@ -32,13 +32,6 @@ public class TrnthAttackReceiver : TrnthHVSCondition {
 		log();
 	}
 	public virtual void conditionSend(){
-		if(attack.knockback){
-			if(knockback)knockback.execute();
-			if(onKnockback)onKnockback.send();
-		}else{
-			if(toHurt)toHurt.execute();
-			if(onHurt)onHurt.send();			
-		}
 		var isDead=damage>hp.value;
 		if(persistent)isDead=damage>hp.value&&hp.rate==0;
 		if(isDead){
@@ -46,6 +39,14 @@ public class TrnthAttackReceiver : TrnthHVSCondition {
 				toDie.execute();
 			}
 			if(onDie)onDie.send();
+		}else{
+			if(attack.knockback){
+				if(knockback)knockback.execute();
+				if(onKnockback)onKnockback.send();
+			}else{
+				if(toHurt)toHurt.execute();
+				if(onHurt)onHurt.send();			
+			}			
 		}
 	}
 }

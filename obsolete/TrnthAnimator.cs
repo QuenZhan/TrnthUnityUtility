@@ -6,7 +6,8 @@ public class TrnthAnimator : MonoBehaviour {
 	public TrnthAnimatorProxy proxy;
 	public string parameterName="speed";
 	public virtual void Awake(){
-		if(!animator)animator=GetComponent<Animator>();
+		// if(!animator)animator=GetComponent<Animator>();
+		setup();
 	}
 	public void setup(){
 		if(proxy)animator=proxy.animator;
