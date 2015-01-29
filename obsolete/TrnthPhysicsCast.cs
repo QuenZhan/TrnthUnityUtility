@@ -68,7 +68,7 @@ public class TrnthPhysicsCast : TrnthMonoBehaviour {
 			}
 			if(sendMsgToHit!=""){
 				foreach(var e in colliders){
-					e.SendMessage(sendMsgToHit);
+					e.SendMessage(sendMsgToHit,SendMessageOptions.DontRequireReceiver);
 				}
 			}
 				foreach(var e in onHit)e.SetActive(true);
