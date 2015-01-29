@@ -3,6 +3,8 @@ using TRNTH;
 public class TrnthFx:MonoBehaviour{
 	public string findIt;
 	public float noise;
+	public TrnthHVSCondition onEnd;
+
 	public virtual void start(){
 		enabled=true;		
 		_timeStart=Time.time;
@@ -11,6 +13,7 @@ public class TrnthFx:MonoBehaviour{
 	}
 	protected void end(){
 		enabled=false;
+		if(onEnd)onEnd.send();
 	}
 	protected float _timeStart;
 	void OnEnable(){
