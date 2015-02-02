@@ -4,6 +4,7 @@ using System.Collections;
 public class TrnthConstraintFixedUpdate : MonoBehaviour {
 	public Transform target;
 	public float rate=0.2f;
+	public bool fixedUpdate;
 
 	[ContextMenu ("execute")]
 	public void execute(){
@@ -13,6 +14,9 @@ public class TrnthConstraintFixedUpdate : MonoBehaviour {
 		transform.position+=(pos-transform.position)*rate;
 	}
 	void FixedUpdate(){
-		update(target.position);
+		if(fixedUpdate)update(target.position);
+	}
+	void Update(){
+		if(!fixedUpdate)update(target.position);
 	}
 }
