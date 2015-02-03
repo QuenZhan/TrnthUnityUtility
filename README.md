@@ -15,6 +15,7 @@ Features
 - using native unity ui , no extra ui needs to learn 
 - work with native unity Hierarchy view
 - source code included
+- no variable . please using script instead .
 
 - 完全支援版本控管軟體，與隔壁棚的 playmaker 比起來是大勝利
 - 因為很懶惰完全沒有任何特製 ui 與額外得 editor 視窗，適合懶得學習新 ui 的使用者

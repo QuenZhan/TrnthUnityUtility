@@ -9,6 +9,10 @@ public class TrnthConstraint : MonoBehaviour {
 	public virtual void update(){
 
 	}
+	[ContextMenu("update")]
+	public void contextMenuUpdate(){
+		update();
+	}
 	void Awake(){
 		setup();
 	}
