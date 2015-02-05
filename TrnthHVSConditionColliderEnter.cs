@@ -1,18 +1,32 @@
 ﻿using UnityEngine;
 using System.Collections;
-[RequireComponent(typeof(Collider))]
+using System.Linq;
 public class TrnthHVSConditionColliderEnter : TrnthHVSCondition {
 	public bool includeTrigger=true;
+	public string[] include;
+	public Collider col{get{return _col;}}
 	public override string extraMsg{get{
 		return "Collider : "+_col.name;
 	}}
+	void sendFilter(){
+		if(include.Length==0)send();
+		var q=from e in include
+			where _col.name.Contains(e)
+			select e;
+
+		log();
+		if(q.ToArray().Length>0)send();
+	}
 	void OnTriggerEnter(Collider collider){
+		log();
+		if(!includeTrigger)return;
 		_col=collider;
-		if(includeTrigger)send();
+		sendFilter();
 	}
 	void OnCollisionEnter(Collision collision){
+		log();
 		_col=collision.collider;
-		send();	
+		sendFilter();
 	}
 	Collider _col;
 }
