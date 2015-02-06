@@ -8,23 +8,26 @@ public class TrnthHVSConditionColliderEnter : TrnthHVSCondition {
 	public override string extraMsg{get{
 		return "Collider : "+_col.name;
 	}}
-	void sendFilter(){
+	void sendFilter(Collider col){
 		if(include.Length==0)send();
 		var q=from e in include
-			where _col.name.Contains(e)
+			where col.name.Contains(e)
 			select e;
 
 		log();
-		if(q.ToArray().Length>0)send();
+		if(q.ToArray().Length>0){
+			_col=col;
+			send();
+		}
 	}
 	void OnTriggerEnter(Collider collider){
 		if(!includeTrigger)return;
-		_col=collider;
-		sendFilter();
+		// _col=collider;
+		sendFilter(collider);
 	}
 	void OnCollisionEnter(Collision collision){
-		_col=collision.collider;
-		sendFilter();
+		// _col=collision.collider;
+		sendFilter(collision.collider);
 	}
 	Collider _col;
 }

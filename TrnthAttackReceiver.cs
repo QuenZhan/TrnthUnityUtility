@@ -7,9 +7,9 @@ public class TrnthAttackReceiver : TrnthHVSCondition {
 	public TrnthAttack attack{get;private set;}
 	public TrnthRadio hp;
 	public Transform direction;
-	public TrnthHVSAction knockback;
-	public TrnthHVSAction toHurt;
-	public TrnthHVSAction toDie;
+	// public TrnthHVSAction knockback;
+	// public TrnthHVSAction toHurt;
+	// public TrnthHVSAction toDie;
 	public TrnthHVSCondition onHurt;
 	public TrnthHVSCondition onDie;
 	public TrnthHVSCondition onKnockback;
@@ -35,16 +35,16 @@ public class TrnthAttackReceiver : TrnthHVSCondition {
 		var isDead=damage>hp.value;
 		if(persistent)isDead=damage>hp.value&&hp.rate==0;
 		if(isDead){
-			if(toDie){
-				toDie.execute();
-			}
+			// if(toDie){
+			// 	toDie.execute();
+			// }
 			if(onDie)onDie.send();
 		}else{
 			if(attack.knockback){
-				if(knockback)knockback.execute();
+				// if(knockback)knockback.execute();
 				if(onKnockback)onKnockback.send();
 			}else{
-				if(toHurt)toHurt.execute();
+				// if(toHurt)toHurt.execute();
 				if(onHurt)onHurt.send();			
 			}			
 		}

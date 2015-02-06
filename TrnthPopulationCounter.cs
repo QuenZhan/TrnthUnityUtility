@@ -3,6 +3,7 @@ using System.Collections;
 
 public class TrnthPopulationCounter : MonoBehaviour {
 	public TrnthPopulation population;
+	public Transform locator;
 	public string nameInRuntime;
 	void find(){
 		var go=GameObject.Find(nameInRuntime);
@@ -17,9 +18,11 @@ public class TrnthPopulationCounter : MonoBehaviour {
 		if(!population)find();
 		population.now+=1;
 		population.sum+=1;
+		population.locator=locator;
 	}
 	void OnDespawned(){
 		// if(!population)find();
+		population.locator=locator;
 		population.now-=1;	
 	}
 }
