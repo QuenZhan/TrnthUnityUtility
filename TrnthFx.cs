@@ -11,7 +11,7 @@ public class TrnthFx:MonoBehaviour{
 	}
 	protected virtual void update(){
 	}
-	protected void end(){
+	protected virtual void end(){
 		enabled=false;
 		if(onEnd)onEnd.send();
 	}

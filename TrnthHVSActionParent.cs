@@ -12,6 +12,9 @@ public class TrnthHVSActionParent : TrnthHVSAction {
 			parentTo=variable.read<Transform>();
 		}
 		target.parent=parentTo;
-		if(!keepOffset)target.localPosition=Vector3.zero;
+		if(!keepOffset){
+			target.localPosition=Vector3.zero;
+			target.localEulerAngles=Vector3.zero;
+		}
 	}
 }

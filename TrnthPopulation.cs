@@ -15,8 +15,10 @@ public class TrnthPopulation : MonoBehaviour {
 			if(isChanged)onChange();
 		}
 	}
-	public delegate void EHandler();
-	public event EHandler onChange;
+	[HideInInspector]
+	public Transform locator;
+	// public delegate void EHandler();
+	public event System.Action onChange;
 	int _now=0;
 	// 安安
 }
