@@ -26,6 +26,9 @@ public class TrnthHVSAction : TrnthHVS {
 		if(!variable)variable=GetComponent<TrnthVariable>();
 		log();
 	}
+	protected void send(TrnthHVSCondition condition){
+		if(condition)condition.send();
+	}
 	void Start(){
 		// for show enabled / disabled checkbox on inspector
 	}
