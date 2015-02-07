@@ -18,7 +18,7 @@ public class TrnthHVSAction : TrnthHVS {
 			_execute();
 		}else {
 			CancelInvoke();
-			Invoke("_execute",delay+Random.value*_delayNoise);
+			Invoke("_execute",delay);
 		}
 	}
 	public override string extraMsg{get{return "Action";}}
