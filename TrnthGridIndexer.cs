@@ -1,14 +1,15 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Linq;
 public class TrnthGridIndexer : TrnthMonoBehaviour {
 	public enum Directioin{ down,left,right,up}
 	public int index;
 	public int margin=600;
 	public int length=0;
 	public Directioin directioin;
-	public float orgin=300;
+	public float orgin=0;
 	public float rate=0.2f;
-	[ContextMenu("execute")]
+	[ContextMenu("set to current index")]
 	public void execute(){
 		update(1);
 	}
@@ -17,6 +18,10 @@ public class TrnthGridIndexer : TrnthMonoBehaviour {
 		var yy=orgin+index*margin;
 		var vec=transform.localPosition;
 		switch(directioin){
+		case Directioin.up:
+			yy=orgin-index*margin;
+			vec.y+=(yy-vec.y)*rate;	
+			break;
 		case Directioin.down:
 			vec.y+=(yy-vec.y)*rate;	
 			break;
@@ -47,6 +52,27 @@ public class TrnthGridIndexer : TrnthMonoBehaviour {
 			if(index<0)index=0;
 			if(index>=length)index=length-1;
 		}
+	}
+	[ContextMenu("sort children by alphabet")]
+	public void setup(){
+		var vec=Vector3.zero;
+		switch(directioin){
+		case Directioin.down:vec=-Vector3.up;break;
+		case Directioin.up:vec=Vector3.up;break;
+		case Directioin.left:vec=-Vector3.right;break;
+		case Directioin.right:vec=Vector3.right;break;
+		}
+		var children=transform.Cast<Transform>().ToArray();
+		var q=from child in children
+			orderby child.name 
+			select child;
+		children=q.ToArray();
+		var childCount=children.Length;
+		for(var i=0;i<childCount;i++){
+			var child=children[i];
+			child.localPosition=vec*i*margin;
+		}
+		length=childCount;
 	}
 	void Update(){
 		update(rate);

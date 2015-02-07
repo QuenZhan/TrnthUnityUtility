@@ -7,7 +7,7 @@ public class TrnthSlidingNumber : MonoBehaviour {
 	public void apply(){
 		for(int i=0;i<digits.Length;i++){
 			var digit=digits[i];
-			digit.index=(number/(int)Mathf.Pow(10,i))%10;
+			digit.index=(Mathf.Abs(number)/(int)Mathf.Pow(10,i))%10;
 		}
 	}
 	int _number;
