@@ -5,7 +5,7 @@ using UnityEngine;
 using System.Collections;
 
 public class SlidingNumberExampleCounter : MonoBehaviour {
-	public TrnthSlidingNumber slidingNumber;
+	public TrnthFxSlidingNumber slidingNumber;
 	void Start () {
 		add();
 	}

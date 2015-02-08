@@ -1,9 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class TrnthSlidingNumber : MonoBehaviour {
+public class TrnthFxSlidingNumber : TrnthFx {
 	public int number;
-	public TrnthGridIndexer[] digits;
+	public TrnthFxIndexer[] digits;
+	[ContextMenu("apply")]
 	public void apply(){
 		for(int i=0;i<digits.Length;i++){
 			var digit=digits[i];
@@ -11,7 +12,7 @@ public class TrnthSlidingNumber : MonoBehaviour {
 		}
 	}
 	int _number;
-	void Update(){
+	protected override void update(){
 		if(number!=_number){
 			apply();
 			_number=number;
