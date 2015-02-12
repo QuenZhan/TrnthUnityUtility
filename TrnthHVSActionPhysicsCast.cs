@@ -6,16 +6,14 @@ public class TrnthHVSActionPhysicsCast : TrnthHVSAction {
 	public bool isHit{get;private set;}
 	public float distance=10;
 	public float radius=0;
-	// public string[] include;
+	[Tooltip("take nearest colliders in numbers , zero means take all")]
+	public int take;
 	public LayerMask layermask;
 	public Collider[] colliders{get;private set;}
-	// bool filter;
 	public TrnthHVSCondition onHit;
-	// public TrnthHVSCondition onHitDown;
 	public TrnthHVSCondition onHitNot;
 	public void update(){
 		var pos=transform.position;
-		// getcolliders
 		colliders=new Collider[0];
 		if(distance==0){
 			colliders=Physics.OverlapSphere(pos,radius,layermask.value);
@@ -24,22 +22,26 @@ public class TrnthHVSActionPhysicsCast : TrnthHVSAction {
 			// RaycastHit hit;
 			if(radius==0){
 				isHit=Physics.Raycast(pos,transform.forward,out hit,distance,layermask.value);
-			}else{
-				isHit=Physics.SphereCast(pos,radius,transform.forward,out hit,distance,layermask.value);
-			}		
-			if(isHit){
 				colliders=new Collider[]{hit.collider};
-			}
+			}else{
+				var hits=Physics.SphereCastAll(pos,radius,transform.forward,distance,layermask.value);
+				var q=from e in hits
+					orderby (e.transform.position-transform.position).magnitude
+					select e.collider;
+				isHit=q.Count()>0;
+				colliders=q.Take(1).ToArray();
+
+				// isHit=Physics.SphereCastAll(pos,radius,transform.forward,out hit,distance,layermask.value);
+			}		
+			// if(isHit){
+			// }
 		}
-		// filter colliders
-		// if(filter){
-		// 	var q=from collider in colliders
-		// 		from inc in include
-		// 		where (collider.name.Contains(inc))
-		// 		select collider;
-		// 	colliders=q.ToArray();
-		// 	isHit=colliders.Length>0;
-		// }
+		if(take!=0){
+			var q=from e in colliders
+				orderby (e.transform.position-transform.position).magnitude
+				select e.collider;
+			colliders=q.Take(take).ToArray();
+		}
 		if(isHit){
 			if(onHit)onHit.send();
 		}else{
