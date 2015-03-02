@@ -34,3 +34,16 @@ or
 
 	Condition : OnEnable
 	Action : Deactviate a gameObject
+
+
+架構
+--------
+
+- Conditon : 進入點 , 為了效能問題，不建議使用 update 
+- Action : 執行內容
+- Fx : 每幀 update 效果
+
+說明
+-----
+
+請只使用在遊戲邏輯、不要使用在需要每幀運算的部分。
