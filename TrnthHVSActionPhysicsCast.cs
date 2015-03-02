@@ -9,7 +9,7 @@ public class TrnthHVSActionPhysicsCast : TrnthHVSAction {
 	[Tooltip("take nearest colliders in numbers , zero means take all")]
 	public int take;
 	public LayerMask layermask;
-	public Collider[] colliders{get;private set;}
+	public Collider[] colliders;
 	public TrnthHVSCondition onHit;
 	public TrnthHVSCondition onHitNot;
 	public void update(){
