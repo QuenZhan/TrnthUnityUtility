@@ -7,11 +7,11 @@ public class TrnthHVSAction : TrnthHVS {
 	[HideInInspector]
 	[SerializeField]
 	protected float _delayNoise=0;
-	[ContextMenu("set noise as delay")]
+	// [ContextMenu("set noise as delay")]
 	public void setNoise(){
 		_delayNoise=delay;
 	}
-	[ContextMenu("execute")]
+	[ContextMenu("execute immediatly")]
 	public void execute(){
 		if(!enabled)return;
 		if(delay==0){
