@@ -18,6 +18,7 @@ public class TrnthHVSConditionAttackReceiver :  TrnthHVSCondition {
 	public bool persistent;
 	// public override string extraMsg{get{return }}
 	public virtual void hurtWith(TrnthAttack attack,TrnthHVSActionPhysicsCast physicsCast){
+		// Debug.Log("dsfs");
 		this.attack=attack;
 		damage=attack.damage;
 		hpBeforeHit=hp.value;
