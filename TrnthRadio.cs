@@ -3,6 +3,7 @@
 public class TrnthRadio:MonoBehaviour{
 	public float length=100;
 	public float rate=1f;
+	public bool fullOnEnable=true;
 	// public GameObject onEdge;
 	public static TrnthRadio operator +(TrnthRadio a,float b){
 		a.rate+=b/a.length;
@@ -32,6 +33,6 @@ public class TrnthRadio:MonoBehaviour{
 		return (int)(rate*100)+"%";
 	}
 	void OnEnable(){
-		toggle=true;
+		if(fullOnEnable)toggle=true;
 	}
 }

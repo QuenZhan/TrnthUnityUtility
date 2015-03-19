@@ -4,6 +4,9 @@ using System.Collections.Generic;
 namespace TRNTH{
 public class U:Utility{}
 public class Utility{
+	public static T ParseEnum<T>( string value ){
+	    return (T) System.Enum.Parse( typeof( T ), value, true );
+	}
 	static public string stringWithNumber(int number,int digit){
 		return "";
 	}
