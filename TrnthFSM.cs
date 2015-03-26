@@ -18,7 +18,7 @@ public class TrnthFSM_ : MonoBehaviour {
 			e.gameObject.SetActive(e.name==name);
 		}
 	}
-	void Awake(){
+	void Start(){
 		transit(stateNow);
 	}
 }
