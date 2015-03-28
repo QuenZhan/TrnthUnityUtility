@@ -3,6 +3,8 @@ using System.Collections;
 [RequireComponent(typeof(TrnthHVSCondition))]
 public class TrnthHVSAction : TrnthHVS {
 	protected TrnthVariable variable;
+	[HideInInspector]
+	[SerializeField]
 	public float delay=0;
 	[HideInInspector]
 	[SerializeField]
