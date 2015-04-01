@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using TRNTH;
-public class TrnthCreature:TrnthMonoBehaviour{
+public abstract class TrnthCreature:TrnthMonoBehaviour{
 	// public GameObject root;
 	public Transform traSelf;
 	public GameObject targetPersitant;

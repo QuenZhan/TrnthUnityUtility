@@ -57,7 +57,7 @@ public class Utility{
 		return choose<Transform>(list.ToArray());
 	}
 	static public T choose<T>(IList arr){
-		if(arr.Count<1)return default (T);
+		if(arr==null||arr.Count<1)return default (T);
 		return (T)arr[Random.Range(0,arr.Count)];
 	}
 	static public T choose<T>(Object[] arr)where T:Object{

@@ -9,7 +9,7 @@ public class TrnthHVSActionActivate : TrnthHVSAction {
 	public GameObject target;
 	public Mode mode;
 	public Target who;
-	public bool trigger=true;
+	public bool trigger;
 	public override string extraMsg{get{return "Activation";}}
 	protected override void _execute(){
 		base._execute();
