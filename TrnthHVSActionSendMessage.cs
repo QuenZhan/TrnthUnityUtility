@@ -16,5 +16,6 @@ public class TrnthHVSActionSendMessage : TrnthHVSAction {
 		if(!target)find();
 		// if(methodParameter=="")methodParameter=null;
 		if(target.activeInHierarchy)target.SendMessage(methodName);
+		else Debug.LogWarning("Target is deactive",transform);
 	}
 }

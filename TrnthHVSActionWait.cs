@@ -8,7 +8,7 @@ public class TrnthHVSActionWait : TrnthHVSAction {
 	// public TrnthHVSCondition onCancel;
 	protected override void _execute(){
 		base._execute();
-		Invoke("timesup",Delay);
+		if(enabled||!cancelOnDisable)Invoke("timesup",Delay);
 	}
 	void timesup(){
 		onTimesUp.send();
