@@ -56,7 +56,7 @@ public class Gardener:TrnthMonoBehaviour{
 			if(Random.value>rateRandom)continue;
 			Vector3 pos=posSelf+(new Vector3(xx,size.y*(fromTopToBottom?1:-1)*2,zz))+Random.insideUnitSphere*random;
 			if(Physics.SphereCast(pos,rayRadius,Vector3.up*(fromTopToBottom?-1:1),out hit)){
-				if(seedsGroup)seed=(U.choose(arr) as Transform).gameObject;
+				if(seedsGroup)seed=(U.choose<Transform>(arr) as Transform).gameObject;
 				GameObject obj=UnityEngine.Object.Instantiate(seed) as GameObject;
 				if(!Application.isPlaying){
 		#if UNITY_EDITOR

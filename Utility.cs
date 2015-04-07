@@ -56,14 +56,14 @@ public class Utility{
 		}
 		return choose<Transform>(list.ToArray());
 	}
-	static public T choose<T>(IList arr){
+	static public T choose<T>(IList<T> arr){
 		if(arr==null||arr.Count<1)return default (T);
 		return (T)arr[Random.Range(0,arr.Count)];
 	}
-	static public T choose<T>(Object[] arr)where T:Object{
-		if(arr.Length<1)return null;
-		return arr[Random.Range(0,arr.Length)] as T;
-	}
+	// static public T choose<T>(Object[] arr)where T:Object{
+	// 	if(arr.Length<1)return null;
+	// 	return arr[Random.Range(0,arr.Length)] as T;
+	// }
 	static public string choose(string[] arr){
 		if(arr.Length<1)return "";
 		return arr[Random.Range(0,arr.Length)];
