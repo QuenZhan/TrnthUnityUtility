@@ -3,7 +3,7 @@ using System.Collections;
 
 public class TrnthFxCurvePosition : TrnthFxCurve {
 	public Transform target;
-	public TrnthHVSCondition onEnd;
+	public new TrnthHVSCondition onEnd;
 	public override void start(){
 		base.start();
 		_pos=transform.position;
