@@ -1,9 +1,19 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 namespace TRNTH{
 public class U:Utility{}
 public class Utility{
+	public static void cleanChildren(Transform tra){
+		foreach(var e in tra.Cast<Transform>().ToArray()){
+			if(Application.isPlaying){
+				UnityEngine.Object.Destroy(e.gameObject);
+			}else{
+				UnityEngine.Object.DestroyImmediate(e.gameObject);
+			}
+		}
+	}
 	public static T ParseEnum<T>( string value ){
 	    return (T) System.Enum.Parse( typeof( T ), value, true );
 	}
