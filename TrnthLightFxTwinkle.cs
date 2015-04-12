@@ -5,7 +5,7 @@ public class TrnthLightFxTwinkle : MonoBehaviour {
 	public float noise;
 	Light _light;
 	void Awake(){
-		_light=light;
+		_light=GetComponent<Light>();
 		// min=_light.range;
 	}
 	void Update(){

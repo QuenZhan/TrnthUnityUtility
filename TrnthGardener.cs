@@ -38,7 +38,7 @@ public class Gardener:TrnthMonoBehaviour{
 		}
 	}
 	public Transform plant(){
-		Vector3 posSelf=renderer.transform.position;
+		Vector3 posSelf=GetComponent<Renderer>().transform.position;
 		RaycastHit hit;
 		Transform[] arr=null;
 		string text="";
@@ -50,7 +50,7 @@ public class Gardener:TrnthMonoBehaviour{
 		parent.gameObject.SetActive(false);
 		parent.parent=this.parent;
 		float ss=space;
-		Vector3 size=renderer.bounds.extents;
+		Vector3 size=GetComponent<Renderer>().bounds.extents;
 		for(float zz=-size.z-padding;zz<=size.z+padding;zz+=ss){
 		for(float xx=-size.x-padding;xx<=size.x+padding;xx+=ss){
 			if(Random.value>rateRandom)continue;

@@ -15,7 +15,7 @@ public class TrnthRigidPusher : TrnthMonoBehaviour {
 	}
 	void OnTriggerStay(Collider col){
 		if(col.gameObject.tag==collideTag){
-			var rigid=col.transform.parent.rigidbody;
+			var rigid=col.transform.parent.GetComponent<Rigidbody>();
 			var vec=rigid.transform.position-pos;
 			rigid.AddForce(vec.normalized*force);
 
