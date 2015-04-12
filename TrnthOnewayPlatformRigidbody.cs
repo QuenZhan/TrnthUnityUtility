@@ -11,9 +11,9 @@ public class TrnthOnewayPlatformRigidbody : MonoBehaviour {
 		Physics.IgnoreCollision(self,other,yes);
 	}
 	void OnTriggerStay(Collider other){
-		toggle(collider,other,true);
+		toggle(GetComponent<Collider>(),other,true);
 	}
 	void OnTriggerExit(Collider other){
-		toggle(collider,other,false);
+		toggle(GetComponent<Collider>(),other,false);
 	}
 }

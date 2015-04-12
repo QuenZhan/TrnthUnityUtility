@@ -39,7 +39,7 @@ public class TrnthHVSActionPhysicsCast : TrnthHVSAction {
 		if(take!=0){
 			var q=from e in colliders
 				orderby (e.transform.position-transform.position).magnitude
-				select e.collider;
+				select e.GetComponent<Collider>();
 			colliders=q.Take(take).ToArray();
 		}
 		if(isHit){
