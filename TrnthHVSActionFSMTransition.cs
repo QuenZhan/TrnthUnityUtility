@@ -7,8 +7,9 @@ public class TrnthHVSActionFSMTransition : TrnthHVSAction {
 	public override string extraMsg{get{return "Transition";}}
 	protected override void _execute(){
 		base._execute();
-		var fsmManager=state.transform.parent.GetComponent<TrnthFSMManager>();
-		fsmManager.stateNow=state;
-		fsmManager.update();
+		TrnthFSM.transit(state.transform);
+		// var fsmManager=state.transform.parent.GetComponent<TrnthFSMManager>();
+		// fsmManager.stateNow=state;
+		// fsmManager.update();
 	}
 }

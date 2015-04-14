@@ -1,8 +1,10 @@
 ﻿using UnityEngine;
 [System.Serializable]
-public class TrnthRadio:MonoBehaviour{
-	public float length=100;
-	public float rate=1f;
+public class TrnthRadio:MonoBehaviour,ITrnthRadioGet{
+	[SerializeField]float _length=100;
+	[SerializeField]float _rate=1;
+	public float length{get{return _length;}set{_length=value;}}
+	public float rate{get{return _rate;}set{_rate=value;}}
 	public bool fullOnEnable=true;
 	// public GameObject onEdge;
 	public static TrnthRadio operator +(TrnthRadio a,float b){
@@ -18,7 +20,7 @@ public class TrnthRadio:MonoBehaviour{
 			else rate=0f;
 		}
 	}
-	public int value{
+	public float value{
 		get{
 			return (int)(rate*length);
 		}set{

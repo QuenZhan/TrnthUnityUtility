@@ -3,6 +3,8 @@ using System.Collections;
 [RequireComponent(typeof(TrnthHVSCondition))]
 public class TrnthHVSAction : TrnthHVS {
 	protected TrnthVariable variable;
+	[HideInInspector]
+	[SerializeField]
 	public float delay=0;
 	[HideInInspector]
 	[SerializeField]
@@ -28,6 +30,10 @@ public class TrnthHVSAction : TrnthHVS {
 	}
 	protected void send(TrnthHVSCondition condition){
 		if(condition)condition.send();
+	}
+	[ContextMenu("reset delay")]
+	public void resetDelay(){
+		delay=0;
 	}
 	void Start(){
 		// for show enabled / disabled checkbox on inspector

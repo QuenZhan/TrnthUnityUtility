@@ -3,7 +3,7 @@ using System.Collections;
 
 public class TwinkleSprite : MonoBehaviour {
 	public SpriteRenderer srdr;
-	public float speedScale=1;
+	public float speedScale=10;
 	Color colorOrin;
 	bool enabledOrin;
 	void Awake(){

@@ -1,12 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
 using TRNTH;
-public class TrnthCreature:TrnthMonoBehaviour{
+public abstract class TrnthCreature:TrnthMonoBehaviour{
 	// public GameObject root;
 	public Transform traSelf;
 	public GameObject targetPersitant;
 	// public TrnthAntenna aStand;
 	// public bool isVital=true;
+	public bool lookAt=true;
 	public float scaleGravity=1;
 	public float speedMoveMax=3f;
 	public float speedMoveTimeToMax=0.1f;
@@ -31,10 +32,10 @@ public class TrnthCreature:TrnthMonoBehaviour{
 		vecForce.x*=0;
 		vecForce.z*=0;
 	}
-	public void lookAt(Vector3 pos){
-	}
-	public virtual void lookAt(Vector3 pos,float dt){
-	}
+	// public void lookAt(Vector3 pos){
+	// }
+	// public virtual void lookAt(Vector3 pos,float dt){
+	// }
 	public void walkTo(GameObject gobj){
 		walk(gobj.transform.position);	
 	}

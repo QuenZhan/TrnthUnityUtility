@@ -22,6 +22,11 @@ public class TrnthCreatureCcr:TrnthCreature{
 		}
 		Vector3 vec=vecForce*dt;
 		positionDelta=traSelf.position;
+		if(lookAt){
+			var vecHorizon=vec;
+			vecHorizon.y=0;
+			ccr.transform.LookAt(ccr.transform.position+vecHorizon);
+		}
 		var flag=ccr.Move(vec);
 		if ((flag & CollisionFlags.Above) != 0
 			&&vecForce.y>0)vecForce.y=0;
