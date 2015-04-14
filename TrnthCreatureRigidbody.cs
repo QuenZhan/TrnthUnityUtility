@@ -3,7 +3,7 @@ using System.Collections;
 using TRNTH;
 public class TrnthCreatureRigidbody:TrnthCreature{
 	public Rigidbody rig;
-	public TrnthAntenna aGrounded;
+	// public TrnthAntenna aGrounded;
 	void FixedUpdate(){
 		float dt=Time.deltaTime;
 		// if(isVital){
