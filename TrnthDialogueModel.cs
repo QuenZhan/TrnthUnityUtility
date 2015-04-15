@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
-
-public class TrnthDialogueModel : MonoBehaviour {
+[System.Serializable]
+public class TrnthDialogueModel {
 	public string text;
 	public AudioSource voice;
 	public float duration{get{
