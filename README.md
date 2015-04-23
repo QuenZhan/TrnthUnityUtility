@@ -36,6 +36,11 @@ or
 	Action : Deactviate a gameObject
 
 
+Best Practice
+=======
+
+Fx 相關的請用 unity 5 的 animator / animation clip , it's good 
+
 架構
 --------
 
@@ -47,5 +52,3 @@ or
 -----
 
 請只使用在遊戲邏輯、不要使用在需要每幀運算的部分。
-
-衝殺
