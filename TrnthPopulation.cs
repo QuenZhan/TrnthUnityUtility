@@ -26,10 +26,6 @@ public class TrnthPopulation : MonoBehaviour {
 	public event System.Action onChange;
 	public TrnthHVSCondition onClear;
 	int _now=0;
-	// void Start(){
-		// onChange-=_onChange;
-		// onChange+=_onChange;
-	// }
 	void _onChange(){
 		if(now<1){
 			onClear.send();
