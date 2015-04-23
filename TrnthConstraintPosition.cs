@@ -5,8 +5,8 @@ public class TrnthConstraintPosition : TrnthConstraint {
 	public Transform position;
 	public override void setup(){
 		base.setup();
-		var variable=GetComponent<TrnthVariable>();
-		if(variable)position=variable.read<Transform>();
+		// var variable=GetComponent<TrnthVariable>();
+		// if(variable)position=variable.read<Transform>();
 	}
 	public override void update () {
 		base.update();

@@ -2,7 +2,7 @@
 using System.Collections;
 [RequireComponent(typeof(TrnthHVSCondition))]
 public class TrnthHVSAction : TrnthHVS {
-	protected TrnthVariable variable;
+	// protected TrnthVariable variable;
 	[HideInInspector]
 	[SerializeField]
 	public float delay=0;
@@ -25,7 +25,7 @@ public class TrnthHVSAction : TrnthHVS {
 	}
 	public override string extraMsg{get{return "Action";}}
 	protected virtual void _execute(){
-		if(!variable)variable=GetComponent<TrnthVariable>();
+		// if(!variable)variable=GetComponent<TrnthVariable>();
 		log();
 	}
 	protected void send(TrnthHVSCondition condition){
