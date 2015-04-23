@@ -8,9 +8,9 @@ public class TrnthHVSActionParent : TrnthHVSAction {
 	public bool keepOffset;
 	protected override void _execute(){
 		base._execute();
-		if(variable){
-			parentTo=variable.read<Transform>();
-		}
+		// if(variable){
+		// 	parentTo=variable.read<Transform>();
+		// }
 		target.parent=parentTo;
 		if(!keepOffset){
 			target.localPosition=Vector3.zero;
