@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace TRNTH{
 public static class TrnthExtensions
@@ -18,6 +19,9 @@ public static class TrnthExtensions
     }
     public static void send(this MonoBehaviour monoBehaviour,TrnthHVSCondition condition){
     	if(condition)condition.send();
+    }
+    public static IList<T> CastComponent<T>(this Component component){
+        return component.transform.Cast<Transform>().CastComponent<T>();
     }
     public static IList<T> CastComponent<T>(this IEnumerable components){
         var list=new List<T>();
