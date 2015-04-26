@@ -4,10 +4,11 @@ using System.Collections;
 public class TrnthDialogueManager : MonoBehaviour {
 	public int index;
 	public TrnthDialogueModel[] dialogues;
+	[System.NonSerialized]
 	public TrnthDialogueModel dialogue;
-	public GameObject onStart;
-	public GameObject onNext;
-	public GameObject onEnd;
+	public TrnthHVSCondition onStart;
+	public TrnthHVSCondition onNext;
+	public TrnthHVSCondition onEnd;
 	public void next(){
 		if(index>=dialogues.Length){
 			trigger(onEnd);
@@ -25,10 +26,8 @@ public class TrnthDialogueManager : MonoBehaviour {
 		index=0;
 		next();
 	}
-	void trigger(GameObject go){
-		if(!go)return;
-		go.SetActive(true);
-		go.SetActive(false);
+	void trigger(TrnthHVSCondition go){
+		if(go)go.send();
 	}
 	void OnEnable(){
 		start();

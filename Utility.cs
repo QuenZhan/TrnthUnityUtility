@@ -14,6 +14,14 @@ public class Utility{
 			}
 		}
 	}
+	public static T first<T>(IList<T> list){
+		if(list.Count<1)return default(T);
+		return list[0];
+	}
+	public static T last<T>(IList<T> list){
+		if(list.Count<1)return default(T);
+		return list[list.Count-1];
+	}
 	public static T ParseEnum<T>( string value ){
 	    return (T) System.Enum.Parse( typeof( T ), value, true );
 	}
