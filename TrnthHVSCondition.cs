@@ -10,24 +10,16 @@ public class TrnthHVSCondition : TrnthHVS {
 		if(!isFeeded)feed();
 		log();
 		if(callback!=null)callback();
-		// else {
-		// 	SendMessage("execute",SendMessageOptions.DontRequireReceiver);
-		// }
 	}
 	[ContextMenu("Feed")]
 	private void feed(){
 		isFeeded=true;
 		var actions=GetComponents<TrnthHVSAction>();
-		// Debug.Log(actions.Length);
 		foreach(var e in actions){
 			callback-=e.execute;
 			callback+=e.execute;
 		}
 	}
-	// public delegate void Callback();
 	public event System.Action callback;
 	bool isFeeded;
-	// void Awake(){
-	// 	feed();
-	// }
 }
