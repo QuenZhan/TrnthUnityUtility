@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
+// using System.Linq;
+using TRNTH;
 
 public class TrnthHVSActionActivate : TrnthHVSAction {
 	public enum Mode{on,off,toggle,trigger}
@@ -31,6 +32,9 @@ public class TrnthHVSActionActivate : TrnthHVSAction {
 		case Target.parent:
 			targets=new GameObject[]{target.transform.parent.gameObject};
 			break;
+		// case Target.randomChild:
+		// 	TA
+		// 	break;
 		}
 		foreach(var e in targets){
 			e.SetActive(yes);
