@@ -15,7 +15,7 @@ public class TrnthHVSCondition : TrnthHVS {
 		// }
 	}
 	[ContextMenu("Feed")]
-	public void feed(){
+	private void feed(){
 		isFeeded=true;
 		var actions=GetComponents<TrnthHVSAction>();
 		// Debug.Log(actions.Length);
