@@ -10,7 +10,7 @@ public class TrnthHVSActionRandomChild : TrnthHVSAction {
 	protected override void _execute(){
 		base._execute();
 		var list=new List<Transform>();
-		foreach(Transform e in transform){
+		foreach(Transform e in target){
 			list.Add(e);
 		}
 		var theChild=list.choose();

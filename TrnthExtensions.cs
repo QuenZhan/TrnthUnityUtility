@@ -19,5 +19,13 @@ public static class TrnthExtensions
     public static void send(this MonoBehaviour monoBehaviour,TrnthHVSCondition condition){
     	if(condition)condition.send();
     }
+    public static IList<T> CastComponent<T>(this IEnumerable components){
+        var list=new List<T>();
+        foreach(Component e in components){
+            var c=e.GetComponent<T>();
+            if(c!=null)list.Add(c);
+        }
+        return list;
+    }
 }   
 }
