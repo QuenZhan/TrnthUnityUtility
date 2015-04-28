@@ -4,7 +4,7 @@ using System.Collections;
 public class TrnthHVSActionWait : TrnthHVSAction {
 	public float Delay=1;
 	public float noise=0;
-	public bool cancelOnDisable;
+	public bool cancelOnDisable=true;
 	public TrnthHVSCondition onTimesUp;
 	// public TrnthHVSCondition onCancel;
 	protected override void _execute(){
