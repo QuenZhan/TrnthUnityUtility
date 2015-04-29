@@ -5,7 +5,8 @@ public class TrnthCreatureCcr:TrnthCreature{
 	public CharacterController ccr;
 	// public float fSpacer;
 	public bool walkInTheAir;
-	void FixedUpdate(){
+	void Update(){
+	// void FixedUpdate(){
 		float dt=Time.deltaTime;
 		// bool isStand=(aStand&&aStand.isTriggerStay)
 		// 	||!targetPersitant
