@@ -2,8 +2,8 @@
 using System.Collections;
 
 public class TrnthConstraintFixedUpdatePrisoner : TrnthConstraintFixedUpdate {
-	public float left;
-	public float right;
+	public float left=-10000;
+	public float right=10000;
 
 	public override void update(Vector3 pos){
 		// var pos=target.position;

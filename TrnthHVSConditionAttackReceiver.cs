@@ -8,15 +8,10 @@ public class TrnthHVSConditionAttackReceiver :  TrnthHVSCondition {
 	public TrnthAttack attack{get;private set;}
 	public TrnthRadio hp;
 	public Transform direction;
-	// public TrnthHVSAction knockback;
-	// public TrnthHVSAction toHurt;
-	// public TrnthHVSAction toDie;
 	public TrnthHVSCondition onHurt;
 	public TrnthHVSCondition onDie;
 	public TrnthHVSCondition onKnockback;
-	// public TrnthSpawnBoucingNumber spawner;
 	public bool persistent;
-	// public override string extraMsg{get{return }}
 	public virtual void hurtWith(TrnthAttack attack,TrnthHVSActionPhysicsCast physicsCast){
 		// Debug.Log("dsfs");
 		this.attack=attack;
