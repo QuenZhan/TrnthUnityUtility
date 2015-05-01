@@ -10,7 +10,7 @@ public class TrnthConstraintFixedUpdatePrisonerGuard : MonoBehaviour {
 		if(!prisoner){
 			var go=GameObject.Find(find);
 			if(!go){
-				Invoke("Start",0.1f);
+				Invoke("OnEnable",0.1f);
 				return;
 			}
 			prisoner=go.GetComponent<TrnthConstraintFixedUpdatePrisoner>();			
@@ -20,5 +20,8 @@ public class TrnthConstraintFixedUpdatePrisonerGuard : MonoBehaviour {
 		case Border.right	:prisoner.right	=transform.position.x;break;
 		}
 		
+	}
+	void OnDisable(){
+		CancelInvoke();
 	}
 }
