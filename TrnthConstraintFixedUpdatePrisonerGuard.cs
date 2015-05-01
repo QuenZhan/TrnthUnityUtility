@@ -6,7 +6,7 @@ public class TrnthConstraintFixedUpdatePrisonerGuard : MonoBehaviour {
 	public TrnthConstraintFixedUpdatePrisoner prisoner;
 	public string find="CameraFoot";
 	public Border border;
-	void Start(){
+	void OnEnable(){
 		if(!prisoner){
 			var go=GameObject.Find(find);
 			if(!go){
