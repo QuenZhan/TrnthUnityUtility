@@ -16,7 +16,7 @@ public class TrnthHVSCondition : TrnthHVS {
 	}
 	[ContextMenu("Feed")]
 	public void feed(){
-		isFeeded=true;
+		isFeeded=true; 
 		var actions=GetComponents<TrnthHVSAction>();
 		// Debug.Log(actions.Length);
 		foreach(var e in actions){
@@ -27,7 +27,7 @@ public class TrnthHVSCondition : TrnthHVS {
 	// public delegate void Callback();
 	public event System.Action callback;
 	bool isFeeded;
-	// void Awake(){
-	// 	feed();
-	// }
+	void Awake(){
+		feed();
+	}
 }
