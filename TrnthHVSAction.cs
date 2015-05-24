@@ -15,6 +15,9 @@ public class TrnthHVSAction : TrnthHVS {
 	}
 	[ContextMenu("execute immediatly")]
 	public void execute(){
+		execute(null);
+	}
+	public void execute(TrnthHVSCondition condition){
 		if(!enabled)return;
 		if(delay==0){
 			_execute();
