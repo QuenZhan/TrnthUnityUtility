@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Linq;
 
-public class TrnthFSM : TrnthVariable { 	
+public class TrnthFSM : MonoBehaviour { 	
 	static public void transit(GameObject state){
 		transit(state.transform);
 	}
