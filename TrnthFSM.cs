@@ -12,4 +12,9 @@ public class TrnthFSM : MonoBehaviour {
 			e.gameObject.SetActive(e==state);
 		}
 	}
+	static public void clear(Component comp){
+		foreach(Transform e in comp.transform.parent){
+			e.gameObject.SetActive(false);
+		}
+	}
 }
