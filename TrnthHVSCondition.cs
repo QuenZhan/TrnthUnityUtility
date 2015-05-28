@@ -20,6 +20,9 @@ public class TrnthHVSCondition : TrnthHVS {
 			callback+=e.execute;
 		}
 	}
-	public event System.Action callback;
+	public event System.Action<TrnthHVSCondition> callback=delegate(TrnthHVSCondition condition){};
 	bool isFeeded;
+	void Awake(){
+		feed();
+	}
 }

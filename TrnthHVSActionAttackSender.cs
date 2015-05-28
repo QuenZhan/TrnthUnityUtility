@@ -9,7 +9,8 @@ public class TrnthHVSActionAttackSender : TrnthHVSAction {
 	protected override void _execute(){
 		base._execute();
 		// if(proxy)pc=proxy.physicsCast;
-		if(pc&&pc.colliders!=null)colliders=pc.colliders;
+		var colliders=new Collider[0];
+		if(pc)colliders=pc.colliders;
 		if(conditionCollider)colliders=new Collider[]{conditionCollider.col};
 		foreach(Collider e in colliders){
 			var dr=e.GetComponent<TrnthHVSConditionAttackReceiver>();
@@ -18,5 +19,5 @@ public class TrnthHVSActionAttackSender : TrnthHVSAction {
 			dr.hurtWith(attack,pc);
 		}
 	}
-	Collider[] colliders=new Collider[0];
+	// Collider[] colliders=new Collider[0];
 }

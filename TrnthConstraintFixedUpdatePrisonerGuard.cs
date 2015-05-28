@@ -6,11 +6,11 @@ public class TrnthConstraintFixedUpdatePrisonerGuard : MonoBehaviour {
 	public TrnthConstraintFixedUpdatePrisoner prisoner;
 	public string find="CameraFoot";
 	public Border border;
-	void Start(){
+	public void execute(){
 		if(!prisoner){
 			var go=GameObject.Find(find);
 			if(!go){
-				Invoke("Start",0.1f);
+				Invoke("OnEnable",0.1f);
 				return;
 			}
 			prisoner=go.GetComponent<TrnthConstraintFixedUpdatePrisoner>();			
@@ -19,6 +19,11 @@ public class TrnthConstraintFixedUpdatePrisonerGuard : MonoBehaviour {
 		case Border.left	:prisoner.left	=transform.position.x;break;
 		case Border.right	:prisoner.right	=transform.position.x;break;
 		}
-		
+	}
+	void OnEnable(){
+		execute();
+	}
+	void OnDisable(){
+		CancelInvoke();
 	}
 }
