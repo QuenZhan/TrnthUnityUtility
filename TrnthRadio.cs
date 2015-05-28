@@ -2,9 +2,15 @@
 [System.Serializable]
 public class TrnthRadio:MonoBehaviour,ITrnthRadioGet{
 	[SerializeField]float _length=100;
-	[SerializeField]float _rate=1;
+	// [SerializeField]float _rate=1;
 	public float length{get{return _length;}set{_length=value;}}
-	public float rate{get{return _rate;}set{_rate=value;}}
+	public float rate{
+		get{
+			return _value/_length;
+		}set{
+			_value=value*_length;
+		}
+	}
 	public bool fullOnEnable=true;
 	// public GameObject onEdge;
 	public static TrnthRadio operator +(TrnthRadio a,float b){
@@ -22,9 +28,9 @@ public class TrnthRadio:MonoBehaviour,ITrnthRadioGet{
 	}
 	public float value{
 		get{
-			return (int)(rate*length);
+			return _value;
 		}set{
-			rate=value*1f/length;
+			_value=value;
 		}
 	}
 	public void clamp(){
@@ -34,6 +40,7 @@ public class TrnthRadio:MonoBehaviour,ITrnthRadioGet{
 	public string stringPercent(){
 		return (int)(rate*100)+"%";
 	}
+	float _value;
 	void OnEnable(){
 		if(fullOnEnable)toggle=true;
 	}
