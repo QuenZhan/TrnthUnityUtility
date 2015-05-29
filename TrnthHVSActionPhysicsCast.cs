@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System;
 using System.Collections;
 using System.Linq;
 
@@ -12,6 +13,7 @@ public class TrnthHVSActionPhysicsCast : TrnthHVSAction {
 	public Collider[] colliders;
 	public TrnthHVSCondition onHit;
 	public TrnthHVSCondition onHitNot;
+	public event Action<TrnthHVSActionPhysicsCast,Collider[]> eCast=delegate{};
 	public void update(){
 		var pos=transform.position;
 		colliders=new Collider[0];
@@ -42,6 +44,7 @@ public class TrnthHVSActionPhysicsCast : TrnthHVSAction {
 				select e.GetComponent<Collider>();
 			colliders=q.Take(take).ToArray();
 		}
+		eCast(this,colliders);
 		if(isHit){
 			if(onHit)onHit.send();
 		}else{
