@@ -4,6 +4,8 @@ using TRNTH;
 public class TrnthCreatureRigidbody:TrnthCreature{
 	public Rigidbody rig;
 	public TrnthAntenna aGrounded;
+	public override Transform traSelf{get{return rig.transform;}}
+
 	void FixedUpdate(){
 		float dt=Time.deltaTime;
 		// if(isVital){

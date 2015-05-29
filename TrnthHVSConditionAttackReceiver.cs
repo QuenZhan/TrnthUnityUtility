@@ -23,6 +23,8 @@ public class TrnthHVSConditionAttackReceiver :  TrnthHVSCondition {
 		}
 		conditionSend();
 		hp-=damage;
+		if(persistent&&hp.value>1)hp.value=1;
+
 		hp.clamp();
 		attack.react(damage);
 		// send();
