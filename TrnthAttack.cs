@@ -22,6 +22,7 @@ public class TrnthAttack : MonoBehaviour {
 	public void attach(Transform tra){
 		foreach(var spawner in attachments){
 			spawner.execute();
+			if(!spawner.spawned)continue;
 			var constraint=spawner.spawned.gameObject.AddComponent<TrnthConstraintPosition>();
 			constraint.position=tra;
 		}
