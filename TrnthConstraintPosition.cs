@@ -1,16 +1,16 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+using System;
 public class TrnthConstraintPosition : TrnthConstraint {
 	public Transform position;
-	public override void setup(){
-		base.setup();
-		// var variable=GetComponent<TrnthVariable>();
-		// if(variable)position=variable.read<Transform>();
-	}
+	public event Action<TrnthConstraintPosition> onLosingPosition=delegate{};
 	public override void update () {
 		base.update();
-		if(!position)setup();
-		target.position=position.position;
+		// if(!position)setup();
+		if(position)target.position=position.position;
+		else {
+			enabled=false;
+			onLosingPosition(this);
+		}
 	}
 }

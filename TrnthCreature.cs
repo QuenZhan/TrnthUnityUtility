@@ -3,7 +3,7 @@ using System.Collections;
 using TRNTH;
 public abstract class TrnthCreature:TrnthMonoBehaviour{
 	// public GameObject root;
-	public Transform traSelf;
+	public abstract Transform traSelf{get;}
 	public GameObject targetPersitant;
 	// public TrnthAntenna aStand;
 	// public bool isVital=true;

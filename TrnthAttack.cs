@@ -7,6 +7,7 @@ public class TrnthAttack : MonoBehaviour {
 	public float damageBase=30;
 	public bool knockback;
 	public bool showDamage=false;
+	public TrnthHVSActionSpawn[] attachments;
 	public virtual void react(float damage){
 		this.send(conditionReact);
 		if(onReact){
@@ -18,4 +19,12 @@ public class TrnthAttack : MonoBehaviour {
 		// var damage=damageBase;
 		return damageBase;
 	}}
+	public void attach(Transform tra){
+		foreach(var spawner in attachments){
+			spawner.execute();
+			if(!spawner.spawned)continue;
+			var constraint=spawner.spawned.gameObject.AddComponent<TrnthConstraintPosition>();
+			constraint.position=tra;
+		}
+	}
 }

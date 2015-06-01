@@ -3,6 +3,7 @@ using System.Collections;
 using TRNTH;
 public class TrnthCreatureCcr:TrnthCreature{
 	public CharacterController ccr;
+	public override Transform traSelf{get{return ccr.transform;}}
 	// public float fSpacer;
 	public bool walkInTheAir;
 	void Update(){

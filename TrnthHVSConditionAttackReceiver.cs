@@ -8,12 +8,11 @@ public class TrnthHVSConditionAttackReceiver :  TrnthHVSCondition {
 	public TrnthAttack attack{get;private set;}
 	public TrnthRadio hp;
 	public Transform direction;
-	public TrnthHVSCondition onHurt;
-	public TrnthHVSCondition onDie;
-	public TrnthHVSCondition onKnockback;
+	[HideInInspector]public TrnthHVSCondition onHurt;
+	[HideInInspector]public TrnthHVSCondition onDie;
+	[HideInInspector]public TrnthHVSCondition onKnockback;
 	public bool persistent;
 	public virtual void hurtWith(TrnthAttack attack,TrnthHVSActionPhysicsCast physicsCast){
-		// Debug.Log("dsfs");
 		this.attack=attack;
 		damage=attack.damage;
 		hpBeforeHit=hp.value;
@@ -23,9 +22,10 @@ public class TrnthHVSConditionAttackReceiver :  TrnthHVSCondition {
 		}
 		conditionSend();
 		hp-=damage;
+		if(persistent&&hpBeforeHit>1)hp.value=1;
+
 		hp.clamp();
 		attack.react(damage);
-		// send();
 		log();
 	}
 	public virtual void conditionSend(){
