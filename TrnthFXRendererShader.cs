@@ -8,7 +8,7 @@ public class TrnthFXRendererShader : MonoBehaviour {
 	public float duration=0.1f;
 	public virtual void start(){
 		memorize();
-		var list=new List<Material>();
+		// var list=new List<Material>();
 		foreach(var e in rdr.materials){
 			e.shader=shader;
 		}
