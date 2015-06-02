@@ -2,11 +2,8 @@
 using System.Collections;
 using TRNTH;
 public abstract class TrnthCreature:TrnthMonoBehaviour{
-	// public GameObject root;
 	public abstract Transform traSelf{get;}
 	public GameObject targetPersitant;
-	// public TrnthAntenna aStand;
-	// public bool isVital=true;
 	public bool lookAt=true;
 	public float scaleGravity=1;
 	public float speedMoveMax=3f;
@@ -32,10 +29,6 @@ public abstract class TrnthCreature:TrnthMonoBehaviour{
 		vecForce.x*=0;
 		vecForce.z*=0;
 	}
-	// public void lookAt(Vector3 pos){
-	// }
-	// public virtual void lookAt(Vector3 pos,float dt){
-	// }
 	public void walkTo(GameObject gobj){
 		walk(gobj.transform.position);	
 	}
@@ -60,7 +53,6 @@ public abstract class TrnthCreature:TrnthMonoBehaviour{
 	}
 	float fWalk;
 	void OnSpawned(){
-		// root.transform.localPosition=Vector3.zero;
 		vecForce=Vector3.zero;
 	}
 	void OnDisable(){
