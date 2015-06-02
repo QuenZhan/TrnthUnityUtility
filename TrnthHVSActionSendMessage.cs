@@ -2,10 +2,9 @@
 using System.Collections;
 
 public class TrnthHVSActionSendMessage : TrnthHVSAction {
-	public string findTarget;
+	[HideInInspector]public string findTarget;
 	public GameObject target;
 	public string methodName;
-	// public string methodParameter;
 	public void find(){
 		if(target)return;
 		var go=GameObject.Find(findTarget);
@@ -14,7 +13,6 @@ public class TrnthHVSActionSendMessage : TrnthHVSAction {
 	protected override void _execute(){
 		base._execute();
 		if(!target)find();
-		// if(methodParameter=="")methodParameter=null;
 		if(target.activeInHierarchy)target.SendMessage(methodName);
 		else Debug.LogWarning("Target is deactive",transform);
 	}
