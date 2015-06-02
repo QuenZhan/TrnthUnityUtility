@@ -26,6 +26,7 @@ public class TrnthHVSConditionAttackReceiver :  TrnthHVSCondition {
 
 		hp.clamp();
 		attack.react(damage);
+		send();
 		log();
 	}
 	public virtual void conditionSend(){
