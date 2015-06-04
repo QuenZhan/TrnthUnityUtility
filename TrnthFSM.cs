@@ -23,6 +23,7 @@ public class TrnthFSM:MonoBehaviour {
 			e.gameObject.SetActive(false);
 		}
 	}
+	const bool LOG=false;
 	List<Data> parents=new List<Data>();
 	internal void checkDelta(Transform child){
 		StartCoroutine(_checkDelta(child));
@@ -32,7 +33,7 @@ public class TrnthFSM:MonoBehaviour {
 		foreach(var data in parents.ToArray()){
 			if(data.parent!=parent)continue;
 			var str=System.String.Format("TrnthFSM delta: {0}/{1} >> {2}/{3}",data.parent.name,data.child.name,parent.name,child.name);
-			Debug.LogWarning(str,child);
+			if(LOG)Debug.LogWarning(str,child);
 		}
 		var _data=new Data(){time=Time.time,parent=parent,child=child};
 		parents.Add(_data);
