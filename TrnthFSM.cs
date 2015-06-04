@@ -16,26 +16,28 @@ public class TrnthFSM:MonoBehaviour {
 		if(!instance){
 			instance=(new GameObject("TrnthFSM")).AddComponent<TrnthFSM>();
 		}
-		instance.checkDelta(parent,state);
+		instance.checkDelta(state);
 	}
 	static public void clear(Component comp){
 		foreach(Transform e in comp.transform.parent){
 			e.gameObject.SetActive(false);
 		}
 	}
-	Dictionary<Transform,Data> parents=new Dictionary<Transform,Data>();
-	internal void checkDelta(Transform parent,Transform child){
-		StartCoroutine(_checkDelta(parent,child));
+	List<Data> parents=new List<Data>();
+	internal void checkDelta(Transform child){
+		StartCoroutine(_checkDelta(child));
 	}
-	IEnumerator _checkDelta(Transform parent,Transform child) {
-		if(parents.ContainsKey(parent)){
-			var data=parents[parent];
-			var str=String.Format("TrnthFSM delta: {0}/{1} >> {2}/{3}",data.parent.name,data.child.name,parent.name,child.name);
+	IEnumerator _checkDelta(Transform child) {
+		var parent=child.parent;
+		foreach(var data in parents.ToArray()){
+			if(data.parent!=parent)continue;
+			var str=System.String.Format("TrnthFSM delta: {0}/{1} >> {2}/{3}",data.parent.name,data.child.name,parent.name,child.name);
 			Debug.LogWarning(str,child);
 		}
-		parents.Add(parent);
+		var _data=new Data(){time=Time.time,parent=parent,child=child};
+		parents.Add(_data);
         yield return new WaitForSeconds(0.1f);
-        parents.Remove(parent);
+        parents.Remove(_data);
     }
     class Data{
     	public float time;
