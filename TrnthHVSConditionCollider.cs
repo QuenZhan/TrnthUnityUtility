@@ -9,7 +9,10 @@ public class TrnthHVSConditionCollider : TrnthHVSCondition {
 	public override string extraMsg{get{
 		return "Collider : "+_col.name;
 	}}
+	public event System.Action<TrnthHVSConditionCollider,Collider> onCollided=delegate{};
 	protected void sendFilter(Collider col){
+		onCollided(this,col);
+
 		if(include.Length==0){
 			_col=col;
 			send();

@@ -52,7 +52,7 @@ public class TrnthFxShake:MonoBehaviour{
 		end();
 	}
 	void Update(){		
-		Vector3 vec=Random.insideUnitSphere*curve.Evaluate(reversed?(1-a.rate):a.rate)*_value;
+		Vector3 vec=Random.insideUnitSphere*curve.Evaluate(reversed?(1-a.rate):a.rate)*_value*Time.timeScale;
 		if(hasOrinPos){
 			switch(space){
 			case Space.Self:target.localPosition=posOrin+vec;break;
