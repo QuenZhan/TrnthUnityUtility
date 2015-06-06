@@ -13,11 +13,11 @@ public class TrnthHVSActionAttackSender : TrnthHVSAction {
 		if(pc)colliders=pc.colliders;
 		if(conditionCollider)colliders=new Collider[]{conditionCollider.col};
 		foreach(Collider e in colliders){
+			attack.attach(e.transform);
 			var dr=e.GetComponent<TrnthHVSConditionAttackReceiver>();
 			// if(!dr)dr=GetComponent<TrnthHVSConditionAttackReceiver>();
 			if(!dr)continue;
 			dr.hurtWith(attack,pc);
-			attack.attach(e.transform);
 		}
 	}
 	// Collider[] colliders=new Collider[0];

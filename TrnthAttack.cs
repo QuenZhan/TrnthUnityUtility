@@ -19,12 +19,14 @@ public class TrnthAttack : MonoBehaviour {
 		// var damage=damageBase;
 		return damageBase;
 	}}
-	public void attach(Transform tra){
+	public virtual void attach(Transform tra){
 		foreach(var spawner in attachments){
+			spawner.transform.position=tra.position;
 			spawner.execute();
-			if(!spawner.spawned)continue;
-			var constraint=spawner.spawned.gameObject.AddComponent<TrnthConstraintPosition>();
-			constraint.position=tra;
+			// if(!spawner.spawned)continue;
+			// var constraint=spawner.spawned.GetComponent<TrnthConstraintPosition>();
+			// if(!constraint)constraint=spawner.spawned.gameObject.AddComponent<TrnthConstraintPosition>();
+			// constraint.position=tra;
 		}
 	}
 }
