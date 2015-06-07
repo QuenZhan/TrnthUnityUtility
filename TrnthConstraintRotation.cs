@@ -9,7 +9,7 @@ public class TrnthConstraintRotation : TrnthConstraint {
 		if(variable)rotation=variable.read<Transform>();
 	}
 	public override void update () {
-		base.update();
+		// base.update();
 		if(!rotation)setup();
 		target.rotation=rotation.rotation;
 		// target.position=position.position;
