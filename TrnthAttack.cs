@@ -17,7 +17,7 @@ public class TrnthAttack : MonoBehaviour {
 	}
 	public virtual float damage{get{
 		// var damage=damageBase;
-		return damageBase;
+		return 1+Random.value*(damageBase);
 	}}
 	public virtual void attach(Transform tra){
 		foreach(var spawner in attachments){
