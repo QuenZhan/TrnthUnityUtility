@@ -12,9 +12,6 @@ public class TrnthInputDragTranslate : MonoBehaviour {
 			var delta=Input.mousePosition-_coor;
 			transform.localPosition=_pos+(new Vector3(-delta.x,-delta.y,0)*rate);
 			if(Input.GetMouseButtonUp(mouseButton)){
-				if(!a.a){
-					transform.localPosition=Vector3.zero;
-				}
 				state="normal";
 			}
 			break;
@@ -23,12 +20,10 @@ public class TrnthInputDragTranslate : MonoBehaviour {
 				_coor=Input.mousePosition;
 				_pos=transform.localPosition;
 				state="draging";
-				a.s=clickThreshold;
 			}
 			break;
 		}
 	}
-	TrnthAlarm a=new TrnthAlarm();
 	Vector3 _coor;
 	Vector3 _pos;
 }

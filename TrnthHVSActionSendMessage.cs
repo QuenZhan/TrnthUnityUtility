@@ -11,7 +11,6 @@ public class TrnthHVSActionSendMessage : TrnthHVSAction {
 		target=go;
 	}
 	protected override void _execute(){
-		base._execute();
 		if(!target)find();
 		if(target.activeInHierarchy)target.SendMessage(methodName);
 		else Debug.LogWarning("Target is deactive",transform);

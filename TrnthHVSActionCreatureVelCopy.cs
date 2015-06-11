@@ -5,7 +5,6 @@ public class TrnthHVSActionCreatureVelCopy : TrnthHVSAction {
 	public TrnthCreature copyFrom;
 	public TrnthCreature copyTo;
 	protected override void _execute(){
-		base._execute();
 		copyTo.vecForce=copyFrom.vecForce;
 	}
 }

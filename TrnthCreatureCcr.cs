@@ -12,7 +12,6 @@ public class TrnthCreatureCcr:TrnthCreature{
 		}
 		if(!ccr.isGrounded){
 			vecForce+=Physics.gravity*dt*scaleGravity;
-			vecForce.y*=0.97f;
 		}
 		Vector3 vec=vecForce*dt;
 		positionDelta=traSelf.position;

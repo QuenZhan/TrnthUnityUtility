@@ -13,15 +13,16 @@ public class TrnthInputScale : MonoBehaviour {
 		if(_wheel<0.1f)_wheel=0.1f;
 		_current=Mathf.SmoothDamp(_current,_wheel,ref _vel,smoothTime);
 		transform.localScale=Vector3.one*(_current);
-		if(Input.GetMouseButtonDown(mouseButton)){
-			a.s=0.1f;
-		}
-		if(!a.a&&Input.GetMouseButtonUp(mouseButton)){
+		// if(Input.GetMouseButtonDown(mouseButton)){
+		// 	a.s=0.1f;
+		// }
+		if(
+			// !a.a&&
+			Input.GetMouseButtonUp(mouseButton)){
 			_wheel=1;			
 		}
 	}
 	float _wheel=1;
 	float _current=1;
 	float _vel=1;
-	TrnthAlarm a=new TrnthAlarm();
 }

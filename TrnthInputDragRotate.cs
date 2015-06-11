@@ -12,9 +12,6 @@ public class TrnthInputDragRotate : MonoBehaviour {
 			var delta=Input.mousePosition-_coor;
 			transform.localEulerAngles=_angles+(new Vector3(-delta.y,delta.x,0))*rate;
 			if(Input.GetMouseButtonUp(mouseButton)){
-				if(!a.a){
-					transform.localEulerAngles=Vector3.zero;
-				}
 				state="normal";
 			}
 			break;
@@ -23,12 +20,15 @@ public class TrnthInputDragRotate : MonoBehaviour {
 				_coor=Input.mousePosition;
 				_angles=transform.localEulerAngles;
 				state="draging";
-				a.s=clickThreshold;
+				CancelInvoke();
+				Invoke("end",clickThreshold);
 			}
 			break;
 		}
 	}
-	TrnthAlarm a=new TrnthAlarm();
+	void end(){
+		transform.localEulerAngles=Vector3.zero;
+	}
 	Vector3 _coor;
 	Vector3 _angles;
 }

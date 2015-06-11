@@ -64,6 +64,7 @@ public class Utility{
 	    } 
 	   	return list.ToArray();
 	}
+	// var str=U.choose<string>("安安","你好");
 	static public T choose<T>(IList<T> arr){
 		if(arr==null||arr.Count<1)return default (T);
 		return (T)arr[Random.Range(0,arr.Count)];

@@ -52,7 +52,6 @@ public class TrnthHVSActionPhysicsCast : TrnthHVSAction {
 		}
 	}
 	protected override void _execute(){
-		base._execute();
 		update();
 	}
 	protected RaycastHit hit;

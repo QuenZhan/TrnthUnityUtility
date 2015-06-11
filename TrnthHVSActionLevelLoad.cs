@@ -10,7 +10,6 @@ public class TrnthHVSActionLevelLoad : TrnthHVSAction {
 		Application.LoadLevel(levelName);
 	}
 	protected override void _execute(){
-		base._execute();
 		loadLevel();
 	}
 }

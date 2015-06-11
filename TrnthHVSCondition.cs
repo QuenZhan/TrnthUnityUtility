@@ -3,10 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 public class TrnthHVSCondition : TrnthHVS {
 	public event System.Action<TrnthHVSCondition> callback=delegate(TrnthHVSCondition condition){};
-	public override string extraMsg{get{return"Condition";}}
 	public virtual void send(){
 		if(!isFeeded)feed();
-		log();
 		callback(this);
 		queue=new Queue<Section>(sections);
 		deSection();

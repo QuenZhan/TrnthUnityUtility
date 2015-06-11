@@ -1,11 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+// using System.Linq;
+using TRNTH;
 
-public class TrnthHVSActionActivate : TrnthHVSAction {
-	public bool on=true;
+public class TrnthHVSActionActivateToggle : TrnthHVSAction {
 	public GameObject target;
 	protected override void _execute(){
-		target.SetActive(on);
+		target.SetActive(!target.activeSelf);
 	}
 }

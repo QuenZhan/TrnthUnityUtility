@@ -7,7 +7,6 @@ public class TrnthHVSActionRigidPusher : TrnthHVSAction {
 	public string collideTag;
 	public float force=10;
 	protected override void _execute(){
-		base._execute();
 		var col=colliderSource.col;
 		if(col.gameObject.tag==collideTag){
 			var rigid=col.transform.parent.GetComponent<Rigidbody>();

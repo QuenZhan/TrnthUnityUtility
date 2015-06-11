@@ -8,7 +8,6 @@ public class TrnthHVSActionRepeater : TrnthHVSAction {
 	public TrnthHVSCondition onWave;
 	public TrnthHVSCondition onEnd;
 	protected override void _execute(){		
-		base._execute();
 		start();
 	}
 	public void start(){

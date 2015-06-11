@@ -2,22 +2,31 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class TrnthHVSActionAttackSender : TrnthHVSAction {
+public class TrnthHVSActionAttackSender : TrnthHVSAction ,ITrnthAttack{
 	public TrnthHVSActionPhysicsCast pc;
 	public TrnthHVSConditionCollider conditionCollider;
-	public TrnthHVSCondition conditionReact;
-	public Transform direction;
-	public float damageBase=30;
-	public float knockback;
-	public bool showDamage=false;
+	public TrnthHVSCondition cOnReact;
+	public Transform _worldOrigin;
+	public float _damage=30;
+	public float _knockback;
+	public bool _showDamage=false;
 	public TrnthHVSActionSpawn[] attachments;
 
 	public event System.Action<TrnthHVSActionAttackSender,TrnthHVSConditionAttackReceiver> onReact=delegate{};
 	public virtual float damage{get{
-		return 1+Random.value*(damageBase);
+		return 1+Random.value*(_damage);
 	}}
+	public float knockback{get{
+		return _knockback;
+	}}
+	public Vector3 worldOrigin{get{
+		return _worldOrigin.position;
+	}}
+	public bool showDamage{get{
+		return _showDamage;
+	}}
+
 	protected override void _execute(){
-		base._execute();
 		var colliders=new Collider[0];
 		if(pc)colliders=pc.colliders;
 		if(conditionCollider)colliders=new Collider[]{conditionCollider.col};
@@ -35,7 +44,7 @@ public class TrnthHVSActionAttackSender : TrnthHVSAction {
 		}
 	}
 	void react(TrnthHVSConditionAttackReceiver receiver){
-		this.send(conditionReact);
+		this.send(cOnReact);
 		onReact(this,receiver);
 	}
 }

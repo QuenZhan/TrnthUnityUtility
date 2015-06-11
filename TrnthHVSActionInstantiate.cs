@@ -10,7 +10,6 @@ public class TrnthHVSActionInstantiate : TrnthHVSAction {
 	public TrnthHVSCondition onFail;
 	public GameObject instantiated{get;private set;}
 	protected override void _execute(){
-		base._execute();
 		instantiated=Instantiate(prefab) as GameObject;
 		if(!instantiated){
 			if(onFail)onFail.send();
