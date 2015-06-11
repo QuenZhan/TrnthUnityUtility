@@ -68,6 +68,10 @@ public class Utility{
 		if(arr==null||arr.Count<1)return default (T);
 		return (T)arr[Random.Range(0,arr.Count)];
 	}
+	static public T choose<T>(params T[] arr){
+		if(arr.Length<1)return default (T);
+		return arr[Random.Range(0,arr.Length)];
+	}
 	static string getNumString(int num){
 		string tagLevel="";
 		switch(num){
