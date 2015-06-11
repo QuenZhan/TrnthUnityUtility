@@ -82,6 +82,10 @@ public class Utility{
 	// 	if(arr.Length<1)return null;
 	// 	return arr[Random.Range(0,arr.Length)] as T;
 	// }
+	static public T choose<T>(params T[] arr){
+		if(arr.Length<1)return default (T);
+		return arr[Random.Range(0,arr.Length)];
+	}
 	static public string choose(string[] arr){
 		if(arr.Length<1)return "";
 		return arr[Random.Range(0,arr.Length)];
