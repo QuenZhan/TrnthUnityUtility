@@ -10,7 +10,7 @@ public class TrnthHVSActionAttackSender : TrnthHVSAction ,ITrnthAttack{
 	public float _damage=30;
 	public float _knockback;
 	public bool _showDamage=false;
-	public TrnthHVSActionSpawn[] attachments;
+	public TrnthHVSAction[] attachments;
 
 	public event System.Action<TrnthHVSActionAttackSender,TrnthHVSConditionAttackReceiver> onReact=delegate{};
 	public virtual float damage{get{
