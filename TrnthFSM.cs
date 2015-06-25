@@ -13,10 +13,10 @@ public class TrnthFSM:MonoBehaviour {
 		foreach(Transform e in parent){
 			e.gameObject.SetActive(e==state);
 		}
-		if(!instance){
-			instance=(new GameObject("TrnthFSM")).AddComponent<TrnthFSM>();
-		}
-		instance.checkDelta(state);
+		// if(!instance){
+			// instance=(new GameObject("TrnthFSM")).AddComponent<TrnthFSM>();
+		// }
+		// instance.checkDelta(state);
 	}
 	static public void clear(Component comp){
 		foreach(Transform e in comp.transform.parent){
