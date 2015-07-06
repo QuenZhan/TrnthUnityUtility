@@ -2,6 +2,7 @@
 [System.Serializable]
 public class TrnthRadio:MonoBehaviour,ITrnthRadioGet{
 	[SerializeField]float _length=100;
+	public bool fullOnEnable=true;
 	public float length{get{return _length;}set{_length=value;}}
 	public float rate{
 		get{
@@ -10,7 +11,6 @@ public class TrnthRadio:MonoBehaviour,ITrnthRadioGet{
 			_value=value*_length;
 		}
 	}
-	public bool fullOnEnable=true;
 	public static TrnthRadio operator +(TrnthRadio a,float b){
 		a.rate+=b/a.length;
 		return a;

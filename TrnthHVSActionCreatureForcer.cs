@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class TrnthHVSActionCreatureForcer : TrnthHVSAction {
+public class TrnthHVSActionCreatureForcer : TrnthHVSAction,ITrnthForcer {
 	public TrnthCreature creature;
 	public Transform traLocal;
 	public Vector3 force;
@@ -13,5 +13,10 @@ public class TrnthHVSActionCreatureForcer : TrnthHVSAction {
 		}else{
 			creature.vecForce=force;
 		}
+	}
+	public void addForce(Vector3 vec){
+		force=vec;
+		traLocal=null;
+		_execute();
 	}
 }

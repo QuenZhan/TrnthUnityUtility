@@ -2,39 +2,39 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class TrnthHVSActionAttackSender : TrnthHVSAction ,ITrnthAttack{
-	public TrnthHVSActionPhysicsCast pc;
-	public TrnthHVSConditionCollider conditionCollider;
-	public TrnthHVSCondition cOnReact;
-	public Transform _worldOrigin;
-	public float _damage=30;
-	public float _knockback;
-	public bool _showDamage=false;
-	public TrnthHVSAction[] attachments;
+public abstract class TrnthHVSActionAttackSender : TrnthHVSAction ,ITrnthAttackOffensive{
+	[SerializeField] Transform _forceDirection;
+	[SerializeField] float _forceValue;
+	[SerializeField] bool _showDamage=false;
+	[SerializeField] float _damage=30;
+	[SerializeField] float _penetration=0;
+	[SerializeField] float _criticalStikeChance=0.1f;
+	[SerializeField] float _criticalStikeScale=2;
+	[SerializeField] TrnthHVSAction[] attachments;
+	[SerializeField] TrnthHVSCondition cOnReact;
 
-	public event System.Action<TrnthHVSActionAttackSender,TrnthHVSConditionAttackReceiver> onReact=delegate{};
 	public virtual float damage{get{
 		return 1+Random.value*(_damage);
 	}}
-	public float knockback{get{
-		return _knockback;
-	}}
-	public Vector3 worldOrigin{get{
-		return _worldOrigin.position;
+	public Vector3 force{get{
+		return _forceDirection.TransformDirection(Vector3.forward)*_forceValue;
 	}}
 	public bool showDamage{get{
 		return _showDamage;
 	}}
+	public float penetration{get{return _penetration;}}
+	public float criticalStikeChance{get{return _criticalStikeChance;}}
+	public float criticalStikeScale{get{return _criticalStikeScale;}}
+
 
 	protected override void _execute(){
-		var colliders=new Collider[0];
-		if(pc)colliders=pc.colliders;
-		if(conditionCollider)colliders=new Collider[]{conditionCollider.col};
 		foreach(Collider e in colliders){
 			attach(e.transform);
 			var dr=e.GetComponent<TrnthHVSConditionAttackReceiver>();
 			if(!dr)continue;
-			dr.hurtWith(this,react);
+			dr.hurtWith(this);
+			this.send(cOnReact);
+
 		}
 	}
 	protected virtual void attach(Transform tra){
@@ -43,8 +43,9 @@ public class TrnthHVSActionAttackSender : TrnthHVSAction ,ITrnthAttack{
 			spawner.execute();
 		}
 	}
+	protected abstract Collider[] colliders{get;}
 	void react(TrnthHVSConditionAttackReceiver receiver){
 		this.send(cOnReact);
-		onReact(this,receiver);
+		// onReact(this,receiver);
 	}
 }
