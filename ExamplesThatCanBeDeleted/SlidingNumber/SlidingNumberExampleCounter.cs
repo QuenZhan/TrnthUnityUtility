@@ -13,4 +13,7 @@ public class SlidingNumberExampleCounter : MonoBehaviour {
 		slidingNumber.number+=1;
 		Invoke("add",0.1f);
 	}
+	// void Update(){
+		// slidingNumber.number+=Time.deltaTime;
+	// }
 }

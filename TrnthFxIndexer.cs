@@ -3,7 +3,7 @@ using System.Collections;
 using System.Linq;
 public class TrnthFxIndexer : TrnthFx {
 	public enum Directioin{down,left,right,up}
-	public Directioin directioin;
+	[HideInInspector]public Directioin directioin;
 	public int index;
 	public int length=0;
 	public float margin=600;
