@@ -6,4 +6,9 @@ public class TrnthUtilityEditor : Editor {
     	PlayerPrefs.DeleteAll();
     	Debug.Log("PlayerPrefs.DeleteAll() ");
     }
+    [MenuItem("TRNTH/Isolate %&i")]
+    static void isolate(){
+    	TrnthFSM.transit(Selection.activeGameObject);
+    	// ;
+    }
 }
