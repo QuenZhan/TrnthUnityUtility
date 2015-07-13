@@ -14,6 +14,11 @@ public class Utility{
 			}
 		}
 	}
+	public static void transformRest(Transform tra){
+		tra.localPosition=Vector3.zero;
+		tra.localScale=Vector3.one;
+		tra.localEulerAngles=Vector3.zero;
+	}
 	public static T first<T>(IList<T> list){
 		if(list.Count<1)return default(T);
 		return list[0];
