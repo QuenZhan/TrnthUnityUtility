@@ -11,4 +11,8 @@ public class TrnthUtilityEditor : Editor {
     	TrnthFSM.transit(Selection.activeGameObject);
     	// ;
     }
+    [MenuItem("TRNTH/cleanChildren")]
+    static void cleanChildren(){
+        TRNTH.U.cleanChildren(Selection.activeGameObject.transform);
+    }
 }
