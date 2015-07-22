@@ -34,7 +34,7 @@ public class TrnthFSM {
 				// continue;
 			}
 			if(data.parent!=parent)continue;
-			// Debug.LogWarning(System.String.Format("TrnthFSM delta time :{4} . {0}/{1} -> {2}/{3}",data.parent.name,data.child.name,parent.name,child.name,Time.time-data.time),child);
+			Debug.LogWarning(System.String.Format("TrnthFSM delta time :{4} . {0}/{1} -> {2}/{3}",data.parent.name,data.child.name,parent.name,child.name,Time.time-data.time),child);
 		}
 		var _data=new Data(){time=Time.time,parent=parent,child=child};
 		parents.Add(_data);
