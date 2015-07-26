@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class TrnthHVSConditionAttackReceiver :  TrnthHVSCondition {
-
+	[SerializeField]protected DSShell shell;
 	public float damage{get;private set;}
 	public float hpBeforeHit{get;private set;}
 	public TrnthAttack attack{get;private set;}
@@ -21,10 +21,12 @@ public class TrnthHVSConditionAttackReceiver :  TrnthHVSCondition {
 			direction.LookAt(attack.transform);
 		}
 		conditionSend();
-		hp-=damage;
-		if(persistent&&hpBeforeHit>1&&hp.value<1)hp.value=1;
-
-		hp.clamp();
+		if(PhotonNetwork.isMasterClient){
+			hp-=damage;
+			if(persistent&&hpBeforeHit>1&&hp.value<1)hp.value=1;
+			hp.clamp();
+			shell.ghost.photonView.RPC("rpcHpSet",PhotonTargets.All,hp.value);
+		}
 		attack.react(damage);
 		send();
 		log();
@@ -47,5 +49,6 @@ public class TrnthHVSConditionAttackReceiver :  TrnthHVSCondition {
 			}
 		}
 	}
+	
 
 }
