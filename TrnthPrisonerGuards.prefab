@@ -25,10 +25,10 @@ GameObject:
   - 4: {fileID: 451590}
   - 114: {fileID: 11451588}
   - 65: {fileID: 6558304}
-  m_Layer: 0
+  m_Layer: 25
   m_Name: PrisonerGuardLeft
   m_TagString: Untagged
-  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: -1412012063857583412, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -42,10 +42,10 @@ GameObject:
   - 4: {fileID: 451592}
   - 114: {fileID: 11451590}
   - 65: {fileID: 6584510}
-  m_Layer: 0
+  m_Layer: 25
   m_Name: PrisonerGuardRight
   m_TagString: Untagged
-  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: -1412012063857583412, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -56,7 +56,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 151588}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 8.48104763, y: 9.04232883, z: 6.34000015}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 451590}
@@ -97,8 +97,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 30, z: 30}
-  m_Center: {x: -8, y: 0, z: 0}
+  m_Size: {x: 29.8062572, y: 30, z: 30}
+  m_Center: {x: -22.4031353, y: -3.87430191e-07, z: 1.78813934e-07}
 --- !u!65 &6584510
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -109,8 +109,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 30, z: 30}
-  m_Center: {x: 8, y: 0, z: 0}
+  m_Size: {x: 30.4259224, y: 30, z: 30}
+  m_Center: {x: 22.7129574, y: -3.57627869e-07, z: -2.98023224e-07}
 --- !u!114 &11451588
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -145,7 +145,15 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: rightSide
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Layer
+      value: 25
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 151588}

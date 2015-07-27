@@ -20,7 +20,7 @@ public class TrnthHVSConditionAttackReceiver :  TrnthHVSCondition {
 		hpValue-=damage;
 		if(hpValue<0)hpValue=0;
 		if(persistent&&hpBeforeHit>1&&hpValue<1)hpValue=1;
-		var result=new HurtResult(){hp=hpValue
+		result=new HurtResult(){hp=hpValue
 			,lookAt=attack.transform.position
 			,randomSeed=Random.value
 			,force=attack.knockback?1:0
