@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class TrnthHVSConditionAttackReceiver :  TrnthHVSCondition {
-	[SerializeField]protected DSShell shell;
+	// [SerializeField]protected DSShell shell;
 	public float damage{get;private set;}
 	public float hpBeforeHit{get;private set;}
 	public TrnthAttack attack{get;private set;}
@@ -12,21 +12,27 @@ public class TrnthHVSConditionAttackReceiver :  TrnthHVSCondition {
 	[HideInInspector]public TrnthHVSCondition onDie;
 	[HideInInspector]public TrnthHVSCondition onKnockback;
 	public bool persistent;
-	public virtual void hurtWith(TrnthAttack attack,TrnthHVSActionPhysicsCast physicsCast){
+	public void hurtWith(TrnthAttack attack,TrnthHVSActionPhysicsCast physicsCast){
 		this.attack=attack;
 		damage=attack.damage;
-		hpBeforeHit=hp.value;
+		var hpValue=hp.value;
+		hpValue-=damage;
+		if(hpValue<0)hpValue=0;
+		if(persistent&&hpBeforeHit>1&&hpValue<1)hpValue=1;
+		hurtResult(hpValue,attack.transform.position,Random.value);
+	}
+	public virtual void hurtResult(float hp,Vector3 lookAt,float randomSeed){
+		hurtExecute(hp,lookAt,randomSeed);
+	}
+	public void hurtExecute(float hp,Vector3 lookAt,float randomSeed){
 		if(direction){
 			direction.transform.position=transform.position;
-			direction.LookAt(attack.transform);
+			direction.LookAt(lookAt);
 		}
 		conditionSend();
-		if(PhotonNetwork.isMasterClient){
-			hp-=damage;
-			if(persistent&&hpBeforeHit>1&&hp.value<1)hp.value=1;
-			hp.clamp();
-			shell.ghost.photonView.RPC("rpcHpSet",PhotonTargets.All,hp.value);
-		}
+		hpBeforeHit=this.hp.value;
+		var damage=this.hp.value - hp;
+		this.hp.value=hp;
 		attack.react(damage);
 		send();
 		log();
@@ -35,17 +41,12 @@ public class TrnthHVSConditionAttackReceiver :  TrnthHVSCondition {
 		var isDead=damage>hp.value;
 		if(persistent)isDead=damage>hp.value&&hp.rate==0;
 		if(isDead){
-			// if(toDie){
-			// 	toDie.execute();
-			// }
 			if(onDie)onDie.send();
 		}else{
 			if(attack.knockback){
-				// if(knockback)knockback.execute();
 				if(onKnockback)onKnockback.send();
 			}else{
-				// if(toHurt)toHurt.execute();
-				if(onHurt)onHurt.send();			
+				if(onHurt)onHurt.send();
 			}
 		}
 	}
