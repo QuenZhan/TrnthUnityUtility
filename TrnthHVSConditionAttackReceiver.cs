@@ -6,7 +6,7 @@ public class TrnthHVSConditionAttackReceiver :  TrnthHVSCondition {
 	public float damage{get;private set;}
 	public float hpBeforeHit{get;private set;}
 	public TrnthAttack attack{get;private set;}
-	public TrnthRadio hp;
+	[SerializeField]public TrnthRadio hp;
 	public Transform direction;
 	[HideInInspector]public TrnthHVSCondition onHurt;
 	[HideInInspector]public TrnthHVSCondition onDie;
@@ -50,6 +50,5 @@ public class TrnthHVSConditionAttackReceiver :  TrnthHVSCondition {
 			}
 		}
 	}
-	
 
 }
