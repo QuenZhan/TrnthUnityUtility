@@ -21,6 +21,7 @@ public class TrnthConstraintFixedUpdatePrisonerGuard : MonoBehaviour {
 		}
 	}
 	void free(){
+		if(!prisoner)return;
 		switch(border){
 		case Border.left	:prisoner.left	=-Mathf.Infinity;break;
 		case Border.right	:prisoner.right	=Mathf.Infinity;break;
