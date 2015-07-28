@@ -6,7 +6,6 @@ public class TrnthConstraintFixedUpdatePrisonerGuard : MonoBehaviour {
 	public TrnthConstraintFixedUpdatePrisoner prisoner;
 	public string find="CameraFoot";
 	[SerializeField]public Border border;
-	 // bool rightSide;
 	public void execute(){
 		if(!prisoner){
 			var go=GameObject.Find(find);
@@ -21,11 +20,18 @@ public class TrnthConstraintFixedUpdatePrisonerGuard : MonoBehaviour {
 		case Border.right	:prisoner.right	=transform.position.x;break;
 		}
 	}
+	void free(){
+		switch(border){
+		case Border.left	:prisoner.left	=-Mathf.Infinity;break;
+		case Border.right	:prisoner.right	=Mathf.Infinity;break;
+		}
+	}
 	void OnEnable(){
 		execute();
 	}
 	void OnDisable(){
 		CancelInvoke();
+		free();
 	}
 	void OnDrawGizmos(){
 		var direction=border==Border.right?1:-1;
