@@ -2,23 +2,32 @@
 using System.Collections;
 
 public class TrnthHVSActionInstantiate : TrnthHVSAction {	
-	public GameObject prefab;
-	public bool beChild=false;
-	public bool positionFit=true;
-	public bool rotationFit;
-	public TrnthHVSCondition onSucceed;
-	public TrnthHVSCondition onFail;
+	[SerializeField] protected GameObject prefab;
+	[SerializeField] bool beChild=false;
+	[SerializeField] bool positionFit=true;
+	[SerializeField] bool rotationFit;
+	[SerializeField] protected float life;
+	[SerializeField] TrnthHVSCondition onSucceed;
+	[SerializeField] TrnthHVSCondition onFail;
 	public GameObject instantiated{get;private set;}
 	protected override void _execute(){
-		base._execute();
-		instantiated=Instantiate(prefab) as GameObject;
+		var position=prefab.transform.position;
+		var rotation=prefab.transform.rotation;
+		Transform parent=null;
+		if(positionFit)position=this.transform.position;
+		if(rotationFit)rotation=this.transform.rotation;
+		if(beChild)parent=this.transform;
+		instantiated=create(position,rotation,parent);
 		if(!instantiated){
-			if(onFail)onFail.send();
+			send(onFail);
 			return;
 		}
-		if(positionFit)instantiated.transform.position=transform.position;
-		if(rotationFit)instantiated.transform.eulerAngles=transform.eulerAngles;
-		if(beChild)instantiated.transform.parent=transform;
 		if(onSucceed)onSucceed.send();
+	}
+	protected virtual GameObject create(Vector3 position,Quaternion rotation,Transform parent){
+		var ins=Instantiate(prefab,position,rotation) as GameObject;
+		ins.transform.parent=parent;
+		if(life>0)Destroy(ins,life);
+		return ins;
 	}
 }
