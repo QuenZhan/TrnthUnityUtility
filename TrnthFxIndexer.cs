@@ -1,14 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
-using System.Linq;
 public class TrnthFxIndexer : TrnthFx {
-	public enum Directioin{down,left,right,up}
-	[HideInInspector]public Directioin directioin;
-	public int index;
-	public int length=0;
-	public float margin=600;
-	public float orgin=0;
-	public float rate=0.2f;
+	[SerializeField]public int length=0;
+	[SerializeField]public float margin=600;
+	[SerializeField]public float orgin=0;
+	[SerializeField]public float rate=0.2f;
+	public event System.Action<TrnthFxIndexer,int> onChanged=delegate{};
+	public int index{get{return _index;}set{_index=value;onChanged(this,_index);}}
 	[ContextMenu("set to current index")]
 	public void execute(){
 		update(1);
@@ -21,36 +19,20 @@ public class TrnthFxIndexer : TrnthFx {
 		clamp();
 		var yy=orgin+index*margin;
 		var vec=transform.localPosition;
-		switch(directioin){
-		case Directioin.up:
-			yy=orgin-index*margin;
-			vec.y+=(yy-vec.y)*rate;	
-			break;
-		case Directioin.down:
-			vec.y+=(yy-vec.y)*rate;	
-			break;
-		case Directioin.left:
-			vec.x+=(yy-vec.x)*rate;
-			break;
-		case Directioin.right:
-			yy=orgin-index*margin;
-			vec.x+=(yy-vec.x)*rate;
-			break;
-		}
+		vec.y+=(yy-vec.y)*rate;	
 		transform.localPosition=vec;
-		// childSetup(transform,vec);
 	}
 	public void setRounded(){
 		var delta=0f;
-		switch(directioin){
-		case Directioin.down	:delta=-transform.localPosition.y-orgin;break;
-		case Directioin.up		:delta=transform.localPosition.y-orgin;break;
-		case Directioin.right	:delta=-transform.localPosition.x-orgin;break;
-		case Directioin.left	:delta=transform.localPosition.x-orgin;break;
-		}
-		// Debug.Log(delta);
+		delta=-transform.localPosition.y-orgin;
 		index=(int)Mathf.Round(delta/margin);
 		clamp();
+	}
+	public Vector3 localPositionAt(int index){
+		var yy=orgin+index*margin;
+		var vec=transform.localPosition;
+		vec.y=yy;
+		return vec;
 	}
 	public void clamp(){
 		if(length!=0){
@@ -60,24 +42,19 @@ public class TrnthFxIndexer : TrnthFx {
 	}
 	[ContextMenu("sort children by alphabet")]
 	public void setup(){
-		var children=transform.Cast<Transform>().ToArray();
-		var q=from child in children
-			orderby child.name 
-			select child;
-		children=q.ToArray();
-		length=children.Length;
-		_setup(children);
+		// var children=transform.Cast<Transform>().ToArray();
+		// var q=from child in children
+		// 	orderby child.name 
+		// 	select child;
+		// children=q.ToArray();
+		// length=children.Length;
+		// _setup(children);
 	}
 	Vector3 _vecDirection=Vector3.zero;
 	protected Vector3 vecDirection{get{
 		// if(_vecDirection!=Vector3.zero)return _vecDirection;
 		var vec=Vector3.zero;
-		switch(directioin){
-		case Directioin.down:vec=-Vector3.up;break;
-		case Directioin.up:vec=Vector3.up;break;
-		case Directioin.left:vec=-Vector3.right;break;
-		case Directioin.right:vec=Vector3.right;break;
-		}
+		vec=-Vector3.up;
 		_vecDirection=vec;
 		return _vecDirection;
 	}}
@@ -90,4 +67,5 @@ public class TrnthFxIndexer : TrnthFx {
 		}
 	}
 	protected virtual void childSetup(Transform child,Vector3 direction){}
+	int _index;
 }
