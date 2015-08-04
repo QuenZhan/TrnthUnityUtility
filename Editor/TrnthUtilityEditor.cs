@@ -12,11 +12,11 @@ public class TrnthUtilityEditor : Editor {
     	TrnthFSM.transit(Selection.activeGameObject);
     	// ;
     }
-    [MenuItem("TRNTH/IsolateUpward %&i")]
+    [MenuItem("TRNTH/ActiveUpward %&i")]
     static void isolateUpward(){
         var list=new List<Transform>();
         var now=Selection.activeGameObject.transform;
-        TrnthFSM.transit(now);
+        // TrnthFSM.transit(now);
         for(var i=0;i<10;i++){
             if(now==null||now.parent==null)break;
             list.Add(now);
