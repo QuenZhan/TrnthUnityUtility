@@ -2,17 +2,15 @@
 using System.Collections;
 
 public class TrnthHVSConditionAttackReceiver :  TrnthHVSCondition {
-	// [SerializeField]protected DSShell shell;
 	public float damage{get;private set;}
 	public float hpBeforeHit{get;private set;}
 	public HurtResult result;
-	// public TrnthAttack attack{get;private set;}
 	[SerializeField]public TrnthRadio hp;
-	public Transform direction;
+	[SerializeField]public Transform direction;
+	[SerializeField]public bool persistent;
 	[HideInInspector]public TrnthHVSCondition onHurt;
 	[HideInInspector]public TrnthHVSCondition onDie;
 	[HideInInspector]public TrnthHVSCondition onKnockback;
-	public bool persistent;
 	public void hurtWith(TrnthAttack attack,TrnthHVSActionPhysicsCast physicsCast){
 		// this.attack=attack;
 		damage=attack.damage;
@@ -39,7 +37,6 @@ public class TrnthHVSConditionAttackReceiver :  TrnthHVSCondition {
 		}
 		conditionSend(result);
 		hpBeforeHit=this.hp.value;
-		// var damage=this.hp.value - result.hp;
 		this.hp.value=result.hp;
 		send();
 		log();
@@ -59,9 +56,11 @@ public class TrnthHVSConditionAttackReceiver :  TrnthHVSCondition {
 	}
 	public struct HurtResult{
 		public float hp;
+		public int damage;
 		public Vector3 lookAt;
 		public float randomSeed;
 		public float force;
 		public bool showDamage;
+		public string control;
 	}
 }
