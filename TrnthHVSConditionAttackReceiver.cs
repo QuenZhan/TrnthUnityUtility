@@ -18,7 +18,7 @@ public class TrnthHVSConditionAttackReceiver :  TrnthHVSCondition {
 		hpValue-=damage;
 		if(hpValue<0)hpValue=0;
 		if(persistent&&hpBeforeHit>1&&hpValue<1)hpValue=1;
-		result=new HurtResult(){hp=hpValue
+		result=new HurtResult(){hp=(int)hpValue
 			,lookAt=attack.transform.position
 			,randomSeed=Random.value
 			,force=attack.knockback?1:0
@@ -55,7 +55,7 @@ public class TrnthHVSConditionAttackReceiver :  TrnthHVSCondition {
 		}
 	}
 	public struct HurtResult{
-		public float hp;
+		public int hp;
 		public int damage;
 		public Vector3 lookAt;
 		public float randomSeed;
