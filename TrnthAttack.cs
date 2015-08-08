@@ -8,6 +8,7 @@ public class TrnthAttack : MonoBehaviour {
 	public bool knockback;
 	public bool showDamage=false;
 	public TrnthHVSActionSpawn[] attachments;
+	public string control{get{return (knockback)?"repel":"";}}
 	public virtual void react(float damage){
 		this.send(conditionReact);
 		if(onReact){

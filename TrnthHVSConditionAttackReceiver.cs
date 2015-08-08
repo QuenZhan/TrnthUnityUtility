@@ -21,39 +21,37 @@ public class TrnthHVSConditionAttackReceiver :  TrnthHVSCondition {
 		result=new HurtResult(){hp=(int)hpValue
 			,lookAt=attack.transform.position
 			,randomSeed=Random.value
-			,force=attack.knockback?1:0
-			,damage=damage
+			,damage=(int)damage
 			,showDamage=attack.showDamage
+			,control=attack.control
 		};
 		hurtResult(result,attack);
 		attack.react(damage);
 	}
 	public virtual void hurtResult(HurtResult result,TrnthAttack attack){
-		hurtExecute(result);
+		// hurtExecute(result);
 	}
 	public void hurtExecute(HurtResult result){
-		if(direction){
-			direction.transform.position=transform.position;
-			direction.LookAt(result.lookAt);
-		}
-		conditionSend(result);
-		hpBeforeHit=this.hp.value;
-		this.hp.value=result.hp;
-		send();
-		log();
+		// if(direction){
+		// 	direction.transform.position=transform.position;
+		// 	direction.LookAt(result.lookAt);
+		// }
+		// conditionSend(result);
+		// send();
+		// log();
 	}
 	public virtual void conditionSend(HurtResult result){
-		var isDead=damage>hp.value;
-		if(persistent)isDead=damage>hp.value&&hp.rate==0;
-		if(isDead){
-			if(onDie)onDie.send();
-		}else{
-			if(result.force>0){
-				if(onKnockback)onKnockback.send();
-			}else{
-				if(onHurt)onHurt.send();
-			}
-		}
+		// var isDead=damage>hp.value;
+		// if(persistent)isDead=damage>hp.value&&hp.rate==0;
+		// if(isDead){
+		// 	if(onDie)onDie.send();
+		// }else{
+		// 	if(result.force>0){
+		// 		if(onKnockback)onKnockback.send();
+		// 	}else{
+		// 		if(onHurt)onHurt.send();
+		// 	}
+		// }
 	}
 	public struct HurtResult{
 		public int hp;
