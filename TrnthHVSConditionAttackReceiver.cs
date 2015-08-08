@@ -22,6 +22,7 @@ public class TrnthHVSConditionAttackReceiver :  TrnthHVSCondition {
 			,lookAt=attack.transform.position
 			,randomSeed=Random.value
 			,force=attack.knockback?1:0
+			,damage=damage
 			,showDamage=attack.showDamage
 		};
 		hurtResult(result,attack);
