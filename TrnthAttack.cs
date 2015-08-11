@@ -22,21 +22,26 @@ public class TrnthAttack : MonoBehaviour,ITrnthAttackOffensive {
 	public float criticalStikeChance{get;set;}
 	public float criticalStikeScale{get;set;}
 	
-	public string[] tags{get{
-		// var z = new string[x.Length + y.Length];
-		// x.CopyTo(z, 0);
-		// y.CopyTo(z, x.Length);
-		if(knockback){
-			var list=new List<string>(_tags);
-			list.RemoveAll(s=>{return s=="repel";});
-			list.Add("repel");
-			_tags=list.ToArray();
-			// _array[0]="repel";
-			// _tags.CopyTo(_array,1);
-			// _tags=_array;
+	public string[] tags{
+		get{
+			// var z = new string[x.Length + y.Length];
+			// x.CopyTo(z, 0);
+			// y.CopyTo(z, x.Length);
+			if(knockback){
+				var list=new List<string>(_tags);
+				list.RemoveAll(s=>{return s=="repel";});
+				list.Add("repel");
+				_tags=list.ToArray();
+				// _array[0]="repel";
+				// _tags.CopyTo(_array,1);
+				// _tags=_array;
+			}
+			return _tags;
 		}
-		return _tags;
-	}}
+		set{
+			_tags=value;
+		}
+	}
 
 	public Vector3 force{get;set;}
 	public bool showDamage{get{return _showDamage;}}
