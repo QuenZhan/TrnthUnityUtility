@@ -7,8 +7,12 @@ public interface ITrnthAttackOffensive {
 	float criticalStikeChance{get;}
 	float criticalStikeScale{get;}
 	
+	string[] tags{get;}
+
 	Vector3 force{get;}
 	bool showDamage{get;}
 
 	Transform tra{get;}
+	Vector3 position{get;}
+	void react(ITrnthAttackDefensive defensive);
 }

@@ -15,9 +15,8 @@ public class TrnthHVSActionAttackSender : TrnthHVSAction {
 		foreach(Collider e in colliders){
 			attack.attach(e.transform);
 			var dr=e.GetComponent<TrnthHVSConditionAttackReceiver>();
-			// if(!dr)dr=GetComponent<TrnthHVSConditionAttackReceiver>();
 			if(!dr)continue;
-			dr.hurtWith(attack,pc);
+			dr.hurtWith(attack);
 		}
 	}
 	// Collider[] colliders=new Collider[0];

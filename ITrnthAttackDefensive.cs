@@ -6,5 +6,7 @@ public interface ITrnthAttackDefensive {
 	float resistence{get;}
 	float reduction{get;}
 
+	string[] tags{get;}
+
 	Transform tra{get;}
 }
