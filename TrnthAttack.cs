@@ -18,7 +18,7 @@ public class TrnthAttack : MonoBehaviour,ITrnthAttackOffensive {
 		return damageBase+Random.value*damageNoise;
 	}}
 	public float penetration{get;set;}
-	public float criticalStikeChance{get{return 0.2f;}}
+	public float criticalStikeChance{get{return 0.08f;}}
 	public float criticalStikeScale{get{return 2;}}
 	
 	public string[] tags{
