@@ -5,7 +5,7 @@ public class TrnthAttackFormula{
 	static public Result caculate(ITrnthAttackOffensive offensive,ITrnthAttackDefensive defensive){
 		var result=new Result();
 		result.criticalStrike=Random.value<offensive.criticalStikeChance;
-		result.damage=offensive.damage*Random.value;
+		result.damage=offensive.damage;
 		if(result.criticalStrike)result.damage+=offensive.damage*offensive.criticalStikeScale;
 		result.damage=result.damage*(100f/(100f+defensive.resistence-offensive.penetration))- defensive.reduction;
 		result.randomSeed=Random.value;
