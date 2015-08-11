@@ -6,7 +6,6 @@ using TRNTH;
 public class TrnthAttack : MonoBehaviour,ITrnthAttackOffensive {
 	[SerializeField]TrnthHVSCondition conditionReact;
 	[SerializeField]string[] _tags;
-	[SerializeField]float _criticalStikeChance;
 	[FormerlySerializedAsAttribute("showDamage")]
 	[SerializeField]bool _showDamage=false;
 	[SerializeField]public float damageBase=30;
