@@ -1,17 +1,17 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public abstract class TrnthHVSConditionAttackReceiver :  TrnthHVSCondition {
-	public float damage{get;private set;}
-	public float hpBeforeHit{get;private set;}
-	public HurtResult result;
-	[SerializeField]public TrnthRadio hp;
-	[SerializeField]public Transform direction;
-	[SerializeField]public bool persistent;
-	[HideInInspector]public TrnthHVSCondition onHurt;
-	[HideInInspector]public TrnthHVSCondition onDie;
-	[HideInInspector]public TrnthHVSCondition onKnockback;
-	public abstract void hurtWith(ITrnthAttackOffensive attack);
+public class TrnthHVSConditionAttackReceiver :  TrnthHVSCondition {
+	// public float damage{get;private set;}
+	// public float hpBeforeHit{get;private set;}
+	// public HurtResult result;
+	// [SerializeField]public TrnthRadio hp;
+	// [SerializeField]public Transform direction;
+	// [SerializeField]public bool persistent;
+	// [HideInInspector]public TrnthHVSCondition onHurt;
+	// [HideInInspector]public TrnthHVSCondition onDie;
+	// [HideInInspector]public TrnthHVSCondition onKnockback;
+	public virtual void hurtWith(ITrnthAttackOffensive attack){;}
 		// damage=attack.damage;
 		// var hpValue=hp.value;
 		// hpValue-=damage;
