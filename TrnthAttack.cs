@@ -10,7 +10,7 @@ public class TrnthAttack : MonoBehaviour,ITrnthAttackOffensive {
 	[SerializeField]bool _showDamage=false;
 	[SerializeField]public float damageBase=30;
 	[SerializeField]public float damageNoise=10;
-	[HideInInspector]public bool knockback;
+	// [HideInInspector]public bool knockback;
 
 	[HideInInspector]public GameObject onReact; // obsolute
 	public virtual float damage{get{
@@ -26,15 +26,12 @@ public class TrnthAttack : MonoBehaviour,ITrnthAttackOffensive {
 			// var z = new string[x.Length + y.Length];
 			// x.CopyTo(z, 0);
 			// y.CopyTo(z, x.Length);
-			if(knockback){
-				var list=new List<string>(_tags);
-				list.RemoveAll(s=>{return s=="repel";});
-				list.Add("repel");
-				_tags=list.ToArray();
-				// _array[0]="repel";
-				// _tags.CopyTo(_array,1);
-				// _tags=_array;
-			}
+			// if(knockback){
+			// 	var list=new List<string>(_tags);
+			// 	list.RemoveAll(s=>{return s=="repel";});
+			// 	list.Add("repel");
+			// 	_tags=list.ToArray();
+			// }
 			return _tags;
 		}
 		set{
