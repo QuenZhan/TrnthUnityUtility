@@ -14,5 +14,4 @@ public interface ITrnthAttackOffensive {
 
 	Transform tra{get;}
 	Vector3 position{get;}
-	void react(ITrnthAttackDefensive defensive);
 }

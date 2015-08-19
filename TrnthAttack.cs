@@ -10,9 +10,9 @@ public class TrnthAttack : MonoBehaviour,ITrnthAttackOffensive {
 	[SerializeField]bool _showDamage=false;
 	[SerializeField]public float damageBase=30;
 	[SerializeField]public float damageNoise=10;
-	// [HideInInspector]public bool knockback;
-
 	[HideInInspector]public GameObject onReact; // obsolute
+	public virtual IDSTeamReport report{get{return null;}}
+
 	public virtual float damage{get{
 		// var damage=damageBase;
 		return damageBase+Random.value*damageNoise;

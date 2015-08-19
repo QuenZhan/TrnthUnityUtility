@@ -11,7 +11,7 @@ public class TrnthHVSConditionAttackReceiver :  TrnthHVSCondition {
 	// [HideInInspector]public TrnthHVSCondition onHurt;
 	// [HideInInspector]public TrnthHVSCondition onDie;
 	// [HideInInspector]public TrnthHVSCondition onKnockback;
-	public virtual void hurtWith(ITrnthAttackOffensive attack){;}
+	public virtual void hurtWith(IDSTeamReport report,ITrnthAttackOffensive attack){;}
 		// damage=attack.damage;
 		// var hpValue=hp.value;
 		// hpValue-=damage;
