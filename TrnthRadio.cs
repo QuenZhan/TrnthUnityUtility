@@ -1,15 +1,15 @@
 ﻿using UnityEngine;
 [System.Serializable]
-public class TrnthRadio:MonoBehaviour,ITrnthRadioGet{
+public class TrnthRadio:MonoBehaviour,ITrnthRadioGet,ITrnthRadio{
+	[SerializeField]float _value;
 	[SerializeField]float _length=100;
-	// [SerializeField]float _rate=1;
-	public float length{get{return _length;}set{_length=value;onChanged(this);}}
+	public float length{get{return _length;}set{_length=value;onChange(this);}}
 	public float rate{
 		get{
 			return _value/_length;
 		}set{
 			_value=value*_length;
-			onChanged(this);
+			onChange(this);
 		}
 	}
 	public bool fullOnEnable=true;
@@ -25,7 +25,7 @@ public class TrnthRadio:MonoBehaviour,ITrnthRadioGet{
 		set{
 			if(value)rate=1f;
 			else rate=0f;
-			onChanged(this);
+			onChange(this);
 		}
 	}
 	public float value{
@@ -33,19 +33,18 @@ public class TrnthRadio:MonoBehaviour,ITrnthRadioGet{
 			return _value;
 		}set{
 			_value=value;
-			onChanged(this);
+			onChange(this);
 		}
 	}
 	public void clamp(){
 		if(rate<0)rate=0;
 		if(rate>1)rate=1;
-		onChanged(this);
+		onChange(this);
 	}
 	public string stringPercent(){
 		return (int)(rate*100)+"%";
 	}
-	public event System.Action<TrnthRadio> onChanged=delegate{};
-	float _value;
+	public event System.Action<ITrnthRadio> onChange=delegate{};
 	void OnEnable(){
 		if(fullOnEnable)toggle=true;
 	}
