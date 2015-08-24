@@ -13,14 +13,6 @@ public class TrnthRadio:MonoBehaviour,ITrnthRadioGet,ITrnthRadio{
 		}
 	}
 	public bool fullOnEnable=true;
-	// public GameObject onEdge;
-	public static TrnthRadio operator +(TrnthRadio a,float b){
-		a.rate+=b/a.length;
-		return a;
-	}		
-	public static TrnthRadio operator -(TrnthRadio a,float b){
-		return a+b*-1;
-	}
 	public bool toggle{
 		set{
 			if(value)rate=1f;
