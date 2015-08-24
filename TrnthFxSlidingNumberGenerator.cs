@@ -20,7 +20,7 @@ public class TrnthFxSlidingNumberGenerator:MonoBehaviour{
 			group.transform.localPosition=new Vector3(-i*marginDigit,0,0);
 			for(int j=0;j<10;j++){
 				var ins=Instantiate(prefab) as UnityEngine.UI.Text;
-				ins.transform.parent=group.transform;
+				ins.transform.SetParent(group.transform);
 				ins.text=j.ToString();
 				ins.name=ins.text;
 				// ins.transform.localPosition=new Vector3(0,j*marginNumber,0);
