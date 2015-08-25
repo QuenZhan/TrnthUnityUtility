@@ -4,7 +4,7 @@ using System.Collections;
 [System.Serializable]
 public class TrnthRadioData : ITrnthRadio,ITrnthRadioGet {
 	public float rate{
-		get{return value/length;}
+		get{return (length==0)?0:value/length;}
 		set{
 			if(this.value!=value){
 				this.value=value*length;
