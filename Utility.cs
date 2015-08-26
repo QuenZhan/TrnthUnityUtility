@@ -29,7 +29,10 @@ public class Utility{
 	}
 	public static T ParseEnum<T>( string value ){
 		var names=new List<string>(System.Enum.GetNames(typeof(T)));
-		if(!names.Contains(value))return default(T);
+		if(!names.Contains(value)){
+			Debug.LogWarning("ParseEnum<T> !names.Contains(value)");
+			return default(T);
+		}
 	    return (T) System.Enum.Parse( typeof( T ), value, true );
 	}
 	static public string stringWithNumber(int number,int digit){
