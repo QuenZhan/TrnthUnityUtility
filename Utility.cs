@@ -28,6 +28,8 @@ public class Utility{
 		return list[list.Count-1];
 	}
 	public static T ParseEnum<T>( string value ){
+		var names=new List<string>(System.Enum.GetNames(typeof(T)));
+		if(!names.Contains(value))return default(T);
 	    return (T) System.Enum.Parse( typeof( T ), value, true );
 	}
 	static public string stringWithNumber(int number,int digit){
