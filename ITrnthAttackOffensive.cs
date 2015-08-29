@@ -4,8 +4,8 @@ using System.Collections;
 public interface ITrnthAttackOffensive {
 	float damage{get;}
 	float penetration{get;}
-	float criticalStikeChance{get;}
-	float criticalStikeScale{get;}
+	float criticalStrikeChance{get;}
+	float criticalStrikeScale{get;}
 	
 	string[] tags{get;}
 
