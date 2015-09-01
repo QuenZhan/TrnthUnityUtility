@@ -6,6 +6,8 @@ public interface ITrnthAttackOffensive {
 	float penetration{get;}
 	float criticalStrikeChance{get;}
 	float criticalStrikeScale{get;}
+
+	IDSTeamMember member{get;}
 	
 	string[] tags{get;}
 

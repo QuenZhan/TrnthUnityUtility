@@ -12,6 +12,7 @@ public class TrnthAttack : MonoBehaviour,ITrnthAttackOffensive {
 	[SerializeField]public float damageNoise=10;
 	[HideInInspector]public GameObject onReact; // obsolute
 	public virtual IDSTeamReport report{get{return null;}}
+	public virtual IDSTeamMember member{get{return null;}}
 
 	public virtual float damage{get{
 		// var damage=damageBase;
