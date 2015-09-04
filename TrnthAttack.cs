@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.Serialization;
 using TRNTH;
-public class TrnthAttack : MonoBehaviour,ITrnthAttackOffensive {
+public abstract class TrnthAttack : MonoBehaviour,ITrnthAttackOffensive {
 	[SerializeField]TrnthHVSCondition conditionReact;
 	[SerializeField]string[] _tags;
 	[FormerlySerializedAsAttribute("showDamage")]
@@ -11,8 +11,8 @@ public class TrnthAttack : MonoBehaviour,ITrnthAttackOffensive {
 	[SerializeField]public float damageBase=30;
 	[SerializeField]public float damageNoise=10;
 	[HideInInspector]public GameObject onReact; // obsolute
-	public virtual IDSTeamReport report{get{return null;}}
-	public virtual IDSTeamMember member{get{return null;}}
+	public abstract IDSTeamReport report{get;}
+	public abstract IDSTeamMember member{get;}
 
 	public virtual float damage{get{
 		// var damage=damageBase;
@@ -24,15 +24,6 @@ public class TrnthAttack : MonoBehaviour,ITrnthAttackOffensive {
 	
 	public string[] tags{
 		get{
-			// var z = new string[x.Length + y.Length];
-			// x.CopyTo(z, 0);
-			// y.CopyTo(z, x.Length);
-			// if(knockback){
-			// 	var list=new List<string>(_tags);
-			// 	list.RemoveAll(s=>{return s=="repel";});
-			// 	list.Add("repel");
-			// 	_tags=list.ToArray();
-			// }
 			return _tags;
 		}
 		set{
@@ -58,10 +49,6 @@ public class TrnthAttack : MonoBehaviour,ITrnthAttackOffensive {
 		foreach(var spawner in attachments){
 			spawner.transform.position=tra.position;
 			spawner.execute();
-			// if(!spawner.spawned)continue;
-			// var constraint=spawner.spawned.GetComponent<TrnthConstraintPosition>();
-			// if(!constraint)constraint=spawner.spawned.gameObject.AddComponent<TrnthConstraintPosition>();
-			// constraint.position=tra;
 		}
 	}
 }
