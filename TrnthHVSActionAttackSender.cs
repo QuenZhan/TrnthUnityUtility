@@ -8,7 +8,6 @@ public class TrnthHVSActionAttackSender : TrnthHVSAction {
 	public TrnthAttack attack;
 	protected override void _execute(){
 		base._execute();
-		// if(proxy)pc=proxy.physicsCast;
 		var colliders=new Collider[0];
 		if(pc)colliders=pc.colliders;
 		if(conditionCollider)colliders=new Collider[]{conditionCollider.col};
