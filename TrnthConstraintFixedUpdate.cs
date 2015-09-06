@@ -17,6 +17,11 @@ public class TrnthConstraintFixedUpdate : MonoBehaviour {
 		if(fixedUpdate)update(target.position);
 	}
 	void Update(){
+		if(!target){
+			enabled=false;
+			Debug.Log("!target");
+			return;
+		}
 		if(!fixedUpdate)update(target.position);
 	}
 }
