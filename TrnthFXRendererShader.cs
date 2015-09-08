@@ -29,5 +29,9 @@ public class TrnthFXRendererShader : MonoBehaviour {
 	void OnEnable(){
 		start();
 	}
+	void OnDisable(){
+		CancelInvoke();
+		end();
+	}
 
 }
