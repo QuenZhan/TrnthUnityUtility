@@ -26,12 +26,12 @@ public class TrnthFXRendererShader : MonoBehaviour {
 			dic.Add(e,e.shader);
 		}
 	}
-	void OnEnable(){
+	protected void OnEnable(){
 		start();
 	}
-	void OnDisable(){
-		CancelInvoke();
+	protected void OnDisable(){
 		end();
+		CancelInvoke();
 	}
 
 }
