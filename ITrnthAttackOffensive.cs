@@ -9,6 +9,7 @@ public interface ITrnthAttackOffensive {
 
 	IDSTeamMember member{get;}
 	
+	string control{get;}
 	string[] tags{get;}
 
 	Vector3 force{get;}

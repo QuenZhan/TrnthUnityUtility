@@ -22,6 +22,14 @@ public abstract class TrnthAttack : MonoBehaviour,ITrnthAttackOffensive {
 	public float criticalStrikeChance{get{return 0.08f;}}
 	public float criticalStrikeScale{get;set;}
 	
+	public string control{get{
+		if(System.Array.Exists(_tags,t=>{return t=="scartter";}))return "scartter";
+		if(System.Array.Exists(_tags,t=>{return t=="blowaway";}))return "blowaway";
+		if(System.Array.Exists(_tags,t=>{return t=="repel";}))return "repel";
+		if(System.Array.Exists(_tags,t=>{return t=="faint";}))return "faint";
+		if(System.Array.Exists(_tags,t=>{return t=="bother";}))return "bother";
+		return "";
+	}}
 	public string[] tags{
 		get{
 			return _tags;
