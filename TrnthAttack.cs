@@ -18,9 +18,9 @@ public abstract class TrnthAttack : MonoBehaviour,ITrnthAttackOffensive {
 		// var damage=damageBase;
 		return damageBase+Random.value*damageNoise;
 	}}
-	public float penetration{get;set;}
-	public float criticalStrikeChance{get{return 0.08f;}}
-	public float criticalStrikeScale{get;set;}
+	public virtual float penetration{get;set;}
+	public virtual float criticalStrikeChance{get{return 0.08f;}}
+	public virtual float criticalStrikeScale{get;set;}
 	
 	public string control{get{
 		if(System.Array.Exists(_tags,t=>{return t=="scartter";}))return "scartter";
@@ -31,7 +31,7 @@ public abstract class TrnthAttack : MonoBehaviour,ITrnthAttackOffensive {
 		if(System.Array.Exists(_tags,t=>{return t=="bother";}))return "bother";
 		return "";
 	}}
-	public string[] tags{
+	public virtual string[] tags{
 		get{
 			return _tags;
 		}

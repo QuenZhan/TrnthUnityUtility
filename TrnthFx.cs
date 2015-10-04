@@ -20,7 +20,7 @@ public class TrnthFx:MonoBehaviour{
 	}
 	protected void OnDisable(){
 		CancelInvoke();
-		end();
+		// end();
 	}
 	protected void Update(){
 		update();
