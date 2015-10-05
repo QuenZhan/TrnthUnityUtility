@@ -67,5 +67,5 @@ public class TrnthFxIndexer : TrnthFx {
 		}
 	}
 	protected virtual void childSetup(Transform child,Vector3 direction){}
-	int _index;
+	[SerializeField]int _index;
 }
