@@ -11,6 +11,7 @@ public abstract class TrnthAttack : MonoBehaviour,ITrnthAttackOffensive {
 	[SerializeField]public float damageBase=30;
 	[SerializeField]public float damageNoise=10;
 	[HideInInspector]public GameObject onReact; // obsolute
+	public float whiteCriticalStrikeChance;
 	public abstract IDSTeamReport report{get;}
 	public abstract IDSTeamMember member{get;}
 
@@ -18,7 +19,7 @@ public abstract class TrnthAttack : MonoBehaviour,ITrnthAttackOffensive {
 		return damageBase+Random.value*damageNoise;
 	}}
 	public virtual float penetration{get;set;}
-	public virtual float criticalStrikeChance{get{return 0.08f;}}
+	public virtual float criticalStrikeChance{get{return whiteCriticalStrikeChance;}}
 	public virtual float criticalStrikeScale{get;set;}
 	
 	public abstract string control{get;set;}
