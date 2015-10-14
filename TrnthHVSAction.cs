@@ -18,7 +18,7 @@ public class TrnthHVSAction : TrnthHVS {
 		execute(null);
 	}
 	public void execute(TrnthHVSCondition condition){
-		if(!enabled)return;
+		if(!this||!enabled)return;
 		if(delay==0){
 			_execute();
 		}else {
