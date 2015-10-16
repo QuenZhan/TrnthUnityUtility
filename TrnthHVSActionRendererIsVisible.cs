@@ -3,7 +3,7 @@ using System.Collections;
 using TRNTH;
 
 public class TrnthHVSActionRendererIsVisible : TrnthHVSAction {
-	public new Renderer renderer;
+	public Renderer renderer;
 	public TrnthHVSCondition onTrue;
 	public TrnthHVSCondition onFalse;
 	protected override void _execute(){
