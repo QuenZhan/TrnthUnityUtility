@@ -28,7 +28,7 @@ public abstract class TrnthAttack : MonoBehaviour,ITrnthAttackOffensive {
 	public bool showDamage{get{return _showDamage;}}
 
 	public Transform tra{get{return this.transform;}}
-	public Vector3 position{get{return this.transform.position;}}
+	public virtual Vector3 position{get{return this.transform.position;}}
 
 	public TrnthHVSActionSpawn[] attachments;
 	public virtual void react(ITrnthAttackDefensive defensive){
