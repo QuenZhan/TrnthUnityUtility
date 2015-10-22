@@ -10,7 +10,10 @@ public class TrnthHVSActionAttackSender : TrnthHVSAction {
 		base._execute();
 		var colliders=new Collider[0];
 		if(pc)colliders=pc.colliders;
-		if(conditionCollider)colliders=new Collider[]{conditionCollider.col};
+		if(conditionCollider){
+			colliders=new Collider[]{conditionCollider.col};
+			// conditionCollider.col=null;
+		}
 		foreach(Collider e in colliders){
 			if(!e)continue;
 			attack.attach(e.transform);

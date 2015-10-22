@@ -5,7 +5,11 @@ using System.Linq;
 public class TrnthHVSConditionCollider : TrnthHVSCondition {
 	public bool includeTrigger=true;
 	public string[] include;
-	public Collider col{get{return _col;}}
+	public Collider col{get{
+		var collider=_col;
+		_col=null;
+		return collider;
+	}}
 	public override string extraMsg{get{
 		return "Collider : "+_col.name;
 	}}
