@@ -38,6 +38,8 @@ public abstract class TrnthAttack : MonoBehaviour,ITrnthAttackOffensive {
 			onReact.SetActive(false);			
 		}
 	}
+	public abstract bool contains(string tag);
+	public abstract float value(string tag);
 	public virtual void attach(Transform tra){
 		foreach(var spawner in attachments){
 			spawner.transform.position=tra.position;

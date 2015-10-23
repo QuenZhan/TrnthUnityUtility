@@ -17,4 +17,6 @@ public interface ITrnthAttackOffensive {
 
 	Transform tra{get;}
 	Vector3 position{get;}
+	bool contains(string tag);
+	float value(string tag);
 }
