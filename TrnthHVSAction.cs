@@ -38,7 +38,7 @@ public class TrnthHVSAction : TrnthHVS {
 	public void resetDelay(){
 		delay=0;
 	}
-	void Start(){
+	protected void Start(){
 		// for show enabled / disabled checkbox on inspector
 	}
 }

@@ -12,7 +12,6 @@ public class TrnthHVSActionAttackSender : TrnthHVSAction {
 		if(pc)colliders=pc.colliders;
 		if(conditionCollider){
 			colliders=new Collider[]{conditionCollider.col};
-			// conditionCollider.col=null;
 		}
 		foreach(Collider e in colliders){
 			if(!e)continue;
@@ -21,5 +20,14 @@ public class TrnthHVSActionAttackSender : TrnthHVSAction {
 			if(!dr)continue;
 			dr.hurtWith(attack.report,attack);
 		}
+	}
+	protected void OnEnable(){
+		var dsAttack=(attack as DSMAttack);
+		if(!dsAttack
+			||dsAttack.shell==null
+			||dsAttack.shell.member==null
+			)return;
+		if(pc)pc.layermask=1<<dsAttack.shell.member.enemy.layerReciever;
+		if(conditionCollider)conditionCollider.gameObject.layer=dsAttack.shell.member.ally.layerCaster;
 	}
 }
