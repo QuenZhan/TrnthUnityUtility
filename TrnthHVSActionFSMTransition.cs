@@ -8,8 +8,8 @@ public class TrnthHVSActionFSMTransition : TrnthHVSAction {
 	protected override void _execute(){
 		base._execute();
 		TrnthFSM.transit(state.transform);
-		// var fsmManager=state.transform.parent.GetComponent<TrnthFSMManager>();
-		// fsmManager.stateNow=state;
-		// fsmManager.update();
+	}
+	public void execute(GameObject state){
+		TrnthFSM.transit(state);
 	}
 }
