@@ -27,7 +27,7 @@ public class TrnthHVSActionAttackSender : TrnthHVSAction {
 			||dsAttack.shell==null
 			||dsAttack.shell.member==null
 			)return;
-		if(pc)pc.layermask=1<<dsAttack.shell.member.enemy.layerReciever;
-		if(conditionCollider)conditionCollider.gameObject.layer=dsAttack.shell.member.ally.layerCaster;
+		if(pc)pc.layermask=1<<dsAttack.shell.member.team.enemy.layerReciever;
+		if(conditionCollider)conditionCollider.gameObject.layer=dsAttack.shell.member.team.layerCaster;
 	}
 }
