@@ -9,7 +9,7 @@ public abstract class TrnthPositionPicker : MonoBehaviour,ITrnthPositionPicker {
 		pick();
 	}
 	public void pick(){
-		if(pickees.Count<1)return;
+		if(pickees.Count<1 || _locator==null)return;
 		pickees.Sort((a,b)=>{
 			return  (_locator.position - a.positionWorld).magnitude < (_locator.position - b.positionWorld).magnitude ?-1:1;
 		});
