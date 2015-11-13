@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 public abstract class TrnthPositionPicker : MonoBehaviour,ITrnthPositionPicker {
 	[SerializeField]Transform _locator;
+	public Vector3 position{get{return _locator.position;}}
 	public event System.Action<ITrnthPositionPicker,ITrnthPositionPickee> onPicked=delegate{};
 	public virtual void onScrollValueChange(Vector2 vec){
 		pick();
