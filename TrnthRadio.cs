@@ -1,14 +1,15 @@
 ﻿using UnityEngine;
 [System.Serializable]
 public class TrnthRadio:MonoBehaviour,ITrnthRadioGet,ITrnthRadio{
-	[SerializeField]float _value;
-	[SerializeField]float _length=100;
-	public float length{get{return _length;}set{_length=value;onChange(this);}}
+	[SerializeField]float _value=100;
+	[SerializeField]float _min=0;
+	[SerializeField]float _max=100;
+	public float length{get{return _max - _min;}set{_max=_min+value;onChange(this);}}
 	public float rate{
 		get{
-			return _value/_length;
+			return (_value - _min) /length;
 		}set{
-			_value=value*_length;
+			_value=Mathf.Lerp(_min,_max,value);
 			onChange(this);
 		}
 	}
@@ -20,14 +21,9 @@ public class TrnthRadio:MonoBehaviour,ITrnthRadioGet,ITrnthRadio{
 			onChange(this);
 		}
 	}
-	public float value{
-		get{
-			return _value;
-		}set{
-			_value=value;
-			onChange(this);
-		}
-	}
+	public float value{get{return _value;}set{_value=value;onChange(this);}}
+	public float min{get{return _min;}set{_min=value;onChange(this);}}
+	public float max{get{return _max;}set{_max=value;onChange(this);}}
 	public void clamp(){
 		if(rate<0)rate=0;
 		if(rate>1)rate=1;

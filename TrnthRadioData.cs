@@ -4,41 +4,41 @@ using System.Collections;
 [System.Serializable]
 public class TrnthRadioData : ITrnthRadio,ITrnthRadioGet {
 	public float rate{
-		get{return (length==0)?0:value/length;}
+		get{return (length==0)?0:(_value - _min)/length;}
 		set{
-			if(this.value!=value){
-				this.value=value*length;
+			if(_value!=value){
 				onChange(this);
-				return;
 			}
-			this.value=value*length;
+			_value=Mathf.Lerp(_min,_max,value);
 		}
 	}
 	public float value{
 		get{return _value;}
 		set{
 			if(_value!=value){
-				_value=value;
 				onChange(this);
+				// return;
 			}
 			_value=value;
 		}
 	}
 	public float length{
-		get{return _length;}
+		get{return _max	- _min;}
 		set{
-			if(_length!=value){
-				_length=value;
+			if(length!=value){
 				onChange(this);
 			}
-			_length=value;
+			_max=value + _min;
 		}
 	}
 	public void clamp(){
-		if(value>length)value=length;
-		if(value<0)value=0;
+		if(rate>1)rate=1;
+		if(rate<0)rate=0;
 	}
+	public float min{get{return _min;}set{_min=value;onChange(this);}}
+	public float max{get{return _max;}set{_max=value;onChange(this);}}
 	public event System.Action<ITrnthRadio> onChange=delegate{};
-	[SerializeField]float _value;
-	[SerializeField]float _length;
+	[SerializeField]float _value=100;
+	[SerializeField]float _min=0;
+	[SerializeField]float _max=100;
 }
