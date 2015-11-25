@@ -33,5 +33,8 @@ public abstract class TrnthPositionPicker : MonoBehaviour,ITrnthPositionPicker {
 		onPicked(this,pickee);
 	}
 	protected abstract List<ITrnthPositionPickee> pickees{get;}
+	protected virtual void OnEnable(){
+		cooled=true;
+	}
 	ITrnthPositionPickee _pickee;
 }
