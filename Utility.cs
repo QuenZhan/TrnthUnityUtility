@@ -79,6 +79,7 @@ public class Utility{
 	}
 	static public Transform chooseChild(Transform tra){
 		var list=new List<Transform>();
+		// list.Add(tra);
 		foreach(Transform e in tra){
 			list.Add(e);
 		}
