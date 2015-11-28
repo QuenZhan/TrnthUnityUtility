@@ -31,18 +31,14 @@ public class TrnthHVSActionPhysicsCast : TrnthHVSAction {
 					orderby (e.transform.position-transform.position).magnitude
 					select e.collider;
 				isHit=q.Count()>0;
-				colliders=q.Take(1).ToArray();
-
-				// isHit=Physics.SphereCastAll(pos,radius,transform.forward,out hit,distance,layermask.value);
-			}		
-			// if(isHit){
-			// }
+				colliders=q.ToArray();
+			}
 		}
 		if(take!=0){
 			var q=from e in colliders
 				where e!=null
 				orderby (e.transform.position-transform.position).magnitude
-				select e.GetComponent<Collider>();
+				select e;
 			colliders=q.Take(take).ToArray();
 		}
 		eCast(this,colliders);
