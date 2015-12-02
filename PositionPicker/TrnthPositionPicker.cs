@@ -79,24 +79,39 @@ public abstract class TrnthPositionPicker : MonoBehaviour,ITrnthPositionPicker {
 		CancelInvoke("_delayScrollTo");
 	}
 	protected virtual void Awake(){
+		// _gen
+	}
+	[ContextMenu("generate trigger event")]
+	protected void _gen(){
 		_scroll=_group.GetComponentInParent<ScrollRect>();
 		_eventTriggerStuff(_scroll);
-	}	
-	void _eventTriggerStuff(ScrollRect scroll){
-		if(scroll==null)return;		
-		EventTrigger trigger = _scroll.gameObject.AddComponent<EventTrigger>();
-		trigger.delegates.Add(entry(EventTriggerType.BeginDrag),onDragStart);
-		trigger.delegates.Add(entry(EventTriggerType.EndDrag),onDragEnd);
-		trigger.delegates.Add(entry(EventTriggerType.Scroll),onScrollValueChange);
 	}
-	EventTrigger.Entry entry(EventTriggerType type,System.Action<BaseEventData> callback){
-		EventTrigger.Entry entry = new EventTrigger.Entry(){
+	void _eventTriggerStuff(ScrollRect scroll){
+		if(scroll==null)return;
+		var trigger=_scroll.GetComponent<EventTrigger>();
+		if(trigger!=null)return;
+		trigger = _scroll.gameObject.AddComponent<EventTrigger>();
+		trigger.triggers.Add(entry(EventTriggerType.BeginDrag,_onDragStart));
+		trigger.triggers.Add(entry(EventTriggerType.EndDrag,_onDragEnd));
+		// trigger.triggers.Add(entry(EventTriggerType.Scroll,_onScroll));
+	}
+	EventTrigger.Entry entry(EventTriggerType type,UnityEngine.Events.UnityAction<BaseEventData> callback){
+		var entry = new EventTrigger.Entry(){
 			eventID = type
 			,callback = new EventTrigger.TriggerEvent()
 		};
-		// var call = new UnityEngine.Events.UnityAction<BaseEventData>(TestFunc);
-		entry.callback.AddListener(callback);
+		// entry.callback.AddListener(callback);
+		entry.callback.AddListener((data)=>{Debug.Log("entry.callback.AddListener");});
 		return entry;
+	}
+	public void _onDragEnd(BaseEventData data){
+		onDragEnd();
+	}
+	public void _onDragStart(BaseEventData data){
+		onDragStart();
+	}
+	public void _onScroll(BaseEventData data){
+		onScrollValueChange(Vector2.zero);
 	}
 	ScrollRect _scroll;
 	ITrnthPositionPickee _pickee;
