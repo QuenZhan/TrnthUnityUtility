@@ -13,6 +13,7 @@ public abstract class TrnthPositionPicker : MonoBehaviour,ITrnthPositionPicker {
 	}}
 	public event System.Action<ITrnthPositionPicker,ITrnthPositionPickee> onPicked=delegate{};
 	public void onDragEnd(){
+		Debug.Log("onDragEnd",this);
 		Invoke("_delayScrollTo",1);
 	}
 	public void onDragStart(){
@@ -46,27 +47,28 @@ public abstract class TrnthPositionPicker : MonoBehaviour,ITrnthPositionPicker {
 		onPicked(this,pickee);
 	}
 	public void scrollTo(ITrnthPositionPickee data){
+		scrollStop();
 		if(_scroll)_scroll.inertia=false;
 		var thePickee=pickees.Find(t=>{return t==data;});
 		if(thePickee==null)return;
-		var _posTarget=_group.localPosition;
+		_posTarget=_group.localPosition;
 		_posTarget.y=-thePickee.positionLocal.y;
-		scrollStop();
 		cooled=false;
-		StartCoroutine(_scrollUpdate(_posTarget,0.5f));
+		_scrollTo=true;
+		// StartCoroutine(_scrollUpdate(_posTarget,5));
 	}
-		IEnumerator _scrollUpdate(Vector3 _posTarget,float duration){
-			var timeStart=Time.time;
-			var _vel=Vector3.zero;
-			while(Time.time-timeStart<duration){
-				// _group.localPosition=Vector3.SmoothDamp(_group.localPosition,_posTarget, ref _vel, duration);
-				_group.localPosition=Vector3.Lerp(_group.localPosition,_posTarget,0.2f);
-				yield return new WaitForSeconds(0);				
-			}
-			scrollStop();
-		}
+		// IEnumerator _scrollUpdate(Vector3 _posTarget,float duration){
+		// 	var timeStart=Time.time;
+		// 	var _vel=Vector3.zero;
+		// 	while(Time.time-timeStart<duration){
+		// 		_group.localPosition=Vector3.Lerp(_group.localPosition,_posTarget,0.2f);
+		// 		yield return new WaitForSeconds(0.03f);				
+		// 	}
+		// 	scrollStop();
+		// }
 	public void scrollStop(){
-		StopCoroutine("_scrollUpdate");
+		// StopCoroutine("_scrollUpdate");
+		_scrollTo=false;
 		cooled=true;
 		if(_scroll)_scroll.inertia=true;
 	}
@@ -79,13 +81,18 @@ public abstract class TrnthPositionPicker : MonoBehaviour,ITrnthPositionPicker {
 		CancelInvoke("_delayScrollTo");
 	}
 	protected virtual void Awake(){
+		// foreach(var e in pickees)e.onAwayPosition(this);
 		// _gen
 	}
+	protected virtual void Update(){
+		if(_scrollTo)_group.localPosition=Vector3.Lerp(_group.localPosition,_posTarget,0.2f);
+	} bool _scrollTo=false;
 	[ContextMenu("generate trigger event")]
 	protected void _gen(){
 		_scroll=_group.GetComponentInParent<ScrollRect>();
 		_eventTriggerStuff(_scroll);
 	}
+	Vector3 _posTarget;
 	void _eventTriggerStuff(ScrollRect scroll){
 		if(scroll==null)return;
 		var trigger=_scroll.GetComponent<EventTrigger>();
