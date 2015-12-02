@@ -6,6 +6,7 @@ namespace TRNTH{
 public class U:Utility{}
 public class Utility{
 	public static void cleanChildren(Transform tra){
+		if(tra==null)return;
 		foreach(var e in tra.Cast<Transform>().ToArray()){
 			if(Application.isPlaying){
 				UnityEngine.Object.Destroy(e.gameObject);
