@@ -12,13 +12,18 @@ public abstract class TrnthPositionPicker : MonoBehaviour,ITrnthPositionPicker {
 		return _locator.position;
 	}}
 	public event System.Action<ITrnthPositionPicker,ITrnthPositionPickee> onPicked=delegate{};
+	public event System.Action<ITrnthPositionPicker,ITrnthPositionPickee> onBeginDrag=delegate{};
+	public event System.Action<ITrnthPositionPicker,ITrnthPositionPickee> onEndDrag=delegate{};
+	public event System.Action<ITrnthPositionPicker,ITrnthPositionPickee> onScrollTo=delegate{};
 	public void onDragEnd(){
 		Debug.Log("onDragEnd",this);
 		Invoke("_delayScrollTo",1);
+		onEndDrag(this,_pickee);
 	}
 	public void onDragStart(){
 		scrollStop();
 		CancelInvoke("_delayScrollTo");
+		onBeginDrag(this,_pickee);
 	}
 		void _delayScrollTo(){
 			if(gameObject.activeInHierarchy)scrollTo(_pickee);
@@ -54,25 +59,20 @@ public abstract class TrnthPositionPicker : MonoBehaviour,ITrnthPositionPicker {
 		_posTarget=_group.localPosition;
 		_posTarget.y=-thePickee.positionLocal.y;
 		cooled=false;
+		pickees.ForEach(t=>{
+			if(t==data)t.onPosition(this);
+			else t.onAwayPosition(this);
+			});
 		_scrollTo=true;
+		_pickee=data;
+		onScrollTo(this,data);
 		// StartCoroutine(_scrollUpdate(_posTarget,5));
 	}
-		// IEnumerator _scrollUpdate(Vector3 _posTarget,float duration){
-		// 	var timeStart=Time.time;
-		// 	var _vel=Vector3.zero;
-		// 	while(Time.time-timeStart<duration){
-		// 		_group.localPosition=Vector3.Lerp(_group.localPosition,_posTarget,0.2f);
-		// 		yield return new WaitForSeconds(0.03f);				
-		// 	}
-		// 	scrollStop();
-		// }
 	public void scrollStop(){
-		// StopCoroutine("_scrollUpdate");
 		_scrollTo=false;
 		cooled=true;
 		if(_scroll)_scroll.inertia=true;
 	}
-	// protected Transform _group{get{if(_scroll==null)return null;return _scroll.content;}}
 	protected abstract List<ITrnthPositionPickee> pickees{get;}
 	protected virtual void OnEnable(){
 		cooled=true;
@@ -81,8 +81,6 @@ public abstract class TrnthPositionPicker : MonoBehaviour,ITrnthPositionPicker {
 		CancelInvoke("_delayScrollTo");
 	}
 	protected virtual void Awake(){
-		// foreach(var e in pickees)e.onAwayPosition(this);
-		// _gen
 	}
 	protected virtual void Update(){
 		if(_scrollTo)_group.localPosition=Vector3.Lerp(_group.localPosition,_posTarget,0.2f);
