@@ -16,7 +16,7 @@ public abstract class TrnthPositionPicker : MonoBehaviour,ITrnthPositionPicker {
 	public event System.Action<ITrnthPositionPicker,ITrnthPositionPickee> onEndDrag=delegate{};
 	public event System.Action<ITrnthPositionPicker,ITrnthPositionPickee> onScrollTo=delegate{};
 	public void onDragEnd(){
-		Debug.Log("onDragEnd",this);
+		// Debug.Log("onDragEnd",this);
 		Invoke("_delayScrollTo",1);
 		onEndDrag(this,_pickee);
 	}
