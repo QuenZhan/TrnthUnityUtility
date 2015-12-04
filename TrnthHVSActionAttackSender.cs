@@ -23,11 +23,14 @@ public class TrnthHVSActionAttackSender : TrnthHVSAction {
 	}
 	protected void OnEnable(){
 		var dsAttack=(attack as DSMAttack);
+		// if(!dsAttack.shell)return;
 		if(!dsAttack
 			||dsAttack.shell==null
 			||dsAttack.shell.member==null
+			||dsAttack.shell.member.team==null
+			||dsAttack.shell.team==null
 			)return;
-		if(pc)pc.layermask=1<<dsAttack.shell.member.team.enemy.layerReciever;
+		if(pc)pc.layermask=1<<dsAttack.shell.team.enemy.layerReciever;
 		if(conditionCollider)conditionCollider.gameObject.layer=dsAttack.shell.member.team.layerCaster;
 	}
 }
