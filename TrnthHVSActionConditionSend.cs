@@ -7,8 +7,9 @@ public class TrnthHVSActionConditionSend : TrnthHVSAction {
 	protected override void _execute(){
 		base._execute();
 		if(!condition){
-			var go=GameObject.Find(find);
-			condition=go.GetComponent<TrnthHVSCondition>();
+			Debug.LogError("!condition",this);
+			// var go=GameObject.Find(find);
+			// condition=go.GetComponent<TrnthHVSCondition>();
 		}
 		condition.send();
 	}
