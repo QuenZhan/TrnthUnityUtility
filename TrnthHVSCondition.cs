@@ -13,7 +13,7 @@ public class TrnthHVSCondition : TrnthHVS {
 	Section[] sections;
 	Queue<Section> queue;
 	bool isFeeded;
-	[ContextMenu("Feed")]
+	// [ContextMenu("Feed")]
 	void feed(){
 		isFeeded=true; 
 		var hvses=GetComponents<TrnthHVS>();
