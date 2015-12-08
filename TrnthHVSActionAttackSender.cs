@@ -16,14 +16,13 @@ public class TrnthHVSActionAttackSender : TrnthHVSAction {
 		foreach(Collider e in colliders){
 			if(!e)continue;
 			attack.attach(e.transform);
-			var dr=e.GetComponent<TrnthHVSConditionAttackReceiver>();
+			var dr=e.GetComponent<DSAttackReceiver>();
 			if(!dr)continue;
-			dr.hurtWith(attack.report,attack);
+			dr.hurtWith(attack.report,attack as IDSOffensive);
 		}
 	}
 	protected void OnEnable(){
 		var dsAttack=(attack as DSMAttack);
-		// if(!dsAttack.shell)return;
 		if(!dsAttack
 			||dsAttack.shell==null
 			||dsAttack.shell.member==null
