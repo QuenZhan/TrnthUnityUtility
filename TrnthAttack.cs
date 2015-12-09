@@ -4,14 +4,14 @@ using System.Collections.Generic;
 using UnityEngine.Serialization;
 using TRNTH;
 public abstract class TrnthAttack : MonoBehaviour {
-	[SerializeField]TrnthHVSCondition conditionReact;
-	[SerializeField]string[] _tags;
+	TrnthHVSCondition conditionReact=null;
+	string[] _tags;
 	[FormerlySerializedAsAttribute("showDamage")]
-	[SerializeField]bool _showDamage=false;
-	[SerializeField]public float damageBase=30;
-	[SerializeField]public float damageNoise=10;
+	bool _showDamage=false;
+	[HideInInspector]public float damageBase=30;
+	[HideInInspector]public float damageNoise=10;
 	[HideInInspector]public GameObject onReact; // obsolute
-	public float whiteCriticalStrikeChance=0.08f;
+	[HideInInspector]public float whiteCriticalStrikeChance=0.08f;
 	public abstract IDSTeamReport report{get;}
 	public abstract IDSTeamMember member{get;}
 
@@ -30,7 +30,7 @@ public abstract class TrnthAttack : MonoBehaviour {
 	public Transform tra{get{return this.transform;}}
 	public virtual Vector3 position{get{return this.transform.position;}}
 
-	public TrnthHVSActionSpawn[] attachments;
+	[HideInInspector]public TrnthHVSActionSpawn[] attachments;
 	public virtual void react(ITrnthAttackDefensive defensive){
 		this.send(conditionReact);
 		if(onReact){
