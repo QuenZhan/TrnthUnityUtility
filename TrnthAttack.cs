@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.Serialization;
 using TRNTH;
-public abstract class TrnthAttack : MonoBehaviour,ITrnthAttackOffensive {
+public abstract class TrnthAttack : MonoBehaviour {
 	[SerializeField]TrnthHVSCondition conditionReact;
 	[SerializeField]string[] _tags;
 	[FormerlySerializedAsAttribute("showDamage")]
