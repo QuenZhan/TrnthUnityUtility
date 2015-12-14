@@ -32,7 +32,7 @@ public class TrnthHVSActionAttackSender : TrnthHVSAction {
 			)return;
 		if(pc){
 			pc.layermask=1<<dsAttack.shell.team.enemy.layerReciever;
-			pc.transformPosition=Vector3.right*dsAttack.attack.distance;
+			pc.transform.localPosition=Vector3.right*dsAttack.attack.distance;
 			pc.distance=0;
 			pc.radius=dsAttack.attack.radius;
 		}
