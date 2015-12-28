@@ -1,58 +1,20 @@
 ﻿using UnityEngine;
+using System.Collections;
 using System.Collections.Generic;
 
-// [System.Serializable]
-public class TrnthAlarm{
-	static public TrnthAlarm[] alarms{
-		get{
-			TrnthAlarm[] a=new TrnthAlarm[10];
-			for(int i=0;i<a.Length;i++){
-				a[i]=new TrnthAlarm();
-			}
-			return a;
-		}			
-	}
-	public TrnthAlarm(){}
-	public TrnthAlarm(float time){
-		this.s=time;
-	}
-	public bool isRealTime=false;
-	public bool a{
-		get {
-			if(isRealTime){
-				return Time.realtimeSinceStartup>end;
-			}
-			return Time.time>end;;
+public class TrnthAlarm : MonoBehaviour {
+	static public void Invoke(System.Action callback,float time){
+		if(_instance==null){
+			_instance=(new GameObject()).AddComponent<TrnthAlarm>();
 		}
+		_instance.start(callback,time);
 	}
-	public float s{
-		set{
-			start=Time.time;
-			if(isRealTime)start=Time.realtimeSinceStartup;
-			end=start+value;
-		 }
+	static TrnthAlarm _instance;
+	public void start(System.Action callback,float time){
+		_start(callback,time);
 	}
-	public void iss(float num){
-		s=num;
+	IEnumerator _start(System.Action callback,float time){
+		yield return new WaitForSeconds(time);
+		callback();
 	}
-	public bool iss(){
-		return a;
-	}
-	public float rate{
-		get{
-			return (Time.time-start)/(end-start+Mathf.Epsilon);
-		}
-	}
-	public float countDown{
-		get{
-			return Mathf.Clamp(end-Time.time,0,Mathf.Infinity);
-		}
-	}
-	public void routine(float time,System.Action boo){
-		if(!a)return;
-		s=(time);
-		boo();
-	}
-	float start=0.0f;
-	float end=1.0f;
 }
