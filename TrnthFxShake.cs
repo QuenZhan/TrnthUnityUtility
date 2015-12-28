@@ -13,14 +13,17 @@ public class TrnthFxShake:MonoBehaviour{
 	public AnimationCurve curve;
 	public void play(){
 		enabled=true;
-		a.s=time;
+		// a.s=time;
+		_timeRecored=Time.deltaTime;
+		Invoke("_start",time);
 		_value=value+(Random.value)*noise;
 		switch(space){
 		case Space.World:posOrin=target.position;break;
 		}
 	}
-	TrnthAlarm a=new TrnthAlarm();
+	// TrnthAlarm a=new TrnthAlarm();
 	// [SerializeField]
+	float _timeRecored;
 	Vector3 posOrin;
 	float _value=0;
 	void end(){
@@ -51,8 +54,14 @@ public class TrnthFxShake:MonoBehaviour{
 	void OnDisable(){
 		end();
 	}
-	void Update(){		
-		Vector3 vec=Random.insideUnitSphere*curve.Evaluate(reversed?(1-a.rate):a.rate)*_value*Time.timeScale;
+	void _start(){
+		if(!loop){
+			enabled=false;
+		}
+	}
+	void Update(){
+		var rate=(Time.time - _timeRecored) / time;
+		Vector3 vec=Random.insideUnitSphere*curve.Evaluate(reversed?(1-rate):rate)*_value*Time.timeScale;
 		if(hasOrinPos){
 			switch(space){
 			case Space.Self:target.localPosition=posOrin+vec;break;
@@ -61,9 +70,9 @@ public class TrnthFxShake:MonoBehaviour{
 		}else{
 			target.position+=vec;
 		}
-		if(a.a&&!loop){
-			// Destroy(this);
-			enabled=false;
-		}
+		// if(a.a&&!loop){
+		// 	// Destroy(this);
+		// 	enabled=false;
+		// }
 	}
 }
