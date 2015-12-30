@@ -5,7 +5,7 @@ public class TrnthCreatureCcr:TrnthCreature{
 	public CharacterController ccr;
 	public override Transform traSelf{get{return ccr.transform;}}
 	public bool walkInTheAir;
-	void Update(){
+	protected void Update(){
 		if(!ccr.gameObject.activeInHierarchy)return;
 		float dt=Time.deltaTime*timeScale;
 		if(walkInTheAir||ccr.isGrounded){

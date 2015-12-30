@@ -11,7 +11,7 @@ public class TrnthAlarm : MonoBehaviour {
 	}
 	static TrnthAlarm _instance;
 	public void start(System.Action callback,float time){
-		_start(callback,time);
+		StartCoroutine(_start(callback,time));
 	}
 	IEnumerator _start(System.Action callback,float time){
 		yield return new WaitForSeconds(time);

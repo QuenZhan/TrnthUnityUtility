@@ -79,6 +79,10 @@ public class Utility{
 		return shuffle<Object>(arrOrin);
 	}
 	static public Transform chooseChild(Transform tra){
+		if(tra==null){
+			Debug.Log("tra==null");
+			return tra;
+		}
 		var list=new List<Transform>();
 		// list.Add(tra);
 		foreach(Transform e in tra){
