@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class TrnthRigidForcer : MonoBehaviour {
-	public Rigidbody rigid;
+    public Rigidbody rigid;
 	public Vector3 forceInit;
 	public Vector3 noise;
 	void Awake(){
