@@ -37,6 +37,7 @@ public class TrnthConstraintFixedUpdatePrisonerGuard : MonoBehaviour {
 	void OnDrawGizmos(){
 		var direction=border==Border.right?1:-1;
 		Gizmos.color=Color.white;
+		if(border==Border.right)Gizmos.color=Color.gray;
 		Gizmos.DrawCube (transform.position+direction*Vector3.right*(22-15+3), new Vector3 (1,30,30));
 		// Gizmos.DrawCube (transform.position, new Vector3 (1,1,1));
 	}
