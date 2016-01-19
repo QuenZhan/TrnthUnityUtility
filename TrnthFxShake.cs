@@ -14,7 +14,7 @@ public class TrnthFxShake:MonoBehaviour{
 	public void play(){
 		enabled=true;
 		// a.s=time;
-		_timeRecored=Time.deltaTime;
+		_timeRecored=Time.time;
 		Invoke("_start",time);
 		_value=value+(Random.value)*noise;
 		switch(space){
@@ -61,6 +61,7 @@ public class TrnthFxShake:MonoBehaviour{
 	}
 	void Update(){
 		var rate=(Time.time - _timeRecored) / time;
+		// Vector3 vec=Random.insideUnitSphere*rate;
 		Vector3 vec=Random.insideUnitSphere*curve.Evaluate(reversed?(1-rate):rate)*_value*Time.timeScale;
 		if(hasOrinPos){
 			switch(space){
