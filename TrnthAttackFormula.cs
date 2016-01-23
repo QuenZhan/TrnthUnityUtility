@@ -16,5 +16,6 @@ public class TrnthAttackFormula{
 		public bool criticalStrike;
 		public float randomSeed;
 		public string control;
+		public float timeControled;
 	}
 }
