@@ -14,9 +14,11 @@ public class TrnthAlarm : MonoBehaviour {
 	}
 	static TrnthAlarm _instance;
 	internal void start(System.Action callback,float time){
+		// StopCoroutine("_start");
 		StartCoroutine(_start(callback,time));
 	}
 	internal void coroutine(IEnumerator c){
+		// StopCoroutine(c);
 		StartCoroutine(c);
 	}
 	IEnumerator _start(System.Action callback,float time){
