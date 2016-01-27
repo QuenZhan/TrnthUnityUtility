@@ -1,10 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Linq;
-
+[RequireComponent(typeof(Collider))]
 public class TrnthHVSConditionCollider : TrnthHVSCondition {
 	public bool includeTrigger=true;
-	public string[] include;
+	public string[] include=new string[0];
 	public Collider col{get{
 		var collider=_col;
 		_col=null;

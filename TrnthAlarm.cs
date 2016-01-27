@@ -9,9 +9,15 @@ public class TrnthAlarm : MonoBehaviour {
 		}
 		_instance.start(callback,time);
 	}
+	static public void Coroutine(IEnumerator c){
+		_instance.coroutine(c);
+	}
 	static TrnthAlarm _instance;
-	public void start(System.Action callback,float time){
+	internal void start(System.Action callback,float time){
 		StartCoroutine(_start(callback,time));
+	}
+	internal void coroutine(IEnumerator c){
+		StartCoroutine(c);
 	}
 	IEnumerator _start(System.Action callback,float time){
 		yield return new WaitForSeconds(time);
