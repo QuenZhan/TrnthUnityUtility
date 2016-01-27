@@ -13,8 +13,9 @@ public class TrnthAlarm : MonoBehaviour {
 		_instance.coroutine(c);
 	}
 	static TrnthAlarm _instance;
+	internal Dictionary<System.Action,float> _queue=new Dictionary<System.Action,float>();
 	internal void start(System.Action callback,float time){
-		// StopCoroutine("_start");
+		// _queue[key]=callback;
 		StartCoroutine(_start(callback,time));
 	}
 	internal void coroutine(IEnumerator c){
@@ -22,7 +23,10 @@ public class TrnthAlarm : MonoBehaviour {
 		StartCoroutine(c);
 	}
 	IEnumerator _start(System.Action callback,float time){
+		var record=Random.value+Time.time;
+		_queue[callback]=record;
 		yield return new WaitForSeconds(time);
+		if(_queue[callback]!=record)yield break;
 		callback();
 	}
 }
