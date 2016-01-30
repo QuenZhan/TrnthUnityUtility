@@ -3,6 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class TrnthAlarm : MonoBehaviour {
+	static public void Cancel(System.Action callback){
+		_instance.cancel(callback);
+	}
 	static public void Invoke(System.Action callback,float time){
 		if(_instance==null){
 			_instance=(new GameObject()).AddComponent<TrnthAlarm>();
@@ -21,6 +24,9 @@ public class TrnthAlarm : MonoBehaviour {
 	internal void coroutine(IEnumerator c){
 		// StopCoroutine(c);
 		StartCoroutine(c);
+	}
+	internal void cancel(System.Action callback){
+		_queue[callback]=0;
 	}
 	IEnumerator _start(System.Action callback,float time){
 		var record=Random.value+Time.time;
