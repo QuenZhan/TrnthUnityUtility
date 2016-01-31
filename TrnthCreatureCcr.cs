@@ -7,7 +7,7 @@ public class TrnthCreatureCcr:TrnthCreature{
 	public bool walkInTheAir;
 	protected void Update(){
 		if(!ccr.gameObject.activeInHierarchy)return;
-		float dt=Time.deltaTime*timeScale;
+		float dt=1f/60*timeScale;
 		if(walkInTheAir||ccr.isGrounded){
 			if(targetPersitant)walkTo(targetPersitant);
 		}
