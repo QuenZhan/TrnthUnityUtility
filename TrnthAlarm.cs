@@ -3,6 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class TrnthAlarm : MonoBehaviour {
+	static public void Cancel(IEnumerator routine){
+		_instance.cancel(routine);
+	}
 	static public void Cancel(System.Action callback){
 		_instance.cancel(callback);
 	}
@@ -24,6 +27,9 @@ public class TrnthAlarm : MonoBehaviour {
 	internal void coroutine(IEnumerator c){
 		// StopCoroutine(c);
 		StartCoroutine(c);
+	}
+	internal void cancel(IEnumerator routine){
+		StopCoroutine(routine);
 	}
 	internal void cancel(System.Action callback){
 		_queue[callback]=0;
