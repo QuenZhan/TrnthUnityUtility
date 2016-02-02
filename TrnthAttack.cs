@@ -42,6 +42,7 @@ public abstract class TrnthAttack : MonoBehaviour {
 	public abstract float value(string tag);
 	public virtual void attach(Transform tra){
 		foreach(var spawner in attachments){
+			// if()
 			spawner.transform.position=tra.position;
 			spawner.execute();
 		}
