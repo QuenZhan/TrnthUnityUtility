@@ -16,6 +16,9 @@ public class TrnthAlarm : MonoBehaviour {
 		_instance.start(callback,time);
 	}
 	static public void Coroutine(IEnumerator c){
+		if(_instance==null){
+			_instance=(new GameObject()).AddComponent<TrnthAlarm>();
+		}
 		_instance.coroutine(c);
 	}
 	static TrnthAlarm _instance;
