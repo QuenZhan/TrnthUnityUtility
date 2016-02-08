@@ -6,9 +6,8 @@ public class TrnthHVSConditionCollider : TrnthHVSCondition {
 	public bool includeTrigger=true;
 	public string[] include=new string[0];
 	public Collider col{get{
-		var collider=_col;
-		_col=null;
-		return collider;
+		if(_col==null)_col=GetComponent<Collider>();
+		return _col;
 	}}
 	public override string extraMsg{get{
 		return "Collider : "+_col.name;
@@ -18,7 +17,7 @@ public class TrnthHVSConditionCollider : TrnthHVSCondition {
 		onCollided(this,col);
 
 		if(include.Length==0){
-			_col=col;
+			// _col=col;
 			send();
 		}
 
@@ -28,7 +27,7 @@ public class TrnthHVSConditionCollider : TrnthHVSCondition {
 
 		// log();
 		if(q.ToArray().Length>0){
-			_col=col;
+			// _col=col;
 			send();
 		}
 	}
