@@ -31,7 +31,7 @@ public class Utility{
 	public static T ParseEnum<T>( string value ){
 		var names=new List<string>(System.Enum.GetNames(typeof(T)));
 		if(!names.Contains(value)){
-			Debug.LogWarning(string.Format("ParseEnum<T> !names.Contains(value) {0} {1}",value,typeof(T).Name));
+			// Debug.LogWarning(string.Format("ParseEnum<T> !names.Contains(value) {0} {1}",value,typeof(T).Name));
 			return default(T);
 		}
 	    return (T) System.Enum.Parse( typeof( T ), value, true );
