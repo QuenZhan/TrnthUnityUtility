@@ -75,7 +75,8 @@ public abstract class TrnthPositionPicker : MonoBehaviour,ITrnthPositionPicker {
 	}
 	protected abstract List<ITrnthPositionPickee> pickees{get;}
 	protected virtual void OnEnable(){
-		cooled=true;
+		// cooled=true;
+		scrollTo(_pickee);
 	}
 	protected virtual void OnDisable(){
 		CancelInvoke("_delayScrollTo");
