@@ -51,7 +51,7 @@ public abstract class TrnthPositionPicker : MonoBehaviour,ITrnthPositionPicker {
 		_pickee.onPosition(this);
 		onPicked(this,pickee);
 	}
-	public void scrollTo(ITrnthPositionPickee data){
+	public virtual void scrollTo(ITrnthPositionPickee data){
 		scrollStop();
 		if(_scroll)_scroll.inertia=false;
 		var thePickee=pickees.Find(t=>{return t==data;});
