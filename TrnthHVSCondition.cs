@@ -49,7 +49,7 @@ public class TrnthHVSCondition : TrnthHVS {
 		feed();
 	}
 	void deSection(){
-		if(queue.Count<1)return;
+		if(queue.Count<1||!this)return;
 		var section=queue.Dequeue();
 		foreach(var e in section.actions){
 			e.execute();

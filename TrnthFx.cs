@@ -15,13 +15,14 @@ public class TrnthFx:MonoBehaviour{
 		if(onEnd)onEnd.send();
 	}
 	protected float _timeStart;
-	void OnEnable(){
+	protected void OnEnable(){
 		start();
 	}
-	void OnDisable(){
+	protected void OnDisable(){
 		CancelInvoke();
+		// end();
 	}
-	void Update(){
+	protected void Update(){
 		update();
 	}
 }

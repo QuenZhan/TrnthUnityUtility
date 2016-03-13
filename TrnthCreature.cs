@@ -6,6 +6,7 @@ public abstract class TrnthCreature:TrnthMonoBehaviour{
 	public GameObject targetPersitant;
 	public bool lookAt=true;
 	public float scaleGravity=1;
+	public float timeScale=1;
 	public float speedMoveMax=3f;
 	public float speedMoveTimeToMax=0.1f;
 	public float stepMin=0.4f;

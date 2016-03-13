@@ -5,6 +5,6 @@ public class TrnthRadioAdd : MonoBehaviour {
 	public TrnthRadio radio;
 	public float value;
 	void OnEnable(){
-		radio+=value;
+		radio.value+=value;
 	}
 }

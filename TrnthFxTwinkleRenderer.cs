@@ -8,10 +8,8 @@ public class TrnthFxTwinkleRenderer : TrnthFx {
 	[ContextMenu("start")]
 	public override void start(){
 		base.start();
-		// Debug.Log("安安");
 		CancelInvoke();
 		Invoke("end",duration);
-		// Invoke("toggle",delayBetween);
 		toggle();
 	}
 	void toggle(){
@@ -19,10 +17,8 @@ public class TrnthFxTwinkleRenderer : TrnthFx {
 		rdr.enabled=!rdr.enabled;
 		Invoke("toggle",delayBetween);
 	}
-	// protected override void update(){
-	// 	base.update();
-	// }
 	protected override void end(){
+		CancelInvoke();
 		rdr.enabled=true;
 		base.end();
 	}

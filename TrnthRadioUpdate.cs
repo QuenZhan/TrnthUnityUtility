@@ -10,7 +10,7 @@ public class TrnthRadioUpdate : MonoBehaviour {
 	// public TrnthHVSCondition onFull;
 	// Update is called once per frame
 	void Update () {
-		radio+=valuePerSecond*Time.deltaTime;
+		radio.value+=valuePerSecond*Time.deltaTime;
 		if(radio.rate>1||radio.rate<0){
 			if(onEnd)onEnd.SetActive(true);
 			if(onEnd_)onEnd_.send();

@@ -5,7 +5,8 @@ public class TrnthCreatureCcr:TrnthCreature{
 	public CharacterController ccr;
 	public override Transform traSelf{get{return ccr.transform;}}
 	public bool walkInTheAir;
-	void Update(){
+	protected void Update(){
+		if(!ccr.gameObject.activeInHierarchy)return;
 		float dt=Time.deltaTime;
 		if(walkInTheAir||ccr.isGrounded){
 			if(targetPersitant)walkTo(targetPersitant);
@@ -20,7 +21,7 @@ public class TrnthCreatureCcr:TrnthCreature{
 			vecHorizon.y=0;
 			ccr.transform.LookAt(ccr.transform.position+vecHorizon);
 		}
-		var flag=ccr.Move(vec);
+		var flag=ccr.Move(vec*timeScale);
 		if ((flag & CollisionFlags.Above) != 0
 			&&vecForce.y>0)vecForce.y=0;
 		positionDelta=traSelf.position-positionDelta;

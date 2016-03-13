@@ -17,6 +17,11 @@ public static class TrnthExtensions
     	if(list.Count<1)return default(T);
 		return list[Random.Range(0,list.Count)];
     }
+    public static IList<T> shuffle<T>(this IList<T> list){
+        // if(list.Count<1)return list;
+        return new List<T>(U.shuffle<T>(list.ToArray()));
+        // return list[Random.Range(0,list.Count)];
+    }
     public static void send(this MonoBehaviour monoBehaviour,TrnthHVSCondition condition){
     	if(condition)condition.send();
     }
