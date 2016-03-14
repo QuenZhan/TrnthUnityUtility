@@ -7,7 +7,7 @@ using System.Collections.Generic;
 public abstract class TrnthPositionPicker : MonoBehaviour,ITrnthPositionPicker {
 	[SerializeField]Transform _locator;
 	[SerializeField]protected Transform _group;
-	[SerializeField]ScrollRect _scrollRect;
+	// [SerializeField]ScrollRect _scrollRect;
 
 	public Vector3 position{get{
 		if(_locator==null)return transform.position;
@@ -19,8 +19,9 @@ public abstract class TrnthPositionPicker : MonoBehaviour,ITrnthPositionPicker {
 	public event System.Action<ITrnthPositionPicker,ITrnthPositionPickee> onScrollTo=delegate{};
 	public void onDragEnd(){
 		// Debug.Log("onDragEnd",this);
-		Invoke("_delayScrollTo",0.5f);
+		// Invoke("_delayScrollTo",0.1f);
 		onEndDrag(this,_pickee);
+		_delayScrollTo();
 	}
 	public void onDragStart(){
 		scrollStop();
@@ -31,7 +32,7 @@ public abstract class TrnthPositionPicker : MonoBehaviour,ITrnthPositionPicker {
 			if(gameObject.activeInHierarchy)scrollTo(_pickee);
 		}
 	public virtual void onScrollValueChange(Vector2 vec){
-		if(!cooled)return;
+		// if(!cooled)return;
 		pick();
 		// StartCoroutine(_cooldown());
 	}
@@ -40,14 +41,14 @@ public abstract class TrnthPositionPicker : MonoBehaviour,ITrnthPositionPicker {
 			yield return new WaitForSeconds(0.1f);
 			cooled=true;
 		}bool cooled=true;
-	public void pick(){
+	void pick(){
 		if(pickees.Count<1 || _locator==null)return;
 		pickees.Sort((a,b)=>{
 			return  (_locator.position - a.positionWorld).magnitude < (_locator.position - b.positionWorld).magnitude ?-1:1;
 		});
 		var pickee=pickees[0];
 		if(pickee==_pickee)return;
-		StartCoroutine(_cooldown());
+		// StartCoroutine(_cooldown());
 		if(_pickee!=null)_pickee.onAwayPosition(this);
 		_pickee=pickee;
 		_pickee.onPosition(this);
@@ -71,7 +72,7 @@ public abstract class TrnthPositionPicker : MonoBehaviour,ITrnthPositionPicker {
 	public void scrollStop(){
 		_scrollTo=false;
 		cooled=true;
-		if(_scroll)_scroll.inertia=true;
+		// if(_scroll)_scroll.inertia=true;
 	}
 	protected abstract List<ITrnthPositionPickee> pickees{get;}
 	protected virtual void OnEnable(){
@@ -124,7 +125,8 @@ public abstract class TrnthPositionPicker : MonoBehaviour,ITrnthPositionPicker {
 	}
 	public void _onScroll(BaseEventData data){
 		// Debug.Log("_onScroll",this);
-		onScrollValueChange(Vector2.zero);
+		pick();
+		// onScrollValueChange(Vector2.zero);
 	}
 	[SerializeField]ScrollRect _scroll;
 	ITrnthPositionPickee _pickee;
