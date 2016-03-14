@@ -36,11 +36,11 @@ public abstract class TrnthPositionPicker : MonoBehaviour,ITrnthPositionPicker {
 		pick();
 		// StartCoroutine(_cooldown());
 	}
-		IEnumerator _cooldown(){
-			cooled=false;
-			yield return new WaitForSeconds(0.1f);
-			cooled=true;
-		}bool cooled=true;
+		// IEnumerator _cooldown(){
+		// 	cooled=false;
+		// 	yield return new WaitForSeconds(0.1f);
+		// 	cooled=true;
+		// }bool cooled=true;
 	void pick(){
 		if(pickees.Count<1 || _locator==null)return;
 		pickees.Sort((a,b)=>{
@@ -62,7 +62,7 @@ public abstract class TrnthPositionPicker : MonoBehaviour,ITrnthPositionPicker {
 		// var thePickee=pickees.Find(t=>{return t==data;});
 		_posTarget=_group.localPosition;
 		_posTarget.y=-thePickee.positionLocal.y;
-		cooled=false;
+		// cooled=false;
 		_scrollTo=true;
 		_pickee=data;
 		onScrollTo(this,data);
@@ -71,7 +71,7 @@ public abstract class TrnthPositionPicker : MonoBehaviour,ITrnthPositionPicker {
 	}
 	public void scrollStop(){
 		_scrollTo=false;
-		cooled=true;
+		// cooled=true;
 		// if(_scroll)_scroll.inertia=true;
 	}
 	protected abstract List<ITrnthPositionPickee> pickees{get;}
