@@ -18,24 +18,28 @@ public abstract class TrnthPositionPicker : MonoBehaviour,ITrnthPositionPicker {
 	public event System.Action<ITrnthPositionPicker,ITrnthPositionPickee> onEndDrag=delegate{};
 	public event System.Action<ITrnthPositionPicker,ITrnthPositionPickee> onScrollTo=delegate{};
 	public void onDragEnd(){
-		// Debug.Log("onDragEnd",this);
-		// Invoke("_delayScrollTo",0.1f);
 		onEndDrag(this,_pickee);
-		_delayScrollTo();
+		magneted=true;
+		// _delayScrollTo();
 	}
 	public void onDragStart(){
 		scrollStop();
-		CancelInvoke("_delayScrollTo");
 		onBeginDrag(this,_pickee);
+		magneted=false;
 	}
-		void _delayScrollTo(){
-			if(gameObject.activeInHierarchy)scrollTo(_pickee);
-		}
+		// void _delayScrollTo(){
+		// 	if(gameObject.activeInHierarchy)scrollTo(_pickee);
+		// }
 	public virtual void onScrollValueChange(Vector2 vec){
 		// if(!cooled)return;
 		pick();
+		// Debug.Log(vec,this);
+		if((vec-_vec).magnitude<0.001f && magneted)scrollTo(_pickee);
+		_vec=vec;
 		// StartCoroutine(_cooldown());
 	}
+	Vector2 _vec;
+	bool magneted;
 		// IEnumerator _cooldown(){
 		// 	cooled=false;
 		// 	yield return new WaitForSeconds(0.1f);
@@ -48,7 +52,6 @@ public abstract class TrnthPositionPicker : MonoBehaviour,ITrnthPositionPicker {
 		});
 		var pickee=pickees[0];
 		if(pickee==_pickee)return;
-		// StartCoroutine(_cooldown());
 		if(_pickee!=null)_pickee.onAwayPosition(this);
 		_pickee=pickee;
 		_pickee.onPosition(this);
@@ -72,7 +75,7 @@ public abstract class TrnthPositionPicker : MonoBehaviour,ITrnthPositionPicker {
 	public void scrollStop(){
 		_scrollTo=false;
 		// cooled=true;
-		// if(_scroll)_scroll.inertia=true;
+		if(_scroll)_scroll.inertia=true;
 	}
 	protected abstract List<ITrnthPositionPickee> pickees{get;}
 	protected virtual void OnEnable(){
@@ -80,7 +83,7 @@ public abstract class TrnthPositionPicker : MonoBehaviour,ITrnthPositionPicker {
 		scrollTo(_pickee);
 	}
 	protected virtual void OnDisable(){
-		CancelInvoke("_delayScrollTo");
+		// CancelInvoke("_delayScrollTo");
 	}
 	protected virtual void Awake(){
 		_gen();
