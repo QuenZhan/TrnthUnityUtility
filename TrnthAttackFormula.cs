@@ -16,6 +16,7 @@ public class TrnthAttackFormula{
 		public bool criticalStrike;
 		public float randomSeed;
 		public IDSMControl control;
+		public bool isHit;
 		// public float timeControled;
 	}
 }
