@@ -17,12 +17,12 @@ public abstract class TrnthPositionPicker : MonoBehaviour,ITrnthPositionPicker {
 	public event System.Action<ITrnthPositionPicker,ITrnthPositionPickee> onBeginDrag=delegate{};
 	public event System.Action<ITrnthPositionPicker,ITrnthPositionPickee> onEndDrag=delegate{};
 	public event System.Action<ITrnthPositionPicker,ITrnthPositionPickee> onScrollTo=delegate{};
-	public void onDragEnd(){
+	void onDragEnd(){
 		onEndDrag(this,_pickee);
 		magneted=true;
 		// _delayScrollTo();
 	}
-	public void onDragStart(){
+	void onDragStart(){
 		scrollStop();
 		onBeginDrag(this,_pickee);
 		magneted=false;
@@ -34,7 +34,7 @@ public abstract class TrnthPositionPicker : MonoBehaviour,ITrnthPositionPicker {
 		// if(!cooled)return;
 		pick();
 		// Debug.Log(vec,this);
-		if((vec-_vec).magnitude<0.001f && magneted)scrollTo(_pickee);
+		if((vec-_vec).magnitude*pickees.Length<0.01f && magneted)scrollTo(_pickee);
 		_vec=vec;
 		// StartCoroutine(_cooldown());
 	}
@@ -46,19 +46,24 @@ public abstract class TrnthPositionPicker : MonoBehaviour,ITrnthPositionPicker {
 		// 	cooled=true;
 		// }bool cooled=true;
 	void pick(){
-		if(pickees.Count<1 || _locator==null)return;
+		var pickees=new List<ITrnthPositionPickee>(this.pickees);
+		if(pickees.Count<1 || _locator==null || _scrollTo)return;
 		pickees.Sort((a,b)=>{
 			return  (_locator.position - a.positionWorld).magnitude < (_locator.position - b.positionWorld).magnitude ?-1:1;
 		});
 		var pickee=pickees[0];
 		if(pickee==_pickee)return;
+		// Debug.Log("ddd",this);
 		if(_pickee!=null)_pickee.onAwayPosition(this);
 		_pickee=pickee;
 		_pickee.onPosition(this);
 		onPicked(this,pickee);
 	}
-	public virtual void scrollTo(ITrnthPositionPickee data){
-		if(data==null)return;
+	public void scrollTo(ITrnthPositionPickee data){
+		if(data==null){
+			Debug.Log("Pickee==null",this);
+			return;
+		}
 		scrollStop();
 		if(_scroll)_scroll.inertia=false;
 		var thePickee=data;
@@ -77,7 +82,7 @@ public abstract class TrnthPositionPicker : MonoBehaviour,ITrnthPositionPicker {
 		// cooled=true;
 		if(_scroll)_scroll.inertia=true;
 	}
-	protected abstract List<ITrnthPositionPickee> pickees{get;}
+	protected abstract ITrnthPositionPickee[] pickees{get;}
 	protected virtual void OnEnable(){
 		// cooled=true;
 		scrollTo(_pickee);
@@ -118,19 +123,19 @@ public abstract class TrnthPositionPicker : MonoBehaviour,ITrnthPositionPicker {
 		// entry.callback.AddListener((data)=>{Debug.Log("entry.callback.AddListener");});
 		return entry;
 	}
-	public void _onDragEnd(BaseEventData data){
+	void _onDragEnd(BaseEventData data){
 		// Debug.Log("_onDragEnd",this);
 		onDragEnd();
 	}
-	public void _onDragStart(BaseEventData data){
+	void _onDragStart(BaseEventData data){
 		// Debug.Log("_onDragStart",this);
 		onDragStart();
 	}
-	public void _onScroll(BaseEventData data){
+	void _onScroll(BaseEventData data){
 		// Debug.Log("_onScroll",this);
 		pick();
 		// onScrollValueChange(Vector2.zero);
 	}
-	[SerializeField]ScrollRect _scroll;
+	[SerializeField]protected ScrollRect _scroll;
 	ITrnthPositionPickee _pickee;
 }
