@@ -31,12 +31,9 @@ public abstract class TrnthPositionPicker : MonoBehaviour,ITrnthPositionPicker {
 		// 	if(gameObject.activeInHierarchy)scrollTo(_pickee);
 		// }
 	public virtual void onScrollValueChange(Vector2 vec){
-		// if(!cooled)return;
 		pick();
-		// Debug.Log(vec,this);
 		if((vec-_vec).magnitude*pickees.Length<0.01f && magneted)scrollTo(_pickee);
 		_vec=vec;
-		// StartCoroutine(_cooldown());
 	}
 	Vector2 _vec;
 	bool magneted;
