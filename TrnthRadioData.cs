@@ -1,8 +1,8 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 [System.Serializable]
-public class TrnthRadioData : ITrnthRadio,ITrnthRadioGet {
+public class TrnthRadioData : ITrnthRadio,IReadonlyTrnthRadio {
 	public float rate{
 		get{return (length==0)?0:((_value - _min)/length);}
 		set{
@@ -35,8 +35,14 @@ public class TrnthRadioData : ITrnthRadio,ITrnthRadioGet {
 		}
 	}
 	public virtual void clamp(){
-		if(_value>_max)_value=_max;
-		if(_value<_min)_value=_min;
+		if(_value>_max){
+			_value=_max;
+			onChange(this);
+		}
+		if(_value<_min){
+			_value=_min;
+			onChange(this);
+		}
 	}
 	public float min{get{return _min;}set{_min=value;}}
 	public float max{get{return _max;}set{_max=value;}}

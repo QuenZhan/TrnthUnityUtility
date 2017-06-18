@@ -1,6 +1,6 @@
-﻿using UnityEngine;
+using UnityEngine;
 [System.Serializable]
-public class TrnthRadio:MonoBehaviour,ITrnthRadioGet,ITrnthRadio{
+public class TrnthRadio:MonoBehaviour,IReadonlyTrnthRadio,ITrnthRadio{
 	[SerializeField]float _value=100;
 	[SerializeField]float _min=0;
 	[SerializeField]float _max=100;

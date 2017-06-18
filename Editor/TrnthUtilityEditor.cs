@@ -2,6 +2,19 @@
 using UnityEditor;
 using System.Collections.Generic;
 public class TrnthUtilityEditor : Editor {
+	[MenuItem("TRNTH/Log Profiler")]
+	private static void LogProfiler() {
+		// persistentDataPath, because dataPath seems to be readOnly under iOS
+		UnityEngine.Profiling.Profiler.logFile = Application.dataPath + "/_Profiler/profilerLog.txt";        
+		// write Profiler Data to "profilerLog.txt.data"                                                                                        
+//		Profiler.
+		UnityEngine.Profiling.Profiler.enableBinaryLog = true;                                                 
+		UnityEngine.Profiling.Profiler.enabled=true;
+	}
+	[MenuItem("TRNTH/Log Profiler")]
+	private static void ReadProfiler() {
+//		Profiler.
+	}
 	[MenuItem("TRNTH/DeletePlayerPrefs")]
     private static void deletePrefs() {
     	PlayerPrefs.DeleteAll();

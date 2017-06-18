@@ -42,7 +42,7 @@ public abstract class TrnthCreature:TrnthMonoBehaviour{
 			return;
 		}
 		float force=(speedMoveMax/speedMoveTimeToMax)*dt;
-		fWalk+=force;
+		fWalk+=force*timeScale;
 		if(fWalk>=speedMoveMax)fWalk=speedMoveMax;
 		dvec=dvec.normalized*fWalk;
 		vecForce.x=dvec.x;

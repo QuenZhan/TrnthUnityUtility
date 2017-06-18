@@ -3,16 +3,20 @@ using System.Collections;
 using TRNTH;
 public class TrnthCreatureCcr:TrnthCreature{
 	public CharacterController ccr;
-	public override Transform traSelf{get{return ccr.transform;}}
+	public override Transform traSelf{get{
+			if(this.ccr==null)return null;
+			return ccr.transform;
+		}}
 	public bool walkInTheAir;
 	protected void Update(){
-		if(!ccr.gameObject.activeInHierarchy)return;
+		if(!ccr.gameObject.activeInHierarchy || !ccr.enabled)return;
 		float dt=Time.deltaTime;
 		if(walkInTheAir||ccr.isGrounded){
 			if(targetPersitant)walkTo(targetPersitant);
 		}
 		if(!ccr.isGrounded){
 			vecForce+=Physics.gravity*dt*scaleGravity;
+			vecForce.y*=0.97f;
 		}
 		Vector3 vec=vecForce*dt;
 		positionDelta=traSelf.position;

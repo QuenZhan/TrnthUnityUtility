@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -8,17 +8,7 @@ public class TrnthFSM {
 		transit(state.transform);
 	}
 	static public void transit(Component comp){
-		var state=comp.transform;
-		var parent=comp.transform.parent;
-		foreach(Transform e in parent){
-			e.gameObject.SetActive(e==state);
-		}
-		#if UNITY_EDITOR
-			if(instance==null){
-				instance=(new TrnthFSM());
-			}
-			instance.checkDelta(state);
-		#endif
+		TRNTH.Utility.IsolateInSiblings(comp.transform);
 	}
 	static public void clear(Component comp){
 		foreach(Transform e in comp.transform.parent){
