@@ -10,7 +10,7 @@ public class TrnthHVSActionRandomChild : TrnthHVSAction {
 		foreach(Transform e in target){
 			list.Add(e);
 		}
-		var theChild=list.choose();
+		var theChild=list.RandomChooseNonAlloc();
 		TrnthFSM.transit(theChild);
 	}
 }
