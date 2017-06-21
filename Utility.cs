@@ -23,6 +23,14 @@ namespace TRNTH{
 	}
 	public class U:Utility{}
 	public class Utility{
+		static public Ray MousePositionRay(Camera c){
+			Vector2 mousePos = new Vector2();
+			mousePos.x = Input.mousePosition.x;
+			mousePos.y = Input.mousePosition.y;
+			var worldPosition=c.ScreenToWorldPoint(new Vector3(mousePos.x,mousePos.y,c.nearClipPlane));
+			var ray=new Ray(worldPosition,c.transform.TransformDirection(Vector3.forward));
+			return ray;
+		}
 		class UIContainer<TData,TCell>:IUIContainer<TData,TCell>,IUIContainer<TCell>{
 			public void UpdateCell (TCell cell)
 			{
