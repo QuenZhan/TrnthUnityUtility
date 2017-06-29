@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 public class TrnthMonoBehaviour:UnityEngine.MonoBehaviour{
-	internal Transform tra;
-	internal GameObject gobj;
+	internal Transform tra{get;private set;}
+	internal GameObject gobj{get;private set;}
 	internal Transform[] children;
 	public virtual void Awake(){
 		tra=transform;

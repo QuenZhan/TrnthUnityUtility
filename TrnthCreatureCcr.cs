@@ -1,15 +1,24 @@
 ﻿using UnityEngine;
 using System.Collections;
 using TRNTH;
+[RequireComponent(typeof(CharacterController))]
 public class TrnthCreatureCcr:TrnthCreature{
-	public CharacterController ccr;
-	public override Transform traSelf{get{
-			if(this.ccr==null)return null;
-			return ccr.transform;
-		}}
+	CharacterController ccr;
+	public override Transform traSelf{
+		get{
+			return _ccrTransform;
+		}
+	}
+	Transform _ccrTransform;
+	public override void Awake ()
+	{
+		base.Awake ();
+		ccr=GetComponent<CharacterController>();
+		_ccrTransform=ccr.transform;
+	}
 	public bool walkInTheAir;
-	protected void Update(){
-		if(!ccr.gameObject.activeInHierarchy || !ccr.enabled)return;
+	protected virtual void Update(){
+		if(!ccr.enabled)return;
 		float dt=Time.deltaTime;
 		if(walkInTheAir||ccr.isGrounded){
 			if(targetPersitant)walkTo(targetPersitant);
@@ -23,7 +32,7 @@ public class TrnthCreatureCcr:TrnthCreature{
 		if(lookAt){
 			var vecHorizon=vec;
 			vecHorizon.y=0;
-			ccr.transform.LookAt(ccr.transform.position+vecHorizon);
+			_ccrTransform.LookAt(_ccrTransform.position+vecHorizon);
 		}
 		var flag=ccr.Move(vec*timeScale);
 		if ((flag & CollisionFlags.Above) != 0
