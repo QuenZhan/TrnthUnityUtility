@@ -9,11 +9,15 @@ namespace TRNTH{
 	public interface IListCell{
 		int Index{get;set;}
 	}
-	public interface IUIContainer<TData,TCell>{
+	public interface ICellSelect{
+		void Select(IListCell cell);
+	}
+	public interface IUIContainer<TData,TCell> where TCell:Component{
 		Transform Parent{get;}
 		TCell Prefab{get;}
 		IList<TData> Datas{get;}
 		void UpdateCell(TData data,TCell cell);
+		Pool<TCell> Pool{get;}
 	}
 	public interface IUIContainer<TCell>{
 		Transform Parent{get;}
@@ -23,6 +27,19 @@ namespace TRNTH{
 	}
 	public class U:Utility{}
 	public class Utility{
+		public static string IntToStringNonAllocUnder1000(int number){
+			var limit=1000;
+			if(StringNumber==null){
+				StringNumber=new string[limit];
+				for(var i=0;i<limit;i++){
+					StringNumber[i]=i.ToString();
+				}
+			}
+			if(number<0 || number>=limit)return OutOfRange;
+			return StringNumber[number];
+		}
+		static string[] StringNumber; 
+		const string OutOfRange="--";
 		static public Ray MousePositionRay(Camera c){
 			Vector2 mousePos = new Vector2();
 			mousePos.x = Input.mousePosition.x;
@@ -31,17 +48,23 @@ namespace TRNTH{
 			var ray=new Ray(worldPosition,c.transform.TransformDirection(Vector3.forward));
 			return ray;
 		}
-		class UIContainer<TData,TCell>:IUIContainer<TData,TCell>,IUIContainer<TCell>{
+		class UIContainer<TData,TCell>:IUIContainer<TData,TCell>,IUIContainer<TCell> where TCell:Component{
+			public Pool<TCell> Pool {
+				get {
+					throw new System.NotImplementedException ();
+				}
+			}
+
 			public void UpdateCell (TCell cell)
 			{
-				bornCallback(cell);
+//				bornCallback(cell);
 			}
 
 			public int Count {
 				get ;set;
 			}
 
-			public System.Action<TCell>bornCallback;
+//			public System.Action<TCell>bornCallback;
 			public System.Action<TData,TCell>bornCallbackWithData;
 			public void UpdateCell (TData data, TCell cell)
 			{
@@ -57,18 +80,23 @@ namespace TRNTH{
 				get ;set;
 			}
 		}
-		public static void UIContainerRefresh<TCell>(IUIContainer<TCell> container) where TCell:MonoBehaviour,IListCell{
-			var count=container.Count;
-			var prefabCell=container.Prefab;
-			var parent=container.Parent;
-			DespawnChildren<TCell>(parent);
-			for(var i=0;i<count;i++){
-				var cell=UupdateCell(i,parent,prefabCell);
-				container.UpdateCell(cell);
-			}
-		}
-		static TCell UupdateCell<TCell>(int i,Transform parent,TCell prefabCell) where TCell:MonoBehaviour,IListCell{
-			var cell = Pool.Spawn<TCell> (prefabCell, Vector3.zero, 0, parent:null,limited: false);
+//		public static void UIContainerRefresh<TCell>(IUIContainer<TCell> container) where TCell:MonoBehaviour,IListCell{
+//			var count=container.Count;
+//			var prefabCell=container.Prefab;
+//			var parent=container.Parent;
+//			DespawnChildren<TCell>(parent);
+//			for(var i=0;i<count;i++){
+//				var cell=UupdateCell(i,parent,container.o);
+//				container.UpdateCell(cell);
+//			}
+//		}
+		static TCell UupdateCell<TCell>(int i,Transform parent,Pool<TCell> pool) where TCell:MonoBehaviour,IListCell{
+			var index=pool.Spawn();
+			var cell=pool.Components[index];
+			var prefabCell=pool.Prefab;
+			//			var index=pool.Spawn();
+
+//			var cell = Pool.Spawn<TCell> (prefabCell, Vector3.zero, 0, parent:null,limited: false);
 			cell.transform.SetParent(parent);
 			RestTransform(cell.transform);
 			cell.name=string.Format(CellNameFormat,prefabCell.name,i);
@@ -80,7 +108,7 @@ namespace TRNTH{
 			var datas=container.Datas;
 			var size=datas.Count;
 			for(var i=0;i<size;i++){
-				var cell=UupdateCell(i,container.Parent,container.Prefab);
+				var cell=UupdateCell(i,container.Parent,container.Pool);
 				var data=datas[i];
 				container.UpdateCell(data,cell);
 			}
@@ -100,20 +128,20 @@ namespace TRNTH{
 			};
 			UIContainerRefresh(container);
 		}
-		public static void UIContainerRefresh<TCell>(
-			Transform parent
-			,TCell prefabCell
-			,int count,System.Action<TCell>bornCallback
-			,float intervalSeconds=0
-			) where TCell:MonoBehaviour,IListCell{
-			IUIContainer<TCell> container=new UIContainer<object,TCell>(){
-				Parent=parent
-					,Prefab=prefabCell
-					,Count=count
-					,bornCallback=bornCallback
-			};
-			UIContainerRefresh(container);
-		}
+//		public static void UIContainerRefresh<TCell>(
+//			Transform parent
+//			,TCell prefabCell
+//			,int count,System.Action<TCell>bornCallback
+//			,float intervalSeconds=0
+//			) where TCell:MonoBehaviour,IListCell{
+//			IUIContainer<TCell> container=new UIContainer<object,TCell>(){
+//				Parent=parent
+//					,Prefab=prefabCell
+//					,Count=count
+//					,bornCallback=bornCallback
+//			};
+////			UIContainerRefresh(container);
+//		}
 		const string CellNameFormat="{0}:{1}";
 		public static void IsolateInSiblings(Transform tra){			
 			var parent=tra.parent;
@@ -128,7 +156,7 @@ namespace TRNTH{
 		public static void DespawnChildren<T>(Transform parent) where T:Component{
 			var children=parent.GetComponentsInChildren<T>(true);
 			foreach(var e in children){
-				if(Pool.Despawn(e.gameObject))continue;
+//				if(Pool.Despawn(e.gameObject))continue;
 				e.gameObject.SetActive(false);
 			}
 		}
@@ -156,11 +184,18 @@ namespace TRNTH{
 			return list[list.Count-1];
 		}
 		public static T ParseEnum<T>( string value ){
-			var names=new List<string>(System.Enum.GetNames(typeof(T)));
-			if(!names.Contains(value)){
+//			if(string.IsNullOrEmpty(value))return default(T);
+//			System.Enum.
+//			var names=new List<string>(System.Enum.GetNames(typeof(T)));
+//			if(!names.Contains(value)){
+//				return default(T);
+//			}
+			try{
+				return (T) System.Enum.Parse( typeof( T ), value, true );				
+			}
+			catch{
 				return default(T);
 			}
-			return (T) System.Enum.Parse( typeof( T ), value, true );
 		}
 		static public string stringWithNumber(int number,int digit){
 			return "";
@@ -187,23 +222,6 @@ namespace TRNTH{
 			Vector3 pa=vec-pro;
 			return pro+Mathf.Cos(theta)*pa+Vector3.Cross(vec,nor).normalized*Mathf.Sin(theta)*pa.magnitude;
 		}
-//		static public T[] shuffle<T>(T[] arrOrin) {
-//			if(arrOrin.Length<1)return arrOrin;
-//			List<T> list=new List<T>(arrOrin);
-//			var rng = new System.Random();  
-//			int n = list.Count;
-//			while (n > 1) {
-//				n--;  
-//				int k = rng.Next(n + 1);  
-//				T value = list[k];  
-//				list[k] = list[n];  
-//				list[n] = value;  
-//			} 
-//			return list.ToArray();
-//		}
-//		static public Object[] shuffle(Object[] arrOrin){
-//			return shuffle<Object>(arrOrin);
-//		}
 		static public Transform chooseChild(Transform tra){
 			if(tra==null){
 				Debug.Log("tra==null");

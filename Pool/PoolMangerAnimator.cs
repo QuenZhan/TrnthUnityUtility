@@ -5,7 +5,7 @@ using System.Collections.ObjectModel;
 using UnityEngine;
 namespace TRNTH.Pooling{
 	
-	public class PoolMangerAnimator : PoolManger<Animator> {
+	public class PoolMangerAnimator : ComponentPool<Animator> {
 		public ReadOnlyCollection<Animator> Animators{get{return Components;}}
 	}
 }
