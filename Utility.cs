@@ -14,7 +14,7 @@ namespace TRNTH{
 	}
 	public interface IUIContainer<TData,TCell> where TCell:Component{
 		Transform Parent{get;}
-		TCell Prefab{get;}
+//		TCell Prefab{get;}
 		IList<TData> Datas{get;}
 		void UpdateCell(TData data,TCell cell);
 		Pool<TCell> Pool{get;}
@@ -98,6 +98,7 @@ namespace TRNTH{
 
 //			var cell = Pool.Spawn<TCell> (prefabCell, Vector3.zero, 0, parent:null,limited: false);
 			cell.transform.SetParent(parent);
+			cell.transform.SetSiblingIndex(i);
 			RestTransform(cell.transform);
 			cell.name=string.Format(CellNameFormat,prefabCell.name,i);
 			cell.Index=i;
