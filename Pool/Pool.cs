@@ -22,8 +22,8 @@ namespace TRNTH.Pooling{
 	public class Pool<T> where T:Component{
 		public GameObject Prefab;
 		public int Limiation=3;
-		GameObject[] _Instances=null;
-		[SerializeField]Transform[] _transforms=null;
+		[System.NonSerialized]GameObject[] _Instances=null;
+		Transform[] _transforms=null;
 		T[] _components=null;
 		public ReadOnlyCollection<GameObject> Roots{get;private set;}
 		public ReadOnlyCollection<Transform> Transforms{get;private set;}
@@ -31,7 +31,7 @@ namespace TRNTH.Pooling{
 		
 		public int SpawningIndex{get;private set;}
 		public virtual void PreSpawn(){
-			if(_Instances!=null)throw new System.InvalidOperationException();
+			if(_Instances!=null && _Instances.Length>0)throw new System.InvalidOperationException();
 			_Instances=new GameObject[Limiation];
 			_transforms=new Transform[Limiation];
 			_components=new T[Limiation];
@@ -49,7 +49,7 @@ namespace TRNTH.Pooling{
 			newGo.SetActive(false);
 		}
 		public virtual int Spawn(){
-			if(_Instances==null){
+			if(_Instances==null ||  _Instances.Length<1){
 				PreSpawn();
 //				throw new System.InvalidOperationException("PreSpawn first");
 			}

@@ -36,18 +36,22 @@ namespace TRNTH.Terrain{
 		protected abstract ScriptableObject File{get;}
 //		protected abstract GameObject GetTileGameObject(int index);
 //		protected abstract void SetGameObject(int index,GameObject gameObject);
-		protected abstract IList<GameObject> GetPrefabs(char content);
+		protected abstract IList<GameObject> GetPrefabs(string content);
 		protected abstract Vector3 GetWorldPosition(int index);
-		[SerializeField]List<GameObject> _tileGameObjects=new List<GameObject>();
+		[SerializeField]List<GameObject> _tileGameObjects;
+		public IList<GameObject> TileGameObject{get{return _tileGameObjects;}}
 
 //		protected virtual float GridToWorldPositionScaler{get{return 1;}}
 		protected virtual void Paint(int i,bool scan=true){
 			var go=_tileGameObjects[i];
 			if(go!=null)Destroy(go);
 			var prefabs=GetPrefabs(brush.Content);
-			GameObject prefab=null;
-			if(brush.RandomBrush)prefab=prefabs.RandomChooseNonAlloc();
-			else prefab=prefabs[brush.RandomIndex];
+			if(brush.RandomBrush)brush.RandomIndex=Random.Range(0,100);
+//				prefab=prefabs.RandomChooseNonAlloc();
+//			else 
+//				GameObject prefab=null;
+			if(prefabs.Count<1)return;
+			var prefab=prefabs[brush.RandomIndex%prefabs.Count];
 			if(prefab==null)return;
 			var instance=Instantiate(prefab);
 			instance.transform.position=GetWorldPosition(i);
@@ -61,12 +65,12 @@ namespace TRNTH.Terrain{
 		}
 		protected abstract void ScanAstar();
 		[ContextMenu("Save")]
-		void Save(){
+		public void Save(){
 			UnityEditor.EditorUtility.SetDirty(File);
 			UnityEditor.AssetDatabase.SaveAssets();
 		}
 		protected virtual void Start(){
-//			_tileGameObjects=new game
+//			_tileGameObjects=new List<GameObject>(SizeHorizontal*SizeVertical);
 			EyeDrop();
 			if(FileGroup==null)Load();
 		}
@@ -78,8 +82,9 @@ namespace TRNTH.Terrain{
 			if(prefabs.Count<1){
 				return;
 			}
-			var prefab=prefabs[brush.RandomIndex];
-			if(brush.RandomBrush)prefab=prefabs.RandomChooseNonAlloc();
+			var prefab=prefabs[brush.RandomIndex%prefabs.Count];
+//			var prefab=prefabs.RandomChooseNonAlloc();
+//			if(!brush.RandomBrush)prefab=prefabs[brush.RandomIndex];
 			if(prefab==null){
 				brush.Hover=MouseLocator.gameObject;
 				return;
@@ -146,6 +151,8 @@ namespace TRNTH.Terrain{
 			if(Input.GetKeyDown(KeyCode.F)){
 				foreach(var e in Transforms){
 					if(e==null)continue;
+					var rigid=e.GetComponent<Rigidbody2D>();
+					if(rigid!=null)rigid.velocity=Vector2.zero;
 					e.position=MouseLocator.transform.position+Vector3.up*2+Random.insideUnitSphere;
 				}
 			}
@@ -187,7 +194,7 @@ namespace TRNTH.Terrain{
 		public int RandomIndex;
 		public bool RandomBrush=true;
 		public Vector3 Position;
-		public char Content;
+		public string Content;
 		public BrushState State;
 		public GameObject Hover;
 	}
