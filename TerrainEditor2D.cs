@@ -193,6 +193,9 @@ namespace TRNTH.Terrain{
 	public class Brush{
 		public int RandomIndex;
 		public bool RandomBrush=true;
+		public bool AutoContext=false;
+		[EnumFlagsAttribute]
+		public TileContext Context;
 		public Vector3 Position;
 		public string Content;
 		public BrushState State;

@@ -6,6 +6,22 @@ using TRNTH.Pooling;
 
 
 namespace TRNTH{
+	[System.Flags]
+	public enum TileContext{
+		None
+		,NumPad1=1
+			,NumPad2=1<<2
+			,NumPad3=1<<3
+			,NumPad4=1<<4
+			,NumPad6=1<<6
+			,NumPad7=1<<7
+			,NumPad8=1<<8
+			,NumPad9=1<<9
+			,North=NumPad8
+			,East=NumPad6
+			,West=NumPad4
+			,South=NumPad2
+	}
 	public interface IListCell{
 		int Index{get;set;}
 	}
