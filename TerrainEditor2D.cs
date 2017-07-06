@@ -13,6 +13,7 @@ namespace TRNTH.Terrain{
 	public abstract class TerrainEditor2D: MonoBehaviour {
 		[SerializeField]Brush brush;
 		[SerializeField]Transform MouseLocator;
+		[SerializeField]TextMesh ToolStatus;
 		protected virtual void Reset(){
 			_tileGameObjects=new List<GameObject>(SizeHorizontal*SizeVertical);
 		}
@@ -46,7 +47,7 @@ namespace TRNTH.Terrain{
 			var go=_tileGameObjects[i];
 			if(go!=null)Destroy(go);
 			var prefabs=GetPrefabs(brush.Content);
-			if(brush.RandomBrush)brush.RandomIndex=Random.Range(0,100);
+			if(brush.RandomBrush)brush.RandomIndex=Random.Range(0,100)%prefabs.Count;
 //				prefab=prefabs.RandomChooseNonAlloc();
 //			else 
 //				GameObject prefab=null;
@@ -71,6 +72,7 @@ namespace TRNTH.Terrain{
 		}
 		protected virtual void Start(){
 //			_tileGameObjects=new List<GameObject>(SizeHorizontal*SizeVertical);
+			ToolStatus.GetComponent<Renderer>().sortingOrder=1;
 			EyeDrop();
 			if(FileGroup==null)Load();
 		}
@@ -187,7 +189,21 @@ namespace TRNTH.Terrain{
 					break;
 				}
 			}
+			ToolStatus.text=StatusText();
 		}
+		string StatusText(){
+			switch(brush.State){
+			case BrushState.Eraser:return Eraser;
+			case BrushState.Paint:return PaintTool;
+			case BrushState.EyeDropper:return EyeDropper;
+			default:return Hover;
+			}
+			
+		}
+		const string Eraser="清除";
+		const string PaintTool="繪製";
+		const string EyeDropper="滴管";
+		const string Hover="無";
 	}
 	[System.Serializable]
 	public class Brush{
