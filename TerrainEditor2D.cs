@@ -33,7 +33,12 @@ namespace TRNTH.Terrain{
 			if(x<0)x=0;
 			return x;
 		}
-		[SerializeField]Transform FileGroup;
+		[SerializeField]Transform _FileGroup;
+		public Transform FileGroup{
+			get{
+				return FileGroup;
+			}
+		}
 		protected abstract ScriptableObject File{get;}
 //		protected abstract GameObject GetTileGameObject(int index);
 //		protected abstract void SetGameObject(int index,GameObject gameObject);
@@ -58,10 +63,10 @@ namespace TRNTH.Terrain{
 			instance.transform.position=GetWorldPosition(i);
 			_tileGameObjects[i]=instance;
 //			instance.transform.position=new Vector3(i%SizeHorizontal*GridToWorldPositionScaler,0,i/SizeVertical*GridToWorldPositionScaler);
-			if(FileGroup==null){
-				FileGroup=new GameObject(File.name).transform;
+			if(_FileGroup==null){
+				_FileGroup=new GameObject(File.name).transform;
 			}
-			instance.transform.SetParent(FileGroup);
+			instance.transform.SetParent(_FileGroup);
 			if(scan)ScanAstar();
 		}
 		protected abstract void ScanAstar();
@@ -74,7 +79,7 @@ namespace TRNTH.Terrain{
 //			_tileGameObjects=new List<GameObject>(SizeHorizontal*SizeVertical);
 			ToolStatus.GetComponent<Renderer>().sortingOrder=1;
 			EyeDrop();
-			if(FileGroup==null)Load();
+			if(_FileGroup==null)Load();
 		}
 		protected virtual void EyeDrop(int index=0){
 			if(brush.Hover!=null && Application.isPlaying){
@@ -117,7 +122,7 @@ namespace TRNTH.Terrain{
 			if(File==null){
 				throw new System.ArgumentNullException("Fille == null");
 			}
-			if(FileGroup!=null)Destroy(FileGroup.gameObject);
+			if(_FileGroup!=null)Destroy(_FileGroup.gameObject);
 			var size=SizeHorizontal*SizeVertical;
 			for(var i=0;i<size;i++){
 				EyeDrop(i);
