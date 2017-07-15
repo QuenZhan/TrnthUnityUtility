@@ -24,8 +24,8 @@ namespace TRNTH.Pooling{
 		public int Limiation=3;
 		[ContextMenuItem("PreSpawn", "PreSpawn")]
 		[SerializeField]List<GameObject> _Instances=new List<GameObject>();
-		readonly List<Transform> _transforms=new List<Transform>();
-		readonly List<T> _components=new List<T>();
+		[HideInInspector][SerializeField]List<Transform> _transforms=new List<Transform>();
+		[HideInInspector][SerializeField]List<T> _components=new List<T>();
 		public ReadOnlyCollection<GameObject> Roots{
 			get{
 				if(_radonlyRoots==null)_radonlyRoots=_Instances.AsReadOnly();
