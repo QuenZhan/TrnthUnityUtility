@@ -19,6 +19,6 @@ namespace TRNTH.Pooling{
 		public virtual int Spawn(){
 			return Pool.Spawn();
 		}
-		public readonly Pool<T> Pool=new Pool<T>();
+		public Pool<T> Pool=new Pool<T>();
 	}
 }
