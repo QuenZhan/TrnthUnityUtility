@@ -53,16 +53,12 @@ namespace TRNTH.Terrain{
 			if(go!=null)Destroy(go);
 			var prefabs=GetPrefabs(brush.Content);
 			if(brush.RandomBrush)brush.RandomIndex=Random.Range(0,100)%prefabs.Count;
-//				prefab=prefabs.RandomChooseNonAlloc();
-//			else 
-//				GameObject prefab=null;
 			if(prefabs.Count<1)return;
 			var prefab=prefabs[brush.RandomIndex%prefabs.Count];
 			if(prefab==null)return;
 			var instance=Instantiate(prefab);
 			instance.transform.position=GetWorldPosition(i);
 			_tileGameObjects[i]=instance;
-//			instance.transform.position=new Vector3(i%SizeHorizontal*GridToWorldPositionScaler,0,i/SizeVertical*GridToWorldPositionScaler);
 			if(_FileGroup==null){
 				_FileGroup=new GameObject(File.name).transform;
 			}
