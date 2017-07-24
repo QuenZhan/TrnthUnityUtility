@@ -14,8 +14,15 @@ namespace TRNTH.Terrain{
 		[SerializeField]Brush brush;
 		[SerializeField]Transform MouseLocator;
 		[SerializeField]TextMesh ToolStatus;
+		[ContextMenu("DebugCache")]
+		void DebugCache(){
+			for(var i=0;i<10;i++){
+				_DebugCaches[i]=_tileGameObjects[i];
+			}
+		}
+		[SerializeField]GameObject[] _DebugCaches=new GameObject[10];
 		protected virtual void Reset(){
-			_tileGameObjects=new List<GameObject>(SizeHorizontal*SizeVertical);
+			_tileGameObjects=new GameObject[SizeHorizontal*SizeVertical];
 		}
 		protected Brush Brush{get{return brush;}}
 		protected abstract ReadOnlyCollection<Transform> Transforms{get;}
@@ -44,7 +51,8 @@ namespace TRNTH.Terrain{
 //		protected abstract void SetGameObject(int index,GameObject gameObject);
 		protected abstract IList<GameObject> GetPrefabs(string content);
 		protected abstract Vector3 GetWorldPosition(int index);
-		[SerializeField]List<GameObject> _tileGameObjects;
+		[HideInInspector]
+		[SerializeField]GameObject[] _tileGameObjects;
 		public IList<GameObject> TileGameObject{get{return _tileGameObjects;}}
 
 //		protected virtual float GridToWorldPositionScaler{get{return 1;}}
@@ -99,6 +107,9 @@ namespace TRNTH.Terrain{
 			return new Vector3((int)origin.x,(int)origin.y,(int)origin.z);
 		}
 		BrushState GetStatus(){
+			if(Input.GetKeyUp(KeyCode.Escape)){
+				return BrushState.Hover;
+			}
 			if(Input.GetKey(KeyCode.LeftAlt)){
 				return BrushState.EyeDropper;
 			}

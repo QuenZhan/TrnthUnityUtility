@@ -79,7 +79,10 @@ namespace TRNTH.Pooling{
 			newGo.SetActive(false);
 		}
 		public virtual int Spawn(){
-			if(_Instances==null ||  _Instances.Count!=Limiation){
+			if(_Instances==null 
+			||  _Instances.Count!=Limiation 
+			|| _Instances[0]==null
+			){
 				PreSpawn();
 //				throw new System.InvalidOperationException("PreSpawn first");
 			}
