@@ -5,7 +5,7 @@ using System.Collections.ObjectModel;
 
 
 namespace TRNTH.Pooling{
-//	public class Pool  {		
+//	public class Pool  {
 //		public static T Spawn<T>(Component prefab
 //			,Vector3 position=default(Vector3)
 //			,float autdDespawnAfter=10
@@ -20,27 +20,27 @@ namespace TRNTH.Pooling{
 //	}
 	[System.Serializable]
 	public class Pool<T> where T:Component{
-		public GameObject Prefab;
+		public T Prefab;
 		public int Limiation=3;
 		[ContextMenuItem("PreSpawn", "PreSpawn")]
-		[SerializeField]List<GameObject> _Instances=new List<GameObject>();
-		[HideInInspector][SerializeField]List<Transform> _transforms=new List<Transform>();
-		[HideInInspector][SerializeField]List<T> _components=new List<T>();
-		public ReadOnlyCollection<GameObject> Roots{
-			get{
-				if(_radonlyRoots==null)_radonlyRoots=_Instances.AsReadOnly();
-				return _radonlyRoots;
-			}
-		}
-		public ReadOnlyCollection<Transform> Transforms{
-			get{
-				if(_readonlyTransforms==null)_readonlyTransforms=_transforms.AsReadOnly();
-				return _readonlyTransforms;
-			}
-		}
+		[SerializeField]List<T> _Instances=new List<T>();
+		// [HideInInspector][SerializeField]List<Transform> _transforms=new List<Transform>();
+		// [HideInInspector][SerializeField]List<T> _components=new List<T>();
+		// public ReadOnlyCollection<GameObject> Roots{
+		// 	get{
+		// 		if(_radonlyRoots==null)_radonlyRoots=_Instances.AsReadOnly();
+		// 		return _radonlyRoots;
+		// 	}
+		// }
+		// public ReadOnlyCollection<Transform> Transforms{
+		// 	get{
+		// 		if(_readonlyTransforms==null)_readonlyTransforms=_transforms.AsReadOnly();
+		// 		return _readonlyTransforms;
+		// 	}
+		// }
 		public ReadOnlyCollection<T> Components{
 			get{
-				if(_readonlyComponents==null)_readonlyComponents=_components.AsReadOnly();
+				if(_readonlyComponents==null)_readonlyComponents=_Instances.AsReadOnly();
 				return _readonlyComponents;
 			}
 		}
@@ -50,29 +50,17 @@ namespace TRNTH.Pooling{
 		
 		public int SpawningIndex{get;private set;}
 		public virtual void PreSpawn(){
-//			if(_Instances!=null && _Instances.Length>0)throw new System.InvalidOperationException();
 			foreach(var e in _Instances){
 				Object.DestroyImmediate(e);
 			}
 			_Instances.Clear();
-			_transforms.Clear();
-			_components.Clear();
-//			_transforms.Capacity=Limiation;
-//			_Instances.Capacity=Limiation;
-//			_components.Capacity=Limiation;
-//			_transforms=new Transform[Limiation];
-//			_components=new T[Limiation];
-//			Roots=System.Array.AsReadOnly(_Instances);
-//			Transforms=System.Array.AsReadOnly(_transforms);
-//			Components=System.Array.AsReadOnly(_components);
+			// _transforms.Clear();
+			// _components.Clear();
 			for(var i=0;i<Limiation;i++){
-//				_Instances[i]=Object.Instantiate(Prefab);
-//				_transforms[i]=_Instances[i].transform;
-//				_components[i]=_Instances[i].GetComponentInChildren<T>();
 				_Instances.Add(Object.Instantiate(Prefab));
-				_transforms.Add(_Instances[i].transform);
-				_components.Add(_Instances[i].GetComponentInChildren<T>());
-				PreSpawned(i,_Instances[i]);
+				// _transforms.Add(_components[i].transform);
+				// _Instances.Add(_components[i].gameObject);
+				PreSpawned(i,_Instances[i].gameObject);
 			}
 		}
 		protected virtual void PreSpawned(int index,GameObject newGo){
@@ -88,7 +76,7 @@ namespace TRNTH.Pooling{
 			}
 			SpawningIndex=++SpawningIndex%Limiation;
 			var go=_Instances[SpawningIndex];
-			go.SetActive(true);
+			go.gameObject.SetActive(true);
 			return SpawningIndex;
 		}
 	}
