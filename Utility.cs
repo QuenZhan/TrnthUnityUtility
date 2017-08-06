@@ -31,7 +31,7 @@ namespace TRNTH{
 	public interface IUIContainer<TData,TCell> where TCell:Component{
 		Transform Parent{get;}
 //		TCell Prefab{get;}
-		IList<TData> Datas{get;}
+		IReadOnlyList<TData> Datas{get;}
 		void UpdateCell(TData data,TCell cell);
 		Pool<TCell> Pool{get;}
 	}
@@ -67,55 +67,11 @@ namespace TRNTH{
 			var ray=new Ray(worldPosition,c.transform.TransformDirection(Vector3.forward));
 			return ray;
 		}
-		class UIContainer<TData,TCell>:IUIContainer<TData,TCell>,IUIContainer<TCell> where TCell:Component{
-			public Pool<TCell> Pool {
-				get {
-					throw new System.NotImplementedException ();
-				}
-			}
 
-			public void UpdateCell (TCell cell)
-			{
-//				bornCallback(cell);
-			}
-
-			public int Count {
-				get ;set;
-			}
-
-//			public System.Action<TCell>bornCallback;
-			public System.Action<TData,TCell>bornCallbackWithData;
-			public void UpdateCell (TData data, TCell cell)
-			{
-				bornCallbackWithData(data,cell);
-			}
-			public Transform Parent {
-				get ;set;
-			}
-			public TCell Prefab {
-				get ;set;
-			}
-			public IList<TData> Datas {
-				get ;set;
-			}
-		}
-//		public static void UIContainerRefresh<TCell>(IUIContainer<TCell> container) where TCell:MonoBehaviour,IListCell{
-//			var count=container.Count;
-//			var prefabCell=container.Prefab;
-//			var parent=container.Parent;
-//			DespawnChildren<TCell>(parent);
-//			for(var i=0;i<count;i++){
-//				var cell=UupdateCell(i,parent,container.o);
-//				container.UpdateCell(cell);
-//			}
-//		}
 		static TCell UupdateCell<TCell>(int i,Transform parent,Pool<TCell> pool) where TCell:MonoBehaviour,IListCell{
 			var index=pool.Spawn();
 			var cell=pool.Components[index];
 			var prefabCell=pool.Prefab;
-			//			var index=pool.Spawn();
-
-//			var cell = Pool.Spawn<TCell> (prefabCell, Vector3.zero, 0, parent:null,limited: false);
 			cell.transform.SetParent(parent);
 			cell.transform.SetSiblingIndex(i);
 			RestTransform(cell.transform);
@@ -133,35 +89,6 @@ namespace TRNTH{
 				container.UpdateCell(data,cell);
 			}
 		}
-		public static void UIContainerRefresh<TData,TCell>(
-			Transform parent
-			,TCell prefabCell
-			,IList<TData> datas
-			,System.Action<TData,TCell>bornCallback
-			,float intervalSeconds=0
-			) where TCell:MonoBehaviour,IListCell{
-			IUIContainer<TData,TCell> container=new UIContainer<TData,TCell>(){
-				Parent=parent
-					,Prefab=prefabCell
-					,Datas=datas
-					,bornCallbackWithData=bornCallback
-			};
-			UIContainerRefresh(container);
-		}
-//		public static void UIContainerRefresh<TCell>(
-//			Transform parent
-//			,TCell prefabCell
-//			,int count,System.Action<TCell>bornCallback
-//			,float intervalSeconds=0
-//			) where TCell:MonoBehaviour,IListCell{
-//			IUIContainer<TCell> container=new UIContainer<object,TCell>(){
-//				Parent=parent
-//					,Prefab=prefabCell
-//					,Count=count
-//					,bornCallback=bornCallback
-//			};
-////			UIContainerRefresh(container);
-//		}
 		const string CellNameFormat="{0}:{1}";
 		public static void IsolateInSiblings(Transform tra){			
 			var parent=tra.parent;

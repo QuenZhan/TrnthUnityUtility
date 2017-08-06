@@ -8,6 +8,6 @@ public class TrnthTransformAverageConstraint : TrnthMonoBehaviour {
 		foreach(Transform e in targets){
 			vec+=e.position;
 		}
-		pos=vec/targets.Length;
+		Position=vec/targets.Length;
 	}
 }
