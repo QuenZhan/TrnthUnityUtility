@@ -7,7 +7,7 @@ public class TrnthCccRandomTarget : TrnthMonoBehaviour {
 	public float time;
 	public float timeNoise;
 	public void execute(){
-		pos=ccc.transform.position+Random.onUnitSphere*radius;
+		Position=ccc.transform.position+Random.onUnitSphere*radius;
 		ccc.targetPersitant=gameObject;
 		Invoke("execute",time+timeNoise);
 	}
