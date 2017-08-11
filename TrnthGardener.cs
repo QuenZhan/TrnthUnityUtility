@@ -43,7 +43,7 @@ public class Gardener:TrnthMonoBehaviour{
 		Transform[] arr=null;
 		string text="";
 		if(seedsGroup){
-			arr=getChildren(seedsGroup);
+			// arr=getChildren(seedsGroup);
 			text=seedsGroup.name+"Output";
 		}else text=seed.name+"Output";
 		Transform parent=new GameObject(text).transform;
