@@ -27,14 +27,14 @@ public class TrnthPhysicsCast : TrnthMonoBehaviour {
 		// getcolliders
 		colliders=new Collider[0];
 		if(distance==0){
-			colliders=Physics.OverlapSphere(pos,radius,layermask.value);
+			colliders=Physics.OverlapSphere(Position,radius,layermask.value);
 			isHit=colliders.Length>0;
 		}else{
 			RaycastHit hit;
 			if(radius==0){
-				isHit=Physics.Raycast(pos,transform.forward,out hit,distance,layermask.value);
+				isHit=Physics.Raycast(Position,transform.forward,out hit,distance,layermask.value);
 			}else{
-				isHit=Physics.SphereCast(pos,radius,transform.forward,out hit,distance,layermask.value);
+				isHit=Physics.SphereCast(Position,radius,transform.forward,out hit,distance,layermask.value);
 				// Debug.Log(isHit);
 			}		
 			if(isHit){
@@ -86,8 +86,8 @@ public class TrnthPhysicsCast : TrnthMonoBehaviour {
 		update();
 	}
 	void OnDrawGizmosSelected() {
-		var pos1=pos;
-		var pos2=pos+transform.forward*distance;
+		var pos1=Position;
+		var pos2=Position+transform.forward*distance;
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(pos1,radius);
         Gizmos.color = Color.green;
