@@ -1,0 +1,64 @@
+﻿using UnityEngine;
+using System.Collections.Generic;
+public class TrnthMonoBehaviour:UnityEngine.MonoBehaviour{
+	internal Transform tra{get;private set;}
+	internal GameObject gobj{get;private set;}
+	internal Transform[] children;
+	public virtual void Awake(){
+		tra=transform;
+		gobj=gameObject;
+		getChildren();
+	}
+	public Vector3 pos{
+		get{
+			if(!tra)tra=transform;
+			return tra.position;
+		}
+		set{
+			if(!tra)tra=transform;
+			tra.position=value;
+		}
+	}
+	public Transform[] getChildren(){
+		return getChildren(tra);
+	}
+	public Transform[] getChildren(Transform tra){
+		List<Transform> arr=new List<Transform>();
+		foreach(Transform child in tra){arr.Add(child);}
+		children=arr.ToArray();
+		return children;
+	}
+	public Transform findNearest(Transform[] arr){
+		if(arr.Length<1)return null;
+		Transform nearest=arr[0];
+		foreach(Transform tra in arr){
+			if((tra.position-pos).magnitude<(nearest.position-pos).magnitude)nearest=tra;
+		}
+		return nearest;
+	}
+	public Vector3 coor{
+		get{
+			return Camera.main.WorldToScreenPoint(transform.position);
+		}
+	}
+	public Rect rect{
+		get{
+			var vec=coor;
+			return new Rect(vec.x,Screen.height-vec.y,100,100);
+		}
+	}
+	public float dis(Component c){
+		return (pos-c.transform.position).magnitude;
+	}
+	public Component findNearest(Component[] arr){
+		if(arr.Length<1)return null;
+		var nearest=arr[0];
+		foreach(var e in arr){
+			if(this.dis(e)<this.dis(nearest))nearest=e;
+		}
+		return nearest;
+	}
+	public void activate(GameObject[] gos){
+		foreach(var e in gos)e.SetActive(true);
+	}
+}
