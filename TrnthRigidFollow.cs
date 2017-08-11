@@ -9,7 +9,7 @@ public class TrnthRigidFollow : TrnthMonoBehaviour {
 		_rigidbody=GetComponent<Rigidbody>();
 	}
 	void FixedUpdate(){
-		var vec=target.transform.position-pos;
+		var vec=target.transform.position-Position;
 		vec=Vector3.ClampMagnitude(vec,speed);
 		_rigidbody.velocity=vec;
 	}

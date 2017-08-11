@@ -7,7 +7,7 @@ using System.Collections.Generic;
 public class TrnthFxSlidingNumberGenerator:MonoBehaviour{
 	public float marginDigit=20;
 	public float marginNumber=40;
-	public int digits;
+	public int digits=7;
 	public Color color;
 	public UnityEngine.UI.Text prefab;
 	[ContextMenu("collor apply")]
@@ -34,7 +34,7 @@ public class TrnthFxSlidingNumberGenerator:MonoBehaviour{
 				ins.transform.localEulerAngles=Vector3.zero;
 				ins.text=j.ToString();
 				ins.name=ins.text;
-				// ins.transform.localPosition=new Vector3(0,j*marginNumber,0);
+				ins.transform.localPosition=new Vector3(0,-j*marginNumber,0);
 			}
 			var indexer=group.AddComponent<TrnthFxIndexerTranslate>();
 			indexer.length=10;
