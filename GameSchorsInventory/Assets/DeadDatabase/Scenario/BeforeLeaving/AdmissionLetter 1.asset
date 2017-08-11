@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a399958b0c04f4ba8a200b41e6b39d16, type: 3}
+  m_Name: AdmissionLetter 1
+  m_EditorClassIdentifier: 
+  _Dialogues:
+  - Content: "\u6839\u64DA\u901A\u77E5\u66F8\u4E0A\u7684\u5730\u5716\u2026\u671D\u8457\u9019\u500B\u65B9\u5411\u5C31\u2026\u884C\u4E86\u5427\u3002"
+    Character: {fileID: 11400000, guid: 56b7a3acada4b42df8f1ae8342bbc450, type: 2}
+  - Content: "\u6211\u6D3B\u9019\u9EBC\u5927\u7B2C\u4E00\u6B21\u81EA\u5DF1\u96E2\u958B\u9019\u9EBC\u9060\u7684\u5730\u65B9\u2026"
+    Character: {fileID: 11400000, guid: 56b7a3acada4b42df8f1ae8342bbc450, type: 2}
+  - Content: "\u2026"
+    Character: {fileID: 11400000, guid: 56b7a3acada4b42df8f1ae8342bbc450, type: 2}
+  - Content: "\u601D\u5609\u6C92\u554F\u984C\u7684\uFF01"
+    Character: {fileID: 11400000, guid: 56b7a3acada4b42df8f1ae8342bbc450, type: 2}
