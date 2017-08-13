@@ -28,18 +28,20 @@ namespace TRNTH{
 	public interface ICellSelect{
 		void Select(IListCell cell);
 	}
-	public interface IUIContainer<TData,TCell> where TCell:Component{
-		Transform Parent{get;}
+	public interface IUIContainer<TData,TCell>{
+		// Transform Parent{get;}
 //		TCell Prefab{get;}
 		IReadOnlyList<TData> Datas{get;}
-		void UpdateCell(TData data,TCell cell);
-		Pool<TCell> Pool{get;}
+		void UpdateCell(int index,TData data,TCell cell);
+		IReadOnlyList<TCell> Cells{get;}
+		// Pool<TCell> Pool{get;}
 	}
 	public interface IUIContainer<TCell>{
 		Transform Parent{get;}
-		TCell Prefab{get;}
-		int Count{get;}
+		// TCell Prefab{get;}
+		// int Count{get;}
 		void UpdateCell(TCell cell);
+		void Init(TCell cell);
 	}
 	public class U:Utility{}
 	public class Utility{
@@ -57,6 +59,16 @@ namespace TRNTH{
 			if(number<0 || number>=limit)return OutOfRange;
 			return StringNumber[number];
 		}
+		static public void PreSpawn<T>(Transform parent,IList<T> _Instances){
+			_Instances.Clear();
+			var length=parent.childCount;
+			for (int i = 0; i < length; i++)
+			{
+				var ins=parent.GetChild(i).GetComponent<T>();
+				if(ins==null)continue;
+				_Instances.Add(ins);
+			}
+		}
 		static string[] StringNumber; 
 		const string OutOfRange="--";
 		static public Ray MousePositionRay(Camera c){
@@ -68,25 +80,25 @@ namespace TRNTH{
 			return ray;
 		}
 
-		static TCell UupdateCell<TCell>(int i,Transform parent,Pool<TCell> pool) where TCell:MonoBehaviour,IListCell{
-			var index=pool.Spawn();
-			var cell=pool.Components[index];
-			var prefabCell=pool.Prefab;
-			cell.transform.SetParent(parent);
-			cell.transform.SetSiblingIndex(i);
-			RestTransform(cell.transform);
-			cell.name=string.Format(CellNameFormat,prefabCell.name,i);
-			cell.Index=i;
-			return cell;
-		}
-		public static void UIContainerRefresh<TData,TCell>(IUIContainer<TData,TCell> container) where TCell:MonoBehaviour,IListCell {
-			DespawnChildren<TCell>(container.Parent);
+		// static TCell UupdateCell<TCell>(int i,Transform parent,Pool<TCell> pool) where TCell:MonoBehaviour,IListCell{
+		// 	var index=pool.Spawn();
+		// 	var cell=pool.Components[index];
+		// 	var prefabCell=pool.Prefab;
+		// 	cell.transform.SetParent(parent);
+		// 	cell.transform.SetSiblingIndex(i);
+		// 	RestTransform(cell.transform);
+		// 	cell.name=string.Format(CellNameFormat,prefabCell.name,i);
+		// 	cell.Index=i;
+		// 	return cell;
+		// }
+		public static void UIContainerRefresh<TData,TCell>(IUIContainer<TData,TCell> container){
 			var datas=container.Datas;
 			var size=datas.Count;
+			size=container.Cells.Count;
 			for(var i=0;i<size;i++){
-				var cell=UupdateCell(i,container.Parent,container.Pool);
-				var data=datas[i];
-				container.UpdateCell(data,cell);
+				var cell=container.Cells[i];
+				if(i>=datas.Count)container.UpdateCell(i,default(TData),cell);
+				else container.UpdateCell(i,datas[i],cell);
 			}
 		}
 		const string CellNameFormat="{0}:{1}";
