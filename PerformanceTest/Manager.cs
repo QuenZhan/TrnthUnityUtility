@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+namespace TRNTH.PerformanceTest{ 
 public class Manager : MonoBehaviour {
 	public Transform Root;
 	public Collider colliderToOverlap;
@@ -89,4 +89,5 @@ public class Manager : MonoBehaviour {
 		return count;
 	}
 			
+}
 }
