@@ -29,12 +29,9 @@ namespace TRNTH{
 		void Select(IListCell cell);
 	}
 	public interface IUIContainer<TData,TCell>{
-		// Transform Parent{get;}
-//		TCell Prefab{get;}
 		IReadOnlyList<TData> Datas{get;}
 		void UpdateCell(int index,TData data,TCell cell);
 		IReadOnlyList<TCell> Cells{get;}
-		// Pool<TCell> Pool{get;}
 	}
 	public interface IUIContainer<TCell>{
 		Transform Parent{get;}
@@ -79,18 +76,6 @@ namespace TRNTH{
 			var ray=new Ray(worldPosition,c.transform.TransformDirection(Vector3.forward));
 			return ray;
 		}
-
-		// static TCell UupdateCell<TCell>(int i,Transform parent,Pool<TCell> pool) where TCell:MonoBehaviour,IListCell{
-		// 	var index=pool.Spawn();
-		// 	var cell=pool.Components[index];
-		// 	var prefabCell=pool.Prefab;
-		// 	cell.transform.SetParent(parent);
-		// 	cell.transform.SetSiblingIndex(i);
-		// 	RestTransform(cell.transform);
-		// 	cell.name=string.Format(CellNameFormat,prefabCell.name,i);
-		// 	cell.Index=i;
-		// 	return cell;
-		// }
 		public static void UIContainerRefresh<TData,TCell>(IUIContainer<TData,TCell> container){
 			var datas=container.Datas;
 			var size=datas.Count;
