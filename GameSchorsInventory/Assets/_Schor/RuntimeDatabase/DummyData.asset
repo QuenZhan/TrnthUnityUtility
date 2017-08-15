@@ -11,7 +11,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab194b5e68bf740f5a3e54778e47c9e8, type: 3}
   m_Name: DummyData
   m_EditorClassIdentifier: 
-  Bag:
+  _Bag:
   - Data: {fileID: 0}
     Attributes: []
   - Data: {fileID: 0}
@@ -33,4 +33,8 @@ MonoBehaviour:
   - Data: {fileID: 0}
     Attributes: []
   TodoList: 
-  Place: 
+  Place: {fileID: 0}
+  _Memories:
+  - {fileID: 11400000, guid: 3b878adef7db94cf8b2c455701b1ec3b, type: 2}
+  - {fileID: 11400000, guid: d9384d424d2b3451fb66ae48536ea6c7, type: 2}
+  - {fileID: 11400000, guid: 9e1c1f1ec08fc466ebfd633f73bf71cb, type: 2}

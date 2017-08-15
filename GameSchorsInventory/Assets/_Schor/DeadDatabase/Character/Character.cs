@@ -7,5 +7,6 @@ namespace TRNTH.SchorsInventory.DeadDatabase{
 			public string Description;
 			public Recipe[] Recipes;
 			public Color Color;
+			public Sprite Tachie;
 	}
 }

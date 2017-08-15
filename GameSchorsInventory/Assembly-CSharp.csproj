@@ -51,6 +51,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\_Schor\Component\Place\Place.cs" />
+     <Compile Include="Assets\_Schor\Component\Scenario\BeforeLeaving.cs" />
+     <Compile Include="Assets\_Schor\Component\Scenario\ScenarioController.cs" />
      <Compile Include="Assets\_Schor\DeadDatabase\AttributeData\AttributeData.cs" />
      <Compile Include="Assets\_Schor\DeadDatabase\Character\Character.cs" />
      <Compile Include="Assets\_Schor\DeadDatabase\ItemData\ItemData.cs" />
@@ -61,11 +64,17 @@
      <Compile Include="Assets\_Schor\RuntimeDatabase\UserData.cs" />
      <Compile Include="Assets\_Schor\UI\Console\Console.cs" />
      <Compile Include="Assets\_Schor\UI\Console\ConsoleRow.cs" />
+     <Compile Include="Assets\_Schor\UI\Container.cs" />
+     <Compile Include="Assets\_Schor\UI\Dialogue\Dialogue.cs" />
+     <Compile Include="Assets\_Schor\UI\Facility\Facility.cs" />
+     <Compile Include="Assets\_Schor\UI\Facility\FacilityOption.cs" />
+     <Compile Include="Assets\_Schor\UI\Map\PlaceDetail.cs" />
      <Compile Include="Assets\Trnth\Backend\ITrnthCRUD.cs" />
      <Compile Include="Assets\Trnth\Backend\ITrnthCRUDUser.cs" />
      <Compile Include="Assets\Trnth\Backend\ITrnthQuery.cs" />
      <Compile Include="Assets\Trnth\CameraController.cs" />
      <Compile Include="Assets\Trnth\Counter.cs" />
+     <Compile Include="Assets\Trnth\EnumFlagAttribute.cs" />
      <Compile Include="Assets\Trnth\ExamplesThatCanBeDeleted\SlidingNumber\SlidingNumberExampleCounter.cs" />
      <Compile Include="Assets\Trnth\HierarchyVisualScript\TrnthHVS.cs" />
      <Compile Include="Assets\Trnth\HierarchyVisualScript\TrnthHVSAction.cs" />
@@ -172,14 +181,12 @@
      <Compile Include="Assets\Trnth\PerformanceTest\OnTrigger.cs" />
      <Compile Include="Assets\Trnth\PerformanceTest\TestMnager.cs" />
      <Compile Include="Assets\Trnth\PerformanceTest\TheTarget.cs" />
-     <Compile Include="Assets\Trnth\Pool\ComponentPool.cs" />
      <Compile Include="Assets\Trnth\Pool\Pool.cs" />
-     <Compile Include="Assets\Trnth\Pool\PoolMangerAnimator.cs" />
-     <Compile Include="Assets\Trnth\Pool\PoolMangerRigidbody2d.cs" />
      <Compile Include="Assets\Trnth\PositionPicker\ITrnthPositionPickee.cs" />
      <Compile Include="Assets\Trnth\PositionPicker\ITrnthPositionPicker.cs" />
      <Compile Include="Assets\Trnth\PositionPicker\RunTimeEventReciever.cs" />
      <Compile Include="Assets\Trnth\PositionPicker\TrnthPositionPicker.cs" />
+     <Compile Include="Assets\Trnth\TerrainEditor2D.cs" />
      <Compile Include="Assets\Trnth\TrnthAlarm.cs" />
      <Compile Include="Assets\Trnth\TrnthAnimationEvent.cs" />
      <Compile Include="Assets\Trnth\TrnthAnimationEventReceiver.cs" />
