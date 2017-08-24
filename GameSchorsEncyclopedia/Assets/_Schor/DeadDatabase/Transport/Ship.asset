@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6869875b382544f2fb2136beb6bd4f25, type: 3}
+  m_Name: Ship
+  m_EditorClassIdentifier: 
+  Name: "\u6E21\u8239"
+  Icon: {fileID: 21300000, guid: b1ae06d40642349f6bdef95d1a758dea, type: 3}
+  Description: "\u53EF\u4EE5\u901A\u904E\u5E73\u975C\u6C34\u57DF"
