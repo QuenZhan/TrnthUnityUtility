@@ -6,35 +6,11 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using TRNTH.SchorsInventory.UI;
 using TRNTH.SchorsInventory.DeadDatabase;
+using TRNTH.SchorsInventory.RuntimeDatabase;
 
-namespace TRNTH.SchorsInventory{
-	public interface IExchange:IAction{
-		string Title{get;}
-		// string Description{get;}
-		// System.TimeSpan CostTime{get;}
-		IReadOnlyCollection<IIngredient> Ingredients{get;}
-		IReadOnlyCollection<IIngredient> Results{get;}
-	}
-	public interface IExchange<ItemData>:IExchange{
-
-	}
-	public interface IIngredient{
-		string Name{get;}
-		Sprite Icon{get;}
-		byte Count{get;}
-		string Unit{get;}
-	}
-	// public interface IFacilityOption{
-	// 	string Name{get;}
-	// }
-    // [System.Serializable]public class FacilityOption : IFacilityOption
-    // {
-	// 	[SerializeField]string _Name;
-    //     string IFacilityOption.Name {get{return _Name;}}
-    // }
-}
-namespace TRNTH.SchorsInventory.Component{
-	public class Place : MonoBehaviour
+namespace TRNTH.SchorsInventory.Component
+{
+    public class Place : MonoBehaviour
 	 ,IPointerEnterHandler
 	 ,ISelectHandler
 	 ,IItemSelector
@@ -42,19 +18,48 @@ namespace TRNTH.SchorsInventory.Component{
 	 {
 		public string Name{get{return _Name;}}
 
-        string IContainerData.Title {get{throw new NotImplementedException();}}
+        public string Title {get{return _Name;}}
+		const string Facility="設施";
+        public string Caption {get{return Facility;}}
 
-        string IContainerData.Caption {get{throw new NotImplementedException();}}
+        Sprite IContainerData.Icon{get{return Icon;}}
 
-        Sprite IContainerData.Icon {get{throw new NotImplementedException();}}
+        string IContainerData.Description {get{return Description;}}
 
-        string IContainerData.Description {get{throw new NotImplementedException();}}
+        public bool UsingSlider {get{return false;}}
 
-        bool IContainerData.UsingSlider {get{throw new NotImplementedException();}}
+        public float SliderValue {get{return 0;}}
+		// protected ItemData[] Items{get{
+		// 	return _items;
+		// }}
+		protected virtual void BeforeItems(IItemData[] _datas){
 
-        float IContainerData.SliderValue {get{throw new NotImplementedException();}}
-
-        IReadOnlyList<IItemData> IContainerData.Items {get{throw new NotImplementedException();}}
+		}
+        public virtual IReadOnlyList<IItemData> Items {
+			get{
+				BeforeItems(_items);
+				return _items;
+			}
+		}
+		// protected virtual IItemData Item0{get{return null;}}
+		// protected virtual IItemData Item1{get{return null;}}
+		// protected virtual IItemData Item2{get{return null;}}
+		// protected virtual IItemData Item3{get{return null;}}
+		// protected virtual IItemData Item4{get{return null;}}
+		// protected virtual IItemData Item5{get{return null;}}
+		// protected virtual IItemData Item6{get{return null;}}
+		// protected virtual IItemData Item7{get{return null;}}
+		// protected virtual IItemData Item8{get{return null;}}
+		// protected virtual IItemData Item9{get{return null;}}
+		readonly IItemData[] _items=new IItemData[10];
+		// IItemData Check(IItemData data){
+		// 		if(data is Conversation){
+		// 			var scenario=(Conversation)data;
+		// 			var contains=SjiaController.Instance.UserData.Memories.Contains(scenario);
+		// 			if(contains)return null;
+		// 		}
+		// 		return data;
+		// 	}
 
         [Multiline]public string Description;
 		[SerializeField]UI.Component.OptionList _detailer;
@@ -62,39 +67,18 @@ namespace TRNTH.SchorsInventory.Component{
 		[SerializeField]string _Name;
 		public Sprite Icon;
 		[SerializeField]Transport[] _transports;
+		public IReadOnlyCollection<Transport> Transports{get{return _transports;}}
 		[SerializeField]UI.Component.Exchange _TransportExecutionPage;
-		[SerializeField]Facility _facility;
-        // void IPointerDownHandler.OnPointerDown(PointerEventData eventData)
-        // {
-		// 	Select();
-		// }
+		// [SerializeField]Facility _facility;
 		void Start()
 		{
-			_NameText.text=_Name;
+			if(_NameText)_NameText.text=_Name;
 		}
+		// UserData UserData;
+		[SerializeField]Manager _manager;
 		void Select(){
-			_TransportExecutionPage.gameObject.SetActive(false);
-			if(SjiaController.Instance.UserData.Place==this){
-				_detailer.Executeor=this;
-				_detailer.Refresh(_facility);
-			}
-			else{
-				_transport.Datas.Clear();
-				foreach(var e in SjiaController.Instance.UserData.Place._transports){
-					if(e.Destination!=this)continue;
-					_transport.Datas.Add(e);	
-				}
-				_transport.Destinartion=this;
-				_detailer.Refresh(_transport);
-				_detailer.Executeor=this;
-			}
-
+			_manager.SelectPlace(this);
 		}
-
-        // void IPointerEnterHandler.OnPointerEnter(PointerEventData eventData)
-        // {
-        //     Select();
-        // }
 		[ContextMenu("TestExecute")]
 		void ExchangePageRefresh(){
 			_TransportExecutionPage.Refresh(_transports[0]);
@@ -119,57 +103,6 @@ namespace TRNTH.SchorsInventory.Component{
 
         // public IReadOnlyList<IFacilityOption> Options{get{return _options;}}
         TransportOptions _transport=new TransportOptions();
-		// Facility _facility;
-        class ContainerDataBase : IContainerData
-        {
-			[SerializeField]string _Title;
-            string IContainerData.Title {get{return _Title;}}
-			[SerializeField]string _caption;
-            string IContainerData.Caption {get{return _caption;}}
-
-            Sprite IContainerData.Icon {get{return null;}}
-			[Multiline][SerializeField]string _Description;
-
-            string IContainerData.Description{get{return _Description;}}
-
-            bool IContainerData.UsingSlider{get{ throw new NotImplementedException();}}
-
-            float IContainerData.SliderValue{get{ throw new NotImplementedException();}}
-
-            IReadOnlyList<IItemData> IContainerData.Items {get  {throw new NotImplementedException();}}
-        }
-        [System.Serializable]
-        class TransportOptions : IContainerData
-        {
-			public IList<Transport> Datas{
-				get{
-					return _Datas;
-				}				
-			}
-			readonly List<Transport> _Datas=new List<Transport>();
-			public Place Destinartion;
-            string IContainerData.Title {
-				get{
-					return Goto;
-				}
-			}
-			const string Goto="前往…";
-
-            string IContainerData.Caption {get{return Destinartion.Name;}}
-
-            Sprite IContainerData.Icon {get{return Destinartion.Icon;}}
-
-            string IContainerData.Description{get{return string.Empty;}}
-
-            bool IContainerData.UsingSlider {get{return false;}}
-
-            float IContainerData.SliderValue {get{return 0;}}
-
-            IReadOnlyList<IItemData> IContainerData.Items{get{return _Datas;}}
-        }
-        // [System.Serializable]
-        // class Facility : ContainerDataBase{
-        // }
     }
 	[System.Serializable]public class Transport:
 		IItemData
@@ -188,13 +121,13 @@ namespace TRNTH.SchorsInventory.Component{
 			}
 		}
 
-		Sprite IItemData.Icon {get{return Method.Icon;}}
+		// Sprite IItemData.Icon {get{return Method.Icon;}}
 
-		public string Name {get{return Destination.Name;}}
+		// public string Name {get{return Destination.Name;}}
 
-		public string Description {get{return Method.Description;}}
+		// public string Description {get{return Method.Description;}}
 
-		string IItemData.Caption {get{return Method.Name;}}
+		// string IItemData.Caption {get{return Method.Name;}}
 
 		string IExchange.Title {get{return Method.Name;}}
 		[SerializeField]Sprite _CostIcon;
@@ -217,7 +150,31 @@ namespace TRNTH.SchorsInventory.Component{
 			}
 		}
 
-		[SerializeField]float _Hours;
+        string IAction.Name{get{return Name;}}
+
+        string IAction.Description {get{return Description;}}
+
+        [SerializeField]float _Hours;
 	}
 
+}
+
+namespace TRNTH.SchorsInventory
+{
+    public interface IExchange:IAction{
+		string Title{get;}
+		// string Description{get;}
+		// System.TimeSpan CostTime{get;}
+		IReadOnlyCollection<IIngredient> Ingredients{get;}
+		IReadOnlyCollection<IIngredient> Results{get;}
+	}
+	public interface IExchange<ItemData>:IExchange{
+
+	}
+	public interface IIngredient{
+		string Name{get;}
+		Sprite Icon{get;}
+		byte Count{get;}
+		string Unit{get;}
+	}
 }

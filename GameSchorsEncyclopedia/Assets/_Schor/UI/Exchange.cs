@@ -31,7 +31,7 @@ namespace TRNTH.SchorsInventory.UI.Component{
 			_data=data;
 		}
 		IExchange _data;
-		[SerializeField]SchorsInventory.Component.SjiaController _manager;
+		[SerializeField]SchorsInventory.Component.Manager _manager;
 		void RefreshIngredient(IEnumerator<IIngredient> enumerator,ExchangeIngredient[] _ingredients){
 			var max=_ingredients.Length;
 			for(var i=0;i<max;i++){

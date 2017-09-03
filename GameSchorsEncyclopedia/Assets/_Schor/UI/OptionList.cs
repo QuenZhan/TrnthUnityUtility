@@ -4,9 +4,6 @@ using UnityEngine;
 using UnityEngine.UI;
 namespace TRNTH.SchorsInventory.UI{
 	
-	public interface IItemSelector{
-		void Select(IItemData item);
-	}
 	
 }
 namespace TRNTH.SchorsInventory.UI.Component{
@@ -17,7 +14,9 @@ namespace TRNTH.SchorsInventory.UI.Component{
 		[SerializeField]Text _Description;
 		[SerializeField]Option[] _options;
 		[SerializeField]Slider _slier;
+		// [SerializeField]Sleep[] _sleep=new Sleep[]{new Sleep()};
 		public void Refresh(IContainerData data){
+			this.Executeor=data;
 			gameObject.SetActive(true);
 			_Title.text=data.Title;
 			_Icon.sprite=data.Icon;

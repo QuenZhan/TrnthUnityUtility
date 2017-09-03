@@ -8,7 +8,7 @@ namespace TRNTH.SchorsInventory.UI.Component{
 		[SerializeField]Text _Stamina;
 		[SerializeField]Image _PlaceIcon;
 		[SerializeField]Text _placeName;
-		public void Refresh(RuntimeDatabase.SjiaData userdata){
+		public void Refresh(RuntimeDatabase.UserData userdata){
 			float hours=userdata.DateTime.Hour%12/12f+userdata.DateTime.Minute/60f;
 			_clock.value=hours;
 			_Stamina.text=Utility.IntToStringNonAllocUnder1000(userdata.Stamina.TotalHours);

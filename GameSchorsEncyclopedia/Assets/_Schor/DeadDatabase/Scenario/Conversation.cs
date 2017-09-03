@@ -5,20 +5,20 @@ using TRNTH.SchorsInventory.UI;
 using UnityEngine;
 namespace TRNTH.SchorsInventory.DeadDatabase{
 	[CreateAssetMenu]public class Conversation : ScriptableObject
-	, IItemData
+	// , IItemData
 	,IExchange
 	{
 		[SerializeField]string _Title;
 		[SerializeField]Dialogue[] _Dialogues;
 		public IReadOnlyList<Dialogue> Dialogues{get{return _Dialogues;}}
 		[SerializeField]Sprite _icon;
-        Sprite IItemData.Icon {get{return _icon;}}
+        // Sprite IItemData.Icon {get{return _icon;}}
 
         public string Name {get{return _Title;}}
 
         public string Description{get{return _Dialogues[0].Content;}}
 
-        string IItemData.Caption {get{return _Dialogues[0].Character.Name;}}
+        // string IItemData.Caption {get{return _Dialogues[0].Character.Name;}}
 
         string IExchange.Title {get{return _Title;}}
 
@@ -44,8 +44,40 @@ namespace TRNTH.SchorsInventory.DeadDatabase{
         //     throw new System.NotImplementedException();
         // }
     }
+	public enum Emotion{
+		None,Annoying,Boring,Doubt,LookAside,Weird,Serious,Pride
+		,Lazy,Nervous,Patient,Painfull,Speachless,
+        BitterSmile,
+        Smile,
+        Noticed,Contempt,
+        Humiliated,
+        Heavy,
+        Scared,
+        Carefull,
+        Umm,
+        NervousSmile,
+        Angry,
+        Irritable,
+        Surprised,
+        Excited,
+        Embarrassed,
+        Thinking,
+        Regretful,
+        Chuckle,
+        AwakeScared,
+        YesYesYes,
+        ActingCute,
+        Happy,
+        Reading,
+    }
 	[System.Serializable]public struct Dialogue{
 		[Multiline]public string Content;
 		public Character Character;
+		public Emotion Emotion;
+		public Dialogue(string content,Character character,Emotion emotion=Emotion.None){
+			this.Content=content;
+			this.Character=character;
+			this.Emotion=emotion;
+		}
 	}
 }

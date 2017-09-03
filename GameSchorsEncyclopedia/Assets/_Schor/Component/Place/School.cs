@@ -5,19 +5,18 @@ using TRNTH.SchorsInventory.UI;
 using TRNTH.SchorsInventory.UI.Component;
 using UnityEngine;
 namespace TRNTH.SchorsInventory.Component{
-	public class School : Facility {
-		// [SerializeField]SchoolLab _ToLab;
-		// [SerializeField]SchoolLibrary _ToLibrary;
+	public class School : Place {
+		[SerializeField]Transport _ToLab;
 		[SerializeField]Conversation _Lesson;
-		[SerializeField]Exchange _exchangePage;
+        [SerializeField]Transport _Office;
+        [SerializeField]Transport _ToLibrary;
 
-        protected override IItemData Item0 {get{return _Lesson;}}
-
-        protected override IItemData Item1 {get{return null;}}
-
-        protected override IItemData Item2 {get{return null;}}
-
-        protected override IItemData Item3 {get{return null;}}
+        protected override void BeforeItems(IItemData[] _datas){
+            // _datas[0]=_Lesson;
+            _datas[1]=_Office;
+            _datas[2]=_ToLibrary;
+            _datas[3]=_ToLab;
+        }
     }
 
 }
