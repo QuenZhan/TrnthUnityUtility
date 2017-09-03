@@ -42,9 +42,15 @@ namespace TRNTH{
 	}
 	public class U:Utility{}
 	public class Utility{
-				public static string IntToStringNonAllocUnder1000(byte number){
+		public static string IntToStringNonAllocUnder1000(float number){
 					return IntToStringNonAllocUnder1000((int)number);
 				}
+		public static string IntToStringNonAllocUnder1000(double number){
+			return IntToStringNonAllocUnder1000((int)number);
+		}
+		public static string IntToStringNonAllocUnder1000(byte number){
+			return IntToStringNonAllocUnder1000((int)number);
+		}
 		public static string IntToStringNonAllocUnder1000(int number){
 			var limit=1000;
 			if(StringNumber==null){
