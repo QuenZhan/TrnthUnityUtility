@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using TRNTH.Pooling;
 
-
 namespace TRNTH{
 	[System.Flags]
 	public enum TileContext{
@@ -82,6 +81,10 @@ namespace TRNTH{
 			var ray=new Ray(worldPosition,c.transform.TransformDirection(Vector3.forward));
 			return ray;
 		}
+		static public Vector2 MousePositionToAnchoredPosition(RectTransform parent){
+			var rect=parent.rect;
+			return new Vector2(Input.mousePosition.x/Screen.width*rect.width,Input.mousePosition.y/Screen.height*rect.height);
+		}
 		public static void UIContainerRefresh<TData,TCell>(IUIContainer<TData,TCell> container){
 			var datas=container.Datas;
 			var size=datas.Count;
@@ -134,12 +137,6 @@ namespace TRNTH{
 			return list[list.Count-1];
 		}
 		public static T ParseEnum<T>( string value ){
-//			if(string.IsNullOrEmpty(value))return default(T);
-//			System.Enum.
-//			var names=new List<string>(System.Enum.GetNames(typeof(T)));
-//			if(!names.Contains(value)){
-//				return default(T);
-//			}
 			try{
 				return (T) System.Enum.Parse( typeof( T ), value, true );				
 			}
