@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using UnityEngine;
 //using System.IO;
 //using UnityEditor;
+#if UNITY_EDITOR
 
 
 namespace TRNTH.Terrain{
@@ -74,7 +75,7 @@ namespace TRNTH.Terrain{
 			if(scan)ScanAstar();
 		}
 		protected abstract void ScanAstar();
-		[ContextMenu("Save")]
+		[ContextMenu("Save")][System.Diagnostics.Conditional("UNITY_EDITOR")]
 		public void Save(){
 			UnityEditor.EditorUtility.SetDirty(File);
 			UnityEditor.AssetDatabase.SaveAssets();
@@ -222,7 +223,7 @@ namespace TRNTH.Terrain{
 		public int RandomIndex;
 		public bool RandomBrush=true;
 		public bool AutoContext=false;
-		[EnumFlagsAttribute]
+		// [EnumFlagsAttribute]
 		public TileContext Context;
 		public Vector3 Position;
 		public string Content;
@@ -230,3 +231,4 @@ namespace TRNTH.Terrain{
 		public GameObject Hover;
 	}
 }
+#endif

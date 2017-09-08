@@ -1,6 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Animations;
+// using UnityEditor.Animations;
 using UnityEngine;
 namespace TRNTH{
 public class Fx : MonoBehaviour {
@@ -8,19 +8,23 @@ public class Fx : MonoBehaviour {
 		ParticleSystem _ParticleSystem;
 		Animator _Animator;
 		Transform _tranform;
+		const string AnimattionStart="Start";
+		const string AnimationEnd="End";
+		#if UNITY_EDITOR
 		static readonly AnimatorControllerParameter ParaStart= new AnimatorControllerParameter(){
 				type=AnimatorControllerParameterType.Trigger
-					,name="Start"
+					,name=AnimattionStart
 			};
 		static readonly AnimatorControllerParameter ParaEnd= new AnimatorControllerParameter(){
 				type=AnimatorControllerParameterType.Trigger
-					,name="End"
+					,name=AnimationEnd
 			};
-		[SerializeField]AnimatorController _AnimatorController;
+		[SerializeField] UnityEditor.Animations.AnimatorController _AnimatorController;
 		[ContextMenu("AnimatorParementFormat")]
 		void AnimatorParementFormat(){
 			_AnimatorController.parameters=new AnimatorControllerParameter[]{ParaStart,ParaEnd};
 		}
+		#endif
 		void Awake(){
 			_tranform=transform;
 			_Animator=GetComponentInChildren<Animator>();
@@ -32,7 +36,7 @@ public class Fx : MonoBehaviour {
 			// 	this._Renderer.enabled=true;
 			// }
 			if(_Animator!=null){
-				_Animator.SetTrigger(ParaStart.name);
+				_Animator.SetTrigger(AnimattionStart);
 			}
 			if(_ParticleSystem!=null){
 				_ParticleSystem.Play(true);
@@ -42,7 +46,7 @@ public class Fx : MonoBehaviour {
 		}
 		public void End(){
 			if(_Animator!=null){
-				_Animator.SetTrigger(ParaEnd.name);
+				_Animator.SetTrigger(AnimationEnd);
 			}
 			if(_ParticleSystem==null)return;
 			_ParticleSystem.Stop();
