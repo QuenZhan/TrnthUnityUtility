@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 namespace TRNTH{
-	public interface IReadonlyHashSet<T>  {
+	public interface IReadonlyHashSet<T>:IReadOnlyCollection<T>  {
 		bool Contains(T item);
 	}
 	public class HashSet<T>:System.Collections.Generic.HashSet<T>,IReadonlyHashSet<T>{
