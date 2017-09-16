@@ -17,15 +17,16 @@ namespace TRNTH{
 			CheckData();
 		}
 		void CheckData(){
+			if(!EditorApplication.isPlaying)return;
 			var tag="[RuntimeEditing]";
-			if(_Parent==null && EditorApplication.isPlaying){
+			if(_Parent==null){
 				foreach(var e in EditorSceneManager.GetActiveScene().GetRootGameObjects()){
 					if(!e.name.Contains(tag))continue;
 					_Parent=e.transform;
 					break;
 				}
 			}
-			if(_Parent==null && EditorApplication.isPlaying){
+			if(_Parent==null){
 				GUIContent gUIContent=new GUIContent("PlayModeEditor 沒有指定要紀錄誰");
 				EditorWindow.focusedWindow.ShowNotification(gUIContent);
 				return;
