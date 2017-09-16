@@ -46,7 +46,6 @@ namespace TRNTH{
 			newOne.transform.position=_Parent.transform.position;
 			DestroyImmediate(_Parent.gameObject);
 			PrefabUtility.DisconnectPrefabInstance(newOne);
-			_Parent=newOne;
 			EditorSceneManager.MarkSceneDirty(UnityEngine.SceneManagement.SceneManager.GetActiveScene());
 			return newOne;
 		}
@@ -58,9 +57,9 @@ namespace TRNTH{
 		private void StateChanged()
 		{
 			if(!AutoPipeline)return;
-			if (!EditorApplication.isPlayingOrWillChangePlaymode &&
-				EditorApplication.isPlaying ) 
-			{
+			if (!EditorApplication.isPlayingOrWillChangePlaymode 
+			&& EditorApplication.isPlaying 
+			){
 				RecordSerialized();
 			}
 			if(EditorApplication.isPlaying || EditorApplication.isPlayingOrWillChangePlaymode){
@@ -87,7 +86,6 @@ namespace TRNTH{
 		void RecordSerialized(){
 			RecordSerialized(_Parent.gameObject);
 		}
-
 		protected virtual void RecordSerialized(GameObject gameObject){
 			var path=string.Format(TmpPrefabPath,Application.dataPath);
 			PrefabUtility.CreatePrefab(path,gameObject);
