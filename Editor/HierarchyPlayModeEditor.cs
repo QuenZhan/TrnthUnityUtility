@@ -50,17 +50,6 @@ namespace TRNTH{
 			EditorSceneManager.MarkSceneDirty(UnityEngine.SceneManagement.SceneManager.GetActiveScene());
 			return newOne;
 		}
-		void Apply(GameObject gameObject){
-			var to=new SerializedObject(gameObject.transform);
-			var from=_dicSerialized[gameObject];
-			var property=from.GetIterator();
-			while(property.Next(true)){
-				to.CopyFromSerializedProperty(property);
-			}
-			to.ApplyModifiedPropertiesWithoutUndo();
-			_dicSerialized.Remove(gameObject);
-			_Selected.Remove(gameObject);
-		}
 		void OnFocus(){
 			EditorApplication.playmodeStateChanged-=StateChanged;
 			EditorApplication.playmodeStateChanged+=StateChanged;
@@ -69,9 +58,6 @@ namespace TRNTH{
 		private void StateChanged()
 		{
 			if(!AutoPipeline)return;
-			// if(EditorApplication.isPlayingOrWillChangePlaymode && !EditorApplication.isPlaying){
-			// 	CheckData();
-			// }
 			if (!EditorApplication.isPlayingOrWillChangePlaymode &&
 				EditorApplication.isPlaying ) 
 			{
@@ -82,18 +68,14 @@ namespace TRNTH{
 			}
 			_Parent=Replace(_Parent.gameObject).transform;
 		}
-		bool _playing;
 
 		[SerializeField]Transform _Parent;
-		[SerializeField]List<GameObject> _Selected;
-		Dictionary<GameObject,SerializedObject> _dicSerialized=new Dictionary<GameObject, SerializedObject>();
 		void OnGUI()
 		{
 			EditorGUILayout.LabelField("保持這個介面顯示，Parent 底下的所有孩子的\n任何變動將會在 Play Mode 之後保留。");
 			PropertyDrawer("_Parent",this);
 			AutoPipeline=GUILayout.Toggle(AutoPipeline,"AutoPipeline");
 			if(AutoPipeline)return;
-			PropertyDrawer("_Selected",this);
 			if(GUILayout.Button("Replace")){
 				_Parent=Replace(_Parent.gameObject).transform;
 			}
