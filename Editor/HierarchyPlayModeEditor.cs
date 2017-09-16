@@ -3,30 +3,52 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using System;
+using UnityEditor.SceneManagement;
+
 namespace TRNTH{
 	public class HierarchyPlayModeEditor : EditorWindowBase {
 		[MenuItem("TRNTH/PlayModeEditor")]
 		static void ShowWindow(){
 			var win=new HierarchyPlayModeEditor();
 			win.Show();
+			win.titleContent=new GUIContent("TRNTHPlayModeEditor");
 		}
 		void OnSelectionChange(){
+			CheckData();
 		}
-		// void R
-		void OnHierarchyChange(){
+		void CheckData(){
+			var tag="[RuntimeEditing]";
 			if(_Parent==null && EditorApplication.isPlaying){
-				EditorApplication.isPlaying=false;
-				GUIContent gUIContent=new GUIContent("PlayModeEditor._Parent==null");
-				ShowNotification(gUIContent);
+				foreach(var e in EditorSceneManager.GetActiveScene().GetRootGameObjects()){
+					if(!e.name.Contains(tag))continue;
+					_Parent=e.transform;
+					break;
+				}
+			}
+			if(_Parent==null && EditorApplication.isPlaying){
+				GUIContent gUIContent=new GUIContent("PlayModeEditor 沒有指定要紀錄誰");
+				EditorWindow.focusedWindow.ShowNotification(gUIContent);
+				return;
+			}
+			_Parent.name=_Parent.name.Replace(tag,string.Empty);
+			_Parent.name=_Parent.name+tag;
+			if(_Parent.parent!=null){
+				GUIContent gUIContent=new GUIContent("Parent 不可以有爸爸");
+				EditorWindow.focusedWindow.ShowNotification(gUIContent);
+				return;
 			}
 		}
-		void Replace(){
+		protected virtual GameObject Replace(GameObject _Parent){
+			if(_Parent==null)return null;
 			var prefab=(GameObject)AssetDatabase.LoadAssetAtPath(TmpPrefabPath,typeof(GameObject));
 			var newOne=PrefabUtility.InstantiatePrefab(prefab) as GameObject;
 			newOne.name=_Parent.gameObject.name;
+			newOne.transform.position=_Parent.transform.position;
 			DestroyImmediate(_Parent.gameObject);
 			PrefabUtility.DisconnectPrefabInstance(newOne);
-			_Parent=newOne.transform;
+			_Parent=newOne;
+			EditorSceneManager.MarkSceneDirty(UnityEngine.SceneManagement.SceneManager.GetActiveScene());
+			return newOne;
 		}
 		void Apply(GameObject gameObject){
 			var to=new SerializedObject(gameObject.transform);
@@ -47,38 +69,33 @@ namespace TRNTH{
 		private void StateChanged()
 		{
 			if(!AutoPipeline)return;
+			// if(EditorApplication.isPlayingOrWillChangePlaymode && !EditorApplication.isPlaying){
+			// 	CheckData();
+			// }
 			if (!EditorApplication.isPlayingOrWillChangePlaymode &&
 				EditorApplication.isPlaying ) 
 			{
 				RecordSerialized();
 			}
-			if(EditorApplication.isPlaying){
+			if(EditorApplication.isPlaying || EditorApplication.isPlayingOrWillChangePlaymode){
 				return;
 			}
-			Replace();
+			_Parent=Replace(_Parent.gameObject).transform;
 		}
 		bool _playing;
 
 		[SerializeField]Transform _Parent;
 		[SerializeField]List<GameObject> _Selected;
 		Dictionary<GameObject,SerializedObject> _dicSerialized=new Dictionary<GameObject, SerializedObject>();
-		// void PropertyDrawer(string propertyName){
-		// 	ScriptableObject target = this;
-		// 	SerializedObject so = new SerializedObject(target);
-		// 	SerializedProperty stringsProperty = so.FindProperty(propertyName);
-		// 	EditorGUILayout.PropertyField(stringsProperty, true); // True means show children
-		// 	so.ApplyModifiedProperties(); // Remember to apply modified properties
-		// }
 		void OnGUI()
 		{
-			EditorGUILayout.LabelField("目標的所有孩子任何變動將會在 Play Mode 保留");
+			EditorGUILayout.LabelField("保持這個介面顯示，Parent 底下的所有孩子的\n任何變動將會在 Play Mode 之後保留。");
 			PropertyDrawer("_Parent",this);
 			AutoPipeline=GUILayout.Toggle(AutoPipeline,"AutoPipeline");
 			if(AutoPipeline)return;
-			// EditorGUILayout.LabelField(string.Format("Recording:{0}",Application.isPlaying));
 			PropertyDrawer("_Selected",this);
 			if(GUILayout.Button("Replace")){
-				Replace();
+				_Parent=Replace(_Parent.gameObject).transform;
 			}
 			if(GUILayout.Button("RecordSerialized")){
 				RecordSerialized(_Parent.gameObject);
@@ -89,7 +106,7 @@ namespace TRNTH{
 			RecordSerialized(_Parent.gameObject);
 		}
 
-		void RecordSerialized(GameObject gameObject){
+		protected virtual void RecordSerialized(GameObject gameObject){
 			var path=string.Format(TmpPrefabPath,Application.dataPath);
 			PrefabUtility.CreatePrefab(path,gameObject);
 		}
