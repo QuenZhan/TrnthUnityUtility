@@ -30,28 +30,27 @@ public class Fx : MonoBehaviour {
 			_Animator=GetComponentInChildren<Animator>();
 			_ParticleSystem=GetComponentInChildren<ParticleSystem>();
 		}
-		public void Launch(Vector3 position){
-			_tranform.position=position;
-			// if(_Renderer!=null){
-			// 	this._Renderer.enabled=true;
-			// }
+		public bool IsPlaying{get;private set;}
+		public void Play(){
+			IsPlaying=true;
 			if(_Animator!=null){
 				_Animator.SetTrigger(AnimattionStart);
 			}
 			if(_ParticleSystem!=null){
 				_ParticleSystem.Play(true);
-				// var emission=_ParticleSystem.emission;
-				// emission.enabled=true;
 			}
 		}
+		public void Launch(Vector3 position){
+			_tranform.position=position;
+			Play();
+		}
 		public void End(){
+			IsPlaying=false;
 			if(_Animator!=null){
 				_Animator.SetTrigger(AnimationEnd);
 			}
 			if(_ParticleSystem==null)return;
-			_ParticleSystem.Stop();
-			// var emission=_ParticleSystem.emission;
-			// emission.enabled=false;
+			_ParticleSystem.Stop(true,ParticleSystemStopBehavior.StopEmitting);
 		}
 	}
 }
