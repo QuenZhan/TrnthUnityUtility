@@ -90,10 +90,10 @@ namespace TRNTH{
 			if(list.Count<1)return default(T);
 			return list[Random.Range(0,list.Count)];
 		}
+		static readonly System.Random rng=new System.Random();
 		public static IList<T> Shuffle<T>(this IList<T> arrOrin){
-//			if(arrOrin.Count<1)return arrOrin;
 			var list=arrOrin;
-			var rng = new System.Random();  
+			// var rng = new System.Random();  
 			int n = arrOrin.Count;
 			while (n > 1) {
 				n--;  
@@ -104,15 +104,6 @@ namespace TRNTH{
 			} 
 			return list;
 		}
-//		public static IEnumerable<T> GetShuffled<T>(this IEnumerable<T> list){
-//			return new List<T>(U.shuffle<T>(new List<T>(list).ToArray()));
-//		}
-//		public static List<T> GetShuffled<T>(this List<T> list){
-//			return new List<T>(U.shuffle<T>(list.ToArray()));
-//		}
-//		public static IList<T> GetShuffled<T>(this IList<T> list){
-//			return new List<T>(U.shuffle<T>(list.ToArray()));
-//		}
 		public static void send(this MonoBehaviour monoBehaviour,TrnthHVSCondition condition){
 			if(condition)condition.send();
 		}
