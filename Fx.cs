@@ -34,6 +34,7 @@ public class Fx : MonoBehaviour {
 		public void Play(){
 			IsPlaying=true;
 			if(_Animator!=null){
+				_Animator.ResetTrigger(AnimationEnd);
 				_Animator.SetTrigger(AnimattionStart);
 			}
 			if(_ParticleSystem!=null){
@@ -47,6 +48,7 @@ public class Fx : MonoBehaviour {
 		public void End(){
 			IsPlaying=false;
 			if(_Animator!=null){
+				_Animator.ResetTrigger(AnimattionStart);
 				_Animator.SetTrigger(AnimationEnd);
 			}
 			if(_ParticleSystem==null)return;
