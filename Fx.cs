@@ -3,7 +3,7 @@ using System.Collections.Generic;
 // using UnityEditor.Animations;
 using UnityEngine;
 namespace TRNTH{
-public class Fx : MonoBehaviour {
+public class Fx : TrnthMonoBehaviour {
 		// [SerializeField]Renderer _Renderer;
 		ParticleSystem _ParticleSystem;
 		Animator _Animator;
@@ -25,7 +25,8 @@ public class Fx : MonoBehaviour {
 			_AnimatorController.parameters=new AnimatorControllerParameter[]{ParaStart,ParaEnd};
 		}
 		#endif
-		void Awake(){
+		public override void Awake(){
+			base.Awake();
 			_tranform=transform;
 			_Animator=GetComponentInChildren<Animator>();
 			_ParticleSystem=GetComponentInChildren<ParticleSystem>();
@@ -33,6 +34,10 @@ public class Fx : MonoBehaviour {
 		public bool IsPlaying{get;private set;}
 		public void Play(){
 			IsPlaying=true;
+			if(_Animator==null && _ParticleSystem==null){
+				gobj.SetActive(true);
+				return ;
+			}
 			if(_Animator!=null){
 				_Animator.ResetTrigger(AnimationEnd);
 				_Animator.SetTrigger(AnimattionStart);
@@ -47,6 +52,10 @@ public class Fx : MonoBehaviour {
 		}
 		public void End(){
 			IsPlaying=false;
+			if(_Animator==null && _ParticleSystem==null){
+				gobj.SetActive(false);
+				return ;
+			}
 			if(_Animator!=null){
 				_Animator.ResetTrigger(AnimattionStart);
 				_Animator.SetTrigger(AnimationEnd);
