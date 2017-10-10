@@ -33,6 +33,7 @@ public class Fx : TrnthMonoBehaviour {
 		}
 		public bool IsPlaying{get;private set;}
 		public void Play(){
+			if(!this)return;
 			IsPlaying=true;
 			if(_Animator==null && _ParticleSystem==null){
 				gobj.SetActive(true);
@@ -51,6 +52,7 @@ public class Fx : TrnthMonoBehaviour {
 			Play();
 		}
 		public void End(){
+			if(!this)return;
 			IsPlaying=false;
 			if(_Animator==null && _ParticleSystem==null){
 				gobj.SetActive(false);
