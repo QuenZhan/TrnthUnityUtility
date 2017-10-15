@@ -36,7 +36,7 @@ public class Fx : TrnthMonoBehaviour {
 			if(!this)return;
 			IsPlaying=true;
 			if(_Animator==null && _ParticleSystem==null){
-				gobj.SetActive(true);
+				gameObject.SetActive(true);
 				return ;
 			}
 			if(_Animator!=null){
