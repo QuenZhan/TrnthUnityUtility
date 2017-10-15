@@ -7,11 +7,14 @@ using UnityEditor.SceneManagement;
 
 namespace TRNTH{
 	public class HierarchyPlayModeEditor : EditorWindowBase {
+		static HierarchyPlayModeEditor Instance;
+		
 		[MenuItem("TRNTH/PlayModeEditor")]
 		static void ShowWindow(){
 			var win=new HierarchyPlayModeEditor();
 			win.Show();
 			win.titleContent=new GUIContent("TRNTHPlayModeEditor");
+			Instance=win;
 		}
 		void OnSelectionChange(){
 			CheckData();
@@ -84,6 +87,10 @@ namespace TRNTH{
 			}
 		}
 		const string TmpPrefabPath="Assets/_DungeonMealCore/Terrain/TmpPrefab.prefab";
+		[MenuItem("TRNTH/PlayModeEditorSave %&s")]
+		static void Save(){
+			if(Instance)Instance.RecordSerialized();
+		}
 		void RecordSerialized(){
 			RecordSerialized(_Parent.gameObject);
 		}
