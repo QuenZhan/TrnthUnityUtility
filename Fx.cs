@@ -8,8 +8,8 @@ public class Fx : TrnthMonoBehaviour {
 		ParticleSystem _ParticleSystem;
 		Animator _Animator;
 		Transform _tranform;
-		const string AnimattionStart="Start";
-		const string AnimationEnd="End";
+		public const string AnimattionStart="Start";
+		public const string AnimationEnd="End";
 		#if UNITY_EDITOR
 		static readonly AnimatorControllerParameter ParaStart= new AnimatorControllerParameter(){
 				type=AnimatorControllerParameterType.Trigger
