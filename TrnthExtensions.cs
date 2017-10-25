@@ -82,10 +82,6 @@ namespace TRNTH{
 		public static T[] ToArray<T>(this IEnumerable<T> list){
 			return new List<T>(list).ToArray();
 		}
-		public static T RandomChoose<T>(this IEnumerable<T> container){
-			var list=new List<T>(container);
-			return RandomChooseNonAlloc(list);
-		}
 		public static T RandomChooseNonAlloc<T>(this IList<T> list){
 			if(list.Count<1)return default(T);
 			return list[Random.Range(0,list.Count)];
