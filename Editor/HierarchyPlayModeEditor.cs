@@ -10,8 +10,20 @@ namespace TRNTH{
 	public class HierarchyPlayModeEditor : EditorWindowBase {
 		static HierarchyPlayModeEditor Instance;
 		
-		[MenuItem("TRNTH/PlayModeEditor")]
-		static void ShowWindow(){
+		void OnInspectorUpdate(){
+			if(!EditorApplication.isPlaying)return;
+			if(Input.GetKey(KeyCode.F)){
+				Vector3 worldposition=Camera.main.ScreenToWorldPoint(Input.mousePosition);
+				worldposition.z=0;
+				BattleManager.Instance.Hero.GameObject.transform.position=worldposition;
+				BattleManager.Instance.Hero.GameObject.GetComponent<Rigidbody2D>().velocity=Vector2.zero;
+			}
+			if(BattleManager.Instance!=null && BattleManager.Instance.Hero.Health.rate<0.5f)BattleManager.Instance.Hero.Health.rate=0.5f;
+			if(_foodData!=null && BattleManager.Instance.Hero.Stomach.rate<0.5f){
+				BattleManager.Instance.Hero.Stomach.Add(_foodData);
+			}
+		}
+		[MenuItem("TRNTH/PlayModeEditor")]static void ShowWindow(){
 			var win=new HierarchyPlayModeEditor();
 			win.Show();
 			win.titleContent=new GUIContent("TRNTHPlayModeEditor");
@@ -79,10 +91,12 @@ namespace TRNTH{
 		}
 
 		[SerializeField]Transform _Parent;
+		[SerializeField]FoodData _foodData;
 		void OnGUI()
 		{
 			EditorGUILayout.LabelField("保持這個介面顯示，Parent 底下的所有孩子的\n任何變動將會在 Play Mode 之後保留。");
 			PropertyDrawer("_Parent",this);
+			PropertyDrawer("_foodData",this);
 			AutoPipeline=GUILayout.Toggle(AutoPipeline,"AutoPipeline");
 			if(AutoPipeline)return;
 			if(GUILayout.Button("Replace")){
