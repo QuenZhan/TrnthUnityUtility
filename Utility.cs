@@ -41,6 +41,13 @@ namespace TRNTH{
 	}
 	public class U:Utility{}
 	public class Utility{
+		static public void WorldToLocalScaledAnchoredPosition(Vector3 worldposition,Camera camera,RectTransform target){
+			var screenPoint=camera.WorldToScreenPoint(worldposition);
+			var rect=(target.parent as RectTransform).rect;
+			target.anchorMax=Vector2.zero;
+			target.anchorMin=Vector2.zero;
+			target.anchoredPosition=new Vector2(screenPoint.x/Screen.width*rect.width,screenPoint.y/Screen.height*rect.height);
+		}
 		public const int WaterLayer=4;
 		public readonly ContactFilter2D WaterFilter=new ContactFilter2D(){useLayerMask=true,layerMask=1<<WaterLayer,useTriggers=true};
 		public static string IntToStringNonAllocUnder1000(float number){
