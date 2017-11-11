@@ -67,8 +67,8 @@ namespace TRNTH{
 			return newOne;
 		}
 		void OnFocus(){
-			EditorApplication.playmodeStateChanged-=StateChanged;
-			EditorApplication.playmodeStateChanged+=StateChanged;
+			EditorApplication.playModeStateChanged-=StateChanged;
+			EditorApplication.playModeStateChanged+=StateChanged;
 			BattleManager.CanLoadScene=false;
 		}
 		void OnDestroy()
@@ -76,7 +76,7 @@ namespace TRNTH{
 			BattleManager.CanLoadScene=true;
 		}
 		bool AutoPipeline=true;
-		private void StateChanged()
+		private void StateChanged(PlayModeStateChange playmode)
 		{
 			if(!AutoPipeline)return;
 			if (!EditorApplication.isPlayingOrWillChangePlaymode 
