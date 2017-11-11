@@ -18,8 +18,13 @@ namespace TRNTH.Editor{
 		}
 		[MenuItem("TRNTH/ParentTo %&p")]
 		static void Do(){
-			if(Instance){
+			if(Instance!=null){
 				Selection.activeGameObject.transform.SetParent(Instance.TheParent);
+				var length=Selection.gameObjects.Length;
+				for (int i = 0; i < length; i++)
+				{
+					Selection.gameObjects[i].transform.SetParent(Instance.TheParent);
+				}
 				return;
 			}
 			Initialize();
