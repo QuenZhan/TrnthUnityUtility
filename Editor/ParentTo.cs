@@ -1,17 +1,28 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-namespace TRNTH{
-	public class ParentTo : MonoBehaviour {
-
-		// Use this for initialization
-		void Start () {
-			
+using UnityEditor;
+namespace TRNTH.Editor{
+	public class ParentTo : EditorWindowBase {
+		[SerializeField]Transform TheParent;
+		const string StrTheParent="TheParent";		
+		static void Initialize(){
+			var window=new ParentTo();
+			window.Show();
+			Instance=window;
 		}
-		
-		// Update is called once per frame
-		void Update () {
-			
+		static ParentTo Instance;
+		void OnGUI()
+		{
+			PropertyDrawer(StrTheParent,this);
+		}
+		[MenuItem("TRNTH/ParentTo %&p")]
+		static void Do(){
+			if(Instance){
+				Selection.activeGameObject.transform.SetParent(Instance.TheParent);
+				return;
+			}
+			Initialize();
 		}
 	}
 
