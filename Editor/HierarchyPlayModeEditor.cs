@@ -133,6 +133,7 @@ namespace TRNTH{
 			if(Instance)Instance.RecordSerialized();
 		}
 		void RecordSerialized(){
+			if(_Parent==null)return;
 			RecordSerialized(_Parent.gameObject);
 		}
 		protected virtual void RecordSerialized(GameObject gameObject){
