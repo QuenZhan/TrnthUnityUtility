@@ -11,6 +11,13 @@ namespace TRNTH{
 		static HierarchyPlayModeEditor Instance;
 		
 		void OnInspectorUpdate(){
+			var dt=0.16f;
+			if(_replaceCounter>0){
+				_replaceCounter-=dt;
+				if(_replaceCounter<=0){
+					_Parent=Replace(_Parent.gameObject).transform;
+				}
+			}
 			if(!EditorApplication.isPlaying)return;
 			if(Input.GetKey(KeyCode.F)){
 				Vector3 worldposition=Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -22,6 +29,11 @@ namespace TRNTH{
 			if(_foodData!=null && BattleManager.Instance.Hero.Stomach.rate<0.5f){
 				BattleManager.Instance.Hero.Stomach.Add(_foodData);
 			}
+			counter-=dt;
+			if(counter<0){
+				counter=120;
+				Save();
+			}
 		}
 		[MenuItem("TRNTH/PlayModeEditor")]static void ShowWindow(){
 			var win=new HierarchyPlayModeEditor();
@@ -32,6 +44,7 @@ namespace TRNTH{
 		void OnSelectionChange(){
 			CheckData();
 		}
+		float counter;
 		void CheckData(){
 			if(!EditorApplication.isPlaying)return;
 			var tag="[RuntimeEditing]";
@@ -78,7 +91,7 @@ namespace TRNTH{
 		bool AutoPipeline=true;
 		private void StateChanged(PlayModeStateChange playmode)
 		{
-			if(!AutoPipeline)return;
+			if(!AutoPipeline || !this)return;
 			if (!EditorApplication.isPlayingOrWillChangePlaymode 
 			&& EditorApplication.isPlaying 
 			){
@@ -87,22 +100,30 @@ namespace TRNTH{
 			if(EditorApplication.isPlaying || EditorApplication.isPlayingOrWillChangePlaymode){
 				return;
 			}
-			_Parent=Replace(_Parent.gameObject).transform;
+			// _Parent=Replace(_Parent.gameObject).transform;
+			_replaceCounter=1;
 		}
+		float _replaceCounter=0;
 
 		[SerializeField]Transform _Parent;
 		[SerializeField]FoodData _foodData;
+		// const string 
+		const string Str_Parent="_Parent";
+		const string str_foodData="_foodData";
+		const string str_AutoPipeline="AutoPipeline";
+		const string str_Replace="Replace";
+		const string str_RecordSerialized="RecordSerialized";
 		void OnGUI()
 		{
-			EditorGUILayout.LabelField("保持這個介面顯示，Parent 底下的所有孩子的\n任何變動將會在 Play Mode 之後保留。");
-			PropertyDrawer("_Parent",this);
-			PropertyDrawer("_foodData",this);
-			AutoPipeline=GUILayout.Toggle(AutoPipeline,"AutoPipeline");
+			// EditorGUILayout.LabelField("保持這個介面顯示，Parent 底下的所有孩子的\n任何變動將會在 Play Mode 之後保留。");
+			PropertyDrawer(Str_Parent,this);
+			PropertyDrawer(str_foodData,this);
+			AutoPipeline=GUILayout.Toggle(AutoPipeline,str_AutoPipeline);
 			if(AutoPipeline)return;
-			if(GUILayout.Button("Replace")){
+			if(GUILayout.Button(str_Replace)){
 				_Parent=Replace(_Parent.gameObject).transform;
 			}
-			if(GUILayout.Button("RecordSerialized")){
+			if(GUILayout.Button(str_RecordSerialized)){
 				RecordSerialized(_Parent.gameObject);
 			}
 		}
@@ -112,9 +133,11 @@ namespace TRNTH{
 			if(Instance)Instance.RecordSerialized();
 		}
 		void RecordSerialized(){
+			if(_Parent==null)return;
 			RecordSerialized(_Parent.gameObject);
 		}
 		protected virtual void RecordSerialized(GameObject gameObject){
+			if(gameObject==null)return;
 			var path=string.Format(TmpPrefabPath,Application.dataPath);
 			PrefabUtility.CreatePrefab(path,gameObject);
 		}
