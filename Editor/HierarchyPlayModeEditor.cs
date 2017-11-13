@@ -14,7 +14,7 @@ namespace TRNTH{
 			var dt=0.16f;
 			if(_replaceCounter>0){
 				_replaceCounter-=dt;
-				if(_replaceCounter<=0){
+				if(_replaceCounter<=0 && _Parent){
 					_Parent=Replace(_Parent.gameObject).transform;
 				}
 			}
