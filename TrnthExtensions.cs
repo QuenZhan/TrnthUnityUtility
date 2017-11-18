@@ -82,6 +82,23 @@ namespace TRNTH{
 		public static T[] ToArray<T>(this IEnumerable<T> list){
 			return new List<T>(list).ToArray();
 		}
+		public static T FindNearest<T>(this IList<T>componenents,Vector3 position) where T:Component{
+			T nearest=null;
+			var length=componenents.Count;
+			for (int i = 0; i < length; i++)
+			{
+				var t=componenents[i] as T;
+				if(t==null)continue;
+				if(nearest==null){
+					nearest=t;
+					continue;
+				}
+				var distanceN=nearest.transform.position-position;
+				var distanceT=componenents[i].transform.position-position;
+				if(distanceT.sqrMagnitude<distanceN.sqrMagnitude)nearest=t;
+			}
+			return nearest;
+		}
 		public static T RandomChooseNonAlloc<T>(this IList<T> list){
 			if(list.Count<1)return default(T);
 			return list[Random.Range(0,list.Count)];

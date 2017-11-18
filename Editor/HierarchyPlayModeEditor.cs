@@ -8,8 +8,7 @@ using TRNTH.DungeonMeal;
 
 namespace TRNTH{
 	public class HierarchyPlayModeEditor : EditorWindowBase {
-		static HierarchyPlayModeEditor Instance;
-		
+		static HierarchyPlayModeEditor Instance;		
 		void OnInspectorUpdate(){
 			var dt=0.16f;
 			if(_replaceCounter>0){
@@ -19,16 +18,6 @@ namespace TRNTH{
 				}
 			}
 			if(!EditorApplication.isPlaying)return;
-			if(Input.GetKey(KeyCode.F)){
-				Vector3 worldposition=Camera.main.ScreenToWorldPoint(Input.mousePosition);
-				worldposition.z=0;
-				BattleManager.Instance.Hero.GameObject.transform.position=worldposition;
-				BattleManager.Instance.Hero.GameObject.GetComponent<Rigidbody2D>().velocity=Vector2.zero;
-			}
-			if(BattleManager.Instance!=null && BattleManager.Instance.Hero.Health.rate<0.5f)BattleManager.Instance.Hero.Health.rate=0.5f;
-			if(_foodData!=null && BattleManager.Instance.Hero.Stomach.rate<0.5f){
-				BattleManager.Instance.Hero.Stomach.Add(_foodData);
-			}
 			counter-=dt;
 			if(counter<0){
 				counter=120;
@@ -106,7 +95,7 @@ namespace TRNTH{
 		float _replaceCounter=0;
 
 		[SerializeField]Transform _Parent;
-		[SerializeField]FoodData _foodData;
+		// [SerializeField]FoodData _foodData;
 		// const string 
 		const string Str_Parent="_Parent";
 		const string str_foodData="_foodData";
