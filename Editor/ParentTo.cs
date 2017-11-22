@@ -16,6 +16,19 @@ namespace TRNTH.Editor{
 			PropertyDrawer(StrCandidates,this);
 			PropertyDrawer(Str_color,this);
 		}
+		// readonly List<Transform> _children;
+		[MenuItem("TRNTH/Select All Children")]
+		static void SelectAllChildren(){
+			var list=new List<Transform>();
+			var tra=Selection.activeGameObject.transform;
+			var length=tra.childCount;
+			for (int i = 0; i < length; i++)
+			{
+				list.Add(tra.GetChild(i));
+			}
+			Selection.objects=list.ToArray();
+		}
+
 		[MenuItem("TRNTH/ParentTo &p")]
 		static void Do(){
 			var Instance=GetWindow<ParentTo>();
