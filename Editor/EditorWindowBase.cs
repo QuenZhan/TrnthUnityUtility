@@ -11,6 +11,8 @@ namespace TRNTH{
 			ScriptableObject target = self;
 			SerializedObject so = new SerializedObject(target);
 			SerializedProperty stringsProperty = so.FindProperty(propertyName);
+			if (stringsProperty == null)
+				return;
 			EditorGUILayout.PropertyField(stringsProperty, true); // True means show children
 			so.ApplyModifiedProperties(); // Remember to apply modified properties
 		}
