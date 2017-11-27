@@ -12,6 +12,13 @@ namespace TRNTH{
 			button.onClick.RemoveAllListeners();
 			button.onClick.AddListener(onClick);
 		}
+		static public void AddRangeNonAlloc<T>(this IList<T> list,IReadOnlyList<T> toAdd){
+			var length=toAdd.Count;
+			for (int i = 0; i < length; i++)
+			{
+				list.Add(toAdd[i]);
+			}
+		}
 		public static IEnumerable<T> Page<T>(this IEnumerable<T> list,int page,int sizePerPage){
 			var startIndex=page*sizePerPage;
 			if(list.Count() >=startIndex){
