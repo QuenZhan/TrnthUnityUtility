@@ -2,15 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 namespace TRNTH{
-	#if UNITY_EDITOR
 	public class GridSnap : TrnthMonoBehaviour {
 		[SerializeField]Vector2 Space;
-		[SerializeField]Vector2 Size;
+		Vector2 Size;
 		[SerializeField]int Columns=4;
+		RectTransform _rectTransform;
 		[ContextMenu("Layout")]
-		void Layout(){
+		public void Layout(){
 			var length=transform.childCount;
-			// Size=transform.GetChild(i) ra
 			for (int i = 0; i < length; i++)
 			{
 				var x=i%Columns;
@@ -20,7 +19,10 @@ namespace TRNTH{
 				if(i==0)Size=tra.sizeDelta;
 				else tra.sizeDelta=Size;
 			}
+			var width=(Size.x+Space.x)*Columns-Space.x;
+			var height=(Size.y+Space.y)*length/Columns-Space.y;
+			if(!_rectTransform)_rectTransform=GetComponent<RectTransform>();
+			_rectTransform.sizeDelta=new Vector2(width,height);
 		}
 	}
-	#endif
 }
