@@ -7,7 +7,7 @@ using System.Collections.ObjectModel;
 namespace TRNTH.Pooling{
 	[System.Serializable]
 	public class Pool<T> {
-		
+	
 		[SerializeField]List<T> _Instances=new List<T>();
 		public IReadOnlyList<T> Instances{
 			get{
