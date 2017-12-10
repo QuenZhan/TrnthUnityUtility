@@ -41,6 +41,14 @@ namespace TRNTH{
 	}
 	public class U:Utility{}
 	public class Utility{
+		static public bool RepeatCounterUpdate(ref float counter,float duration,float deltaSconds){
+			 counter-=deltaSconds;
+            if(counter<=0){
+                counter=duration;
+				return true;
+			}
+			return false;
+		}
 		static public void WorldToLocalScaledAnchoredPosition(Vector3 worldposition,Camera camera,RectTransform target){
 			var screenPoint=camera.WorldToScreenPoint(worldposition);
 			var rect=(target.parent as RectTransform).rect;
