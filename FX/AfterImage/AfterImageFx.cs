@@ -18,7 +18,9 @@ namespace TRNTH.Effects
 			if(counter>0)return;
 			counter=IntervalSeconds;
 			var fx=_pool.Spawn();
-			fx.Play(this.SpriteRenderer,SpriteRenderer.transform.position,!FaceRotator.FaceRight);
+			var flilpx=SpriteRenderer.flipX;
+			if(FaceRotator!=null)flilpx=!FaceRotator.FaceRight;
+			fx.Play(this.SpriteRenderer,SpriteRenderer.transform.position,flilpx);
 		}
 		[System.Serializable]class FxPool:Pooling.ComponentsPool<AfterImage>{
 

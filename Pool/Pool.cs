@@ -27,6 +27,22 @@ namespace TRNTH.Pooling{
 			for (int i = 0; i < Instances.Count; i++)
 			{
 				Instances[i].transform.parent=null;
+				Instances[i].transform.position=-Vector2.up*10000;
+			}
+		}
+	}
+	[System.Serializable]public class GameObjectPool :Pool<GameObject>{
+		public void UnparentAll(){
+			for (int i = 0; i < Instances.Count; i++)
+			{
+				Instances[i].transform.parent=null;
+				Instances[i].SetActive(false);
+			}
+		}
+		public void Toggle(bool onOff){
+			for (int i = 0; i < Instances.Count; i++)
+			{
+				Instances[i].SetActive(onOff);
 			}
 		}
 	}
