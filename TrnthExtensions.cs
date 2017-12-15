@@ -12,7 +12,14 @@ namespace TRNTH{
 			button.onClick.RemoveAllListeners();
 			button.onClick.AddListener(onClick);
 		}
-		static public void AddRangeNonAlloc<T>(this IList<T> list,IReadOnlyList<T> toAdd){
+		// static public void AddRangeNonAlloc<T>(this HashSet<T> list,IReadOnlyList<T> toAdd){
+		// 	var length=toAdd.Count;
+		// 	for (int i = 0; i < length; i++)
+		// 	{
+		// 		list.Add(toAdd[i]);
+		// 	}
+		// }
+		static public void AddRangeNonAlloc<T>(this ICollection<T> list,IReadOnlyList<T> toAdd){
 			var length=toAdd.Count;
 			for (int i = 0; i < length; i++)
 			{
