@@ -1,7 +1,11 @@
 using UnityEngine;
 namespace TRNTH
 {
-    [System.Serializable]public class FaceRotator{
+	public interface IFacer
+	{
+		bool FaceRight{get;set;}
+	}
+    [System.Serializable]public class FaceRotator:IFacer{
 		[SerializeField]Transform _Rotator;
 		public bool FaceRight{
 			get{

@@ -8,7 +8,7 @@ namespace TRNTH.Effects
 		[SerializeField]FxPool _pool;
 		public float IntervalSeconds=0.1f;
 		public SpriteRenderer SpriteRenderer;
-		[System.NonSerialized]public FaceRotator FaceRotator;
+		public IFacer FaceRotator;
 		private void Start() {
 			_pool.UnparentAll();
 		}
