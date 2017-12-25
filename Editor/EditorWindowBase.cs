@@ -7,7 +7,7 @@ namespace TRNTH{
 		protected void PropertyDrawer(string propertyName){
 			PropertyDrawer(propertyName,this);
 		}
-		protected void PropertyDrawer<T>(string propertyName,T self) where T:ScriptableObject{
+		public static void PropertyDrawer(string propertyName,ScriptableObject self){
 			ScriptableObject target = self;
 			SerializedObject so = new SerializedObject(target);
 			SerializedProperty stringsProperty = so.FindProperty(propertyName);
