@@ -41,6 +41,28 @@ namespace TRNTH{
 	}
 	public class U:Utility{}
 	public class Utility{
+		static public void CheckSerializingType<T>(ref T member,ref MonoBehaviour monoScript) where T:class{
+			#if UNITY_EDITOR
+			 if(monoScript!=null){
+				member=monoScript as T;
+                if(member==null){
+					monoScript=null;
+					Debug.LogErrorFormat("monoScript is not {1}",typeof(T).Name);
+				}
+            }
+			#endif
+		}
+		static public bool AutoFinding<T>(bool _autoFinding,IList<MonoBehaviour> monoArray,Transform root) where T:class{
+			if(!_autoFinding)return false;
+			monoArray.Clear();
+			foreach (var item in root.GetComponentsInChildren<MonoBehaviour>())
+			{
+				if(item is T){
+					monoArray.Add(item);
+				}
+			}
+			return false;
+		}
 		static public bool RepeatCounterUpdate(ref float counter,float duration,float deltaSconds){
 			 counter-=deltaSconds;
             if(counter<=0){
