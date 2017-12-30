@@ -4,12 +4,13 @@ using System.Collections.Generic;
 using UnityEngine;
 namespace TRNTH{
 public class Fx : TrnthMonoBehaviour,ISerializationCallbackReceiver {
-		// [SerializeField]Renderer _Renderer;
 		ParticleSystem _ParticleSystem;
 		Animator _Animator;
 		[SerializeField]AudioSource[] _Sounds;
+		[SerializeField]AudioSource[] _SoundsLayer2;
+		[SerializeField]AudioSource[] _SoundsLayer3;
 		public bool UsingAnimatorParameter{get{return _AnimatorController;}}
-		Transform _tranform;
+		// Transform _tranform;
 		public const string AnimattionStart="Start";
 		public const string AnimationEnd="End";
 		#if UNITY_EDITOR
@@ -29,13 +30,20 @@ public class Fx : TrnthMonoBehaviour,ISerializationCallbackReceiver {
 		#endif
 		public override void Awake(){
 			base.Awake();
-			_tranform=transform;
+			// _tranform=transform;
 			_Animator=GetComponentInChildren<Animator>();
 			_ParticleSystem=GetComponentInChildren<ParticleSystem>();
 		}
 		public bool IsPlaying{get;private set;}
+		Vector2 _offest;
 		[ContextMenu("Play")]
 		public void Play(){
+			if(_oldParent){
+				tra.position=_oldParent.TransformPoint(_offest);
+			}
+			_play();
+		}
+		void _play(){
 			if(!this)return;
 			IsPlaying=true;
 			if(!_Animator && _ParticleSystem==null){
@@ -56,23 +64,33 @@ public class Fx : TrnthMonoBehaviour,ISerializationCallbackReceiver {
 					_ParticleSystem.Play(true);
 				}
 			}
-			if(_Sounds.Length>0){
-				_Sounds.RandomChooseNonAlloc().Play();
+			PlaySounds(_Sounds);
+			PlaySounds(_SoundsLayer2);
+			PlaySounds(_SoundsLayer3);
+		}
+		void PlaySounds(AudioSource[] sounds){
+			if(sounds.Length>0){
+				sounds.RandomChooseNonAlloc().Play();
+			}
+		}
+		void StopSounds(AudioSource[] sounds){
+			var length=sounds.Length;	
+			for (int i = 0; i < length; i++)
+			{
+				sounds[i].Stop();
 			}
 		}
 		public void Launch(Vector3 position){
-			_tranform.position=position;
-			Play();
+			tra.position=position;
+			_play();
 		}
 		[ContextMenu("End")]
 		public void End(){
 			if(!this)return;
 			IsPlaying=false;
-			var length=_Sounds.Length;
-			for (int i = 0; i < length; i++)
-			{
-				_Sounds[i].Stop();
-			}
+			StopSounds(_Sounds);
+			StopSounds(_SoundsLayer2);
+			StopSounds(_SoundsLayer3);
 			if(!_Animator && _ParticleSystem==null){
 				gameObject.SetActive(false);
 				return ;
@@ -99,6 +117,12 @@ public class Fx : TrnthMonoBehaviour,ISerializationCallbackReceiver {
 			_Sounds=GetComponentsInChildren<AudioSource>();
 			#endif
         }
+		Transform _oldParent;
+		private void Start() {
+			_offest=this.tra.localPosition;
+			_oldParent=this.tra.parent;
+			tra.SetParent(null);
+		}
 
         public void OnAfterDeserialize()
         {
