@@ -6,9 +6,9 @@ namespace TRNTH{
 public class Fx : TrnthMonoBehaviour,ISerializationCallbackReceiver {
 		ParticleSystem _ParticleSystem;
 		Animator _Animator;
-		[SerializeField]AudioSource[] _Sounds;
-		[SerializeField]AudioSource[] _SoundsLayer2;
-		[SerializeField]AudioSource[] _SoundsLayer3;
+		[SerializeField]AudioSource[] _Sounds=new AudioSource[0];
+		[SerializeField]AudioSource[] _SoundsLayer2=new AudioSource[0];
+		[SerializeField]AudioSource[] _SoundsLayer3=new AudioSource[0];
 		public bool UsingAnimatorParameter{get{return _AnimatorController;}}
 		// Transform _tranform;
 		public const string AnimattionStart="Start";
@@ -118,7 +118,7 @@ public class Fx : TrnthMonoBehaviour,ISerializationCallbackReceiver {
 			#endif
         }
 		Transform _oldParent;
-		private void Start() {
+		public void Unparent() {
 			_offest=this.tra.localPosition;
 			_oldParent=this.tra.parent;
 			tra.SetParent(null);

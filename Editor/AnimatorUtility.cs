@@ -51,6 +51,7 @@ namespace TRNTH{
 			}
 			public void Generate(AnimatorController animatorController){
 				CollectFreeStates(animatorController);
+				var path=AssetDatabase.GetAssetPath(animatorController);
 				var parameter=animatorController.parameters.Find(t=>{return t.name==destinationState.name;});
 				if(parameter!=null)animatorController.RemoveParameter(parameter);
 				animatorController.AddParameter(destinationState.name,AnimatorControllerParameterType.Trigger);
@@ -64,12 +65,18 @@ namespace TRNTH{
 					newTransition.AddCondition(AnimatorConditionMode.If,0,destinationState.name);
 					newTransition.hasExitTime=false;
 					state.AddTransition(newTransition);
+					// EditorUtility.SetDirty(state);
+					// EditorUtility.SetDirty(newTransition);
+					AssetDatabase.AddObjectToAsset(newTransition,path);
 				}
 				var toIdleTransition=new AnimatorStateTransition();
 				toIdleTransition.RemoveCrossFade();
 				toIdleTransition.destinationState=defaultState;
 				toIdleTransition.hasExitTime=true;
 				destinationState.AddTransition(toIdleTransition);
+				AssetDatabase.AddObjectToAsset(toIdleTransition,path);
+				// EditorUtility.SetDirty(toIdleTransition);
+				// EditorUtility.SetDirty(destinationState);
 				EditorUtility.SetDirty(animatorController);
 			}
 		}
