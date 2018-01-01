@@ -9,7 +9,8 @@ public class Fx : TrnthMonoBehaviour,ISerializationCallbackReceiver {
 		[SerializeField]AudioSource[] _Sounds=new AudioSource[0];
 		[SerializeField]AudioSource[] _SoundsLayer2=new AudioSource[0];
 		[SerializeField]AudioSource[] _SoundsLayer3=new AudioSource[0];
-		public bool UsingAnimatorParameter{get{return _AnimatorController;}}
+		[SerializeField]bool _UsingAnimatorParameter;
+		public bool UsingAnimatorParameter{get{return _UsingAnimatorParameter;}}
 		// Transform _tranform;
 		public const string AnimattionStart="Start";
 		public const string AnimationEnd="End";
@@ -115,6 +116,7 @@ public class Fx : TrnthMonoBehaviour,ISerializationCallbackReceiver {
 			if(_StopAutoFind)return;
 			_StopAutoFind=true;
 			_Sounds=GetComponentsInChildren<AudioSource>();
+			_UsingAnimatorParameter=_AnimatorController;
 			#endif
         }
 		Transform _oldParent;
