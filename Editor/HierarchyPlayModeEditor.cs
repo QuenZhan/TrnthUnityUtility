@@ -65,7 +65,7 @@ namespace TRNTH{
 				ShowNotification(gUIContent);
 				return null;
 			}
-			var currentScene=EditorSceneManager.GetActiveScene();
+			// var currentScene=EditorSceneManager.GetActiveScene();
 			// var prefab=(GameObject)AssetDatabase.LoadAssetAtPath(string.Format(TmpPrefabPath,currentScene.name),typeof(GameObject));
 			var prefab=_prefab;
 			if(prefab==null){
@@ -104,9 +104,9 @@ namespace TRNTH{
 				return;
 			}
 			// _Parent=Replace(_Parent.gameObject).transform;
-			_replaceCounter=1;
+			// _replaceCounter=1;
 		}
-		float _replaceCounter=0;
+		// float _replaceCounter=0;
 
 		[SerializeField]Transform _Parent;
 		// [SerializeField]FoodData _foodData;

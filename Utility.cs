@@ -52,10 +52,10 @@ namespace TRNTH{
             }
 			#endif
 		}
-		static public bool AutoFinding<T>(bool _autoFinding,IList<MonoBehaviour> monoArray,Transform root) where T:class{
+		static public bool AutoFinding<T,T2>(bool _autoFinding,IList<T2> monoArray,Transform root) where T:class where T2:MonoBehaviour{
 			if(!_autoFinding)return false;
 			monoArray.Clear();
-			foreach (var item in root.GetComponentsInChildren<MonoBehaviour>())
+			foreach (var item in root.GetComponentsInChildren<T2>())
 			{
 				if(item is T){
 					monoArray.Add(item);

@@ -14,6 +14,7 @@ namespace TRNTH.Pooling{
 				return _Instances;
 			}
 		}
+		
 		int SpawningIndex;
 		public T Spawn(){
 			var Limiation=_Instances.Count;
