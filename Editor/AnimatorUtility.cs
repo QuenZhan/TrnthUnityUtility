@@ -31,26 +31,34 @@ namespace TRNTH{
 			PropertyDrawer("_animatorControll",this);
 			if(GUILayout.Button("RemoveTransitionCrossfade"))RemoveTransitionCrossfade();
 			PropertyDrawer("_TransitionGenerator",this);
+			if(GUILayout.Button("Collect freeStates from Selection"))_TransitionGenerator.CollectFreeStates();
 			if(GUILayout.Button("ActionTransitionGenerate"))_TransitionGenerator.Generate(_animatorControll);
 		}
 		void OnInspectorUpdate(){
-			if(Selection.activeObject is AnimatorState)_TransitionGenerator.destinationState=Selection.activeObject  as AnimatorState;
+			if(Selection.activeObject is AnimatorState){
+				_TransitionGenerator.destinationState=Selection.activeObject  as AnimatorState;
+			}
 			var animatorControll=Selection.activeObject as AnimatorController;
 			if(animatorControll!=null)_animatorControll=animatorControll;
 		}
 		[System.Serializable]class TransitionGenerator{
-			[SerializeField]List<string> _freeStateNames;
 			[SerializeField]int _layer;
 			[SerializeField]List<AnimatorState> _freeStates=new List<AnimatorState>();
 			public AnimatorState destinationState;
-			public void CollectFreeStates(AnimatorController animatorController){
+			public void CollectFreeStates(){
 				_freeStates.Clear();
-				foreach(var childSTate in  animatorController.layers[_layer].stateMachine.states){
-					if(_freeStateNames.Contains( childSTate.state.name))_freeStates.Add(childSTate.state);
+				foreach (var item in Selection.objects)
+				{
+					var state=item as AnimatorState;
+					if(state==null)continue;
+					_freeStates.Add(state);
 				}
+				// foreach(var childSTate in  animatorController.layers[_layer].stateMachine.states){
+				// 	if(_freeStateNames.Contains( childSTate.state.name))_freeStates.Add(childSTate.state);
+				// }
 			}
 			public void Generate(AnimatorController animatorController){
-				CollectFreeStates(animatorController);
+				// CollectFreeStates(animatorController);
 				var path=AssetDatabase.GetAssetPath(animatorController);
 				var parameter=animatorController.parameters.Find(t=>{return t.name==destinationState.name;});
 				if(parameter!=null)animatorController.RemoveParameter(parameter);

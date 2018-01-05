@@ -65,8 +65,6 @@ namespace TRNTH{
 				ShowNotification(gUIContent);
 				return null;
 			}
-			// var currentScene=EditorSceneManager.GetActiveScene();
-			// var prefab=(GameObject)AssetDatabase.LoadAssetAtPath(string.Format(TmpPrefabPath,currentScene.name),typeof(GameObject));
 			var prefab=_prefab;
 			if(prefab==null){
 				GUIContent gUIContent=new GUIContent("Prefab==null");
@@ -127,14 +125,17 @@ namespace TRNTH{
 				if(GUILayout.Button(str_RecordSerialized)){
 					RecordSerialized(_Parent.gameObject);
 				}
-			}
-			if(_prefab){
-				if(GUILayout.Button(str_Replace)){
-					_Parent=Replace(_Parent.gameObject).transform;
+				if(_prefab){
+					if(GUILayout.Button(str_Replace)){
+						_Parent=Replace(_Parent.gameObject).transform;
+					}
 				}
+				GUILayout.Label("Save file here:");
+				PropertyDrawer("_prefab",this);
 			}
-			GUILayout.Label("Save file here:");
-			PropertyDrawer("_prefab",this);
+			else{
+				GUILayout.Label("Select a gameObject to record!");
+			}
 		}
 		
 		const string TmpPrefabPath="Assets/_DungeonMealCore/Terrain/{0}.prefab";
