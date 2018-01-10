@@ -8,6 +8,10 @@ using System.Collections.Generic;
 namespace TRNTH{
 	public static class TrnthExtensions
 	{
+		static public void Clear<T>(this T[] array){
+			var length=array.Length;
+			System.Array.Clear(array,0,length);
+		}
 		static public void ResetOnClick(this Button button,UnityEngine.Events.UnityAction onClick){
 			button.onClick.RemoveAllListeners();
 			button.onClick.AddListener(onClick);
