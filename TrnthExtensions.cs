@@ -12,6 +12,22 @@ namespace TRNTH{
 			var length=array.Length;
 			System.Array.Clear(array,0,length);
 		}
+		static public void RemoveAllNullNonAlloc<T>(this IList<T> list,IList<T> tmpList){
+			tmpList.Clear();
+			var length=list.Count;
+			for (int i = 0; i < length; i++)
+			{
+				if(list[i]==null)continue;
+				tmpList.Add(list[i]);
+			}
+			list.Clear();
+			length=tmpList.Count;
+			for (int i = 0; i < length; i++)
+			{
+				list.Add(tmpList[i]);
+			}
+		}
+
 		static public void ResetOnClick(this Button button,UnityEngine.Events.UnityAction onClick){
 			button.onClick.RemoveAllListeners();
 			button.onClick.AddListener(onClick);
