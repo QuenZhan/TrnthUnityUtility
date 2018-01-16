@@ -8,6 +8,7 @@ using System.Collections.Generic;
 namespace TRNTH{
 	public static class TrnthExtensions
 	{
+		
 		static public void Clear<T>(this T[] array){
 			var length=array.Length;
 			System.Array.Clear(array,0,length);

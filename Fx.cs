@@ -35,7 +35,19 @@ public class Fx : TrnthMonoBehaviour,ISerializationCallbackReceiver {
 			_Animator=GetComponentInChildren<Animator>();
 			_ParticleSystem=GetComponentInChildren<ParticleSystem>();
 		}
-		public bool IsPlaying{get;private set;}
+		public bool IsPlaying{
+			get{
+				return _isPlaying;
+			}
+			set{
+				if(_isPlaying!=value){
+					if(value)Play();
+					else End();
+				}
+				_isPlaying=value;
+			}
+		}
+		bool _isPlaying=true;
 		Vector2 _offest;
 		[ContextMenu("Play")]
 		public void Play(){
@@ -46,7 +58,7 @@ public class Fx : TrnthMonoBehaviour,ISerializationCallbackReceiver {
 		}
 		void _play(){
 			if(!this)return;
-			IsPlaying=true;
+			_isPlaying=true;
 			if(!_Animator && _ParticleSystem==null){
 				gameObject.SetActive(true);
 			}
@@ -88,7 +100,7 @@ public class Fx : TrnthMonoBehaviour,ISerializationCallbackReceiver {
 		[ContextMenu("End")]
 		public void End(){
 			if(!this)return;
-			IsPlaying=false;
+			_isPlaying=false;
 			StopSounds(_Sounds);
 			StopSounds(_SoundsLayer2);
 			StopSounds(_SoundsLayer3);
