@@ -42,6 +42,38 @@ namespace TRNTH{
 }
 namespace TRNTH.ContainerExtention{
 	static class Extension{
+		static public void AddRangeNonAlloc<T>(this IList<T> list,IReadOnlyNonAllocList<T> other){
+			var length=other.Count;
+			for (int i = 0; i < length; i++)
+			{
+				list.Add(other[i]);
+			}
+		}
+		// }
+		/// Replace one Null of this list , and return it's index. 
+		/// return -1 if there's no any Null in this list 
+		static public int ReplaceOneNull<T>(this INonAllocList<T> list,T item) where T:class{
+			var length=list.Count;
+			for (int i = 0; i < length; i++)
+			{
+				if(list[i]!=null)continue;
+				list[i]=item;
+				return i;
+			}
+			return -1;
+		}
+		static public bool HasIntersection<T>(this IReadOnlyNonAllocList<T> a,IReadOnlyNonAllocList<T> b){
+			var lengtha=a.Count;
+			var lengthb=b.Count;
+			for (int ia = 0; ia < lengtha; ia++)
+			{
+				for (int ib = 0; ib < lengthb; ib++)
+				{
+					if(a[ia].Equals(b[ib]))return true;
+				}
+			}
+			return false;
+		}
 		static public bool Contains<T>(this IReadOnlyNonAllocList<T> list,T item){
 			if(list==null)return false;
 			var length=list.Count;
