@@ -8,6 +8,20 @@ using System.Collections.Generic;
 namespace TRNTH{
 	public static class TrnthExtensions
 	{
+		public static Vector2 Clamp(this Vector2 vec,Vector2 smallTopRight,Vector2 smallBottomLeft,Vector2 TopRight,Vector2 BottomLeft){
+			var _position=vec;
+			// var width=smallTopRight.x-smallBottomLeft.x;
+			// var height=smallTopRight.y-smallBottomLeft.y;
+			var left=BottomLeft.x+vec.x-smallBottomLeft.x;
+			var right=TopRight.x-(smallTopRight.x-vec.x);
+			var top=TopRight.y-(smallTopRight.y-vec.y);
+			var bot=BottomLeft.y+vec.y-smallBottomLeft.y;
+			if(_position.x<left)_position.x=left;
+			if(_position.x>right)_position.x=right;
+			if(_position.y>top)_position.y=top;
+			if(_position.y<bot)_position.y=bot;
+			return _position;
+		}
 		
 		static public void Clear<T>(this T[] array){
 			var length=array.Length;

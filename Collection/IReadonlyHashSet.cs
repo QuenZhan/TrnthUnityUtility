@@ -42,7 +42,7 @@ namespace TRNTH{
 }
 namespace TRNTH.ContainerExtention{
 	static class Extension{
-		static public void AddRangeNonAlloc<T>(this IList<T> list,IReadOnlyNonAllocList<T> other){
+		static public void AddRangeNonAlloc<T>(this ICollection<T> list,IReadOnlyNonAllocList<T> other){
 			var length=other.Count;
 			for (int i = 0; i < length; i++)
 			{
@@ -84,6 +84,7 @@ namespace TRNTH.ContainerExtention{
 			return false;
 		}
 		static public void Clear<T>(this INonAllocList<T> list){
+			if(list==null)return;
 			var length=list.Count;
 			for (int i = 0; i < length; i++)
 			{
@@ -91,6 +92,7 @@ namespace TRNTH.ContainerExtention{
 			}
 		}
 		static public int CopyTo<T>(this IReadOnlyNonAllocList<T> from,INonAllocList<T> to){
+			if(from==null)return -1;
 			var length=from.Count;
 			if(to.Count<length)length=to.Count;
 			for (int i = 0; i < length; i++)
