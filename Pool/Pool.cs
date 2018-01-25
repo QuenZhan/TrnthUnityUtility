@@ -6,7 +6,7 @@ using System.Collections.ObjectModel;
 
 namespace TRNTH.Pooling{
 	[System.Serializable]
-	public class Pool<T> {
+	public class Pool<T>:IReadOnlyNonAllocList<T> {
 	
 		[SerializeField]List<T> _Instances=new List<T>();
 		public IReadOnlyList<T> Instances{
@@ -14,8 +14,18 @@ namespace TRNTH.Pooling{
 				return _Instances;
 			}
 		}
-		
-		int SpawningIndex;
+
+        public int Count {get{return _Instances.Count;}}
+
+        public T this[int index]
+        {
+            get
+            {
+                return _Instances[index];
+            }
+        }
+
+        int SpawningIndex;
 		public T Spawn(){
 			var Limiation=_Instances.Count;
 			SpawningIndex=++SpawningIndex%Limiation;
