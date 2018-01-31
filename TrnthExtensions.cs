@@ -8,6 +8,9 @@ using System.Collections.Generic;
 namespace TRNTH{
 	public static class TrnthExtensions
 	{
+		public static void DestroyAllChildren(this Transform transform){
+			U.cleanChildren(transform);
+		}
 		public static Vector2 Clamp(this Vector2 vec,Vector2 smallTopRight,Vector2 smallBottomLeft,Vector2 TopRight,Vector2 BottomLeft){
 			var _position=vec;
 			// var width=smallTopRight.x-smallBottomLeft.x;

@@ -152,15 +152,35 @@ namespace TRNTH{
 				e.gameObject.SetActive(false);
 			}
 		}
+		static readonly List<Transform> _children=new List<Transform>();
 		public static void cleanChildren(Transform tra){
 			if(tra==null)return;
-			foreach(var e in tra.Cast<Transform>().ToArray()){
-				if(Application.isPlaying){
-					UnityEngine.Object.Destroy(e.gameObject);
-				}else{
-					UnityEngine.Object.DestroyImmediate(e.gameObject);
-				}
+			var length=tra.childCount;
+			// Debug.LogFormat("tra.childCount:{0}",length);
+			_children.Clear();
+			for (int i = 0; i < length; i++)
+			{
+				var child=tra.GetChild(i);
+				_children.Add(tra.GetChild(i));
 			}
+			length=_children.Count;
+			for (int i = 0; i < length; i++)
+			{
+				var child=_children[i];
+				if(Application.isPlaying){
+					UnityEngine.Object.Destroy(child.gameObject);
+				}else{
+					UnityEngine.Object.DestroyImmediate(child.gameObject);
+				}
+				
+			}
+			// foreach(var e in tra.Cast<Transform>().ToArray()){
+			// 	if(Application.isPlaying){
+			// 		UnityEngine.Object.Destroy(e.gameObject);
+			// 	}else{
+			// 		UnityEngine.Object.DestroyImmediate(e.gameObject);
+			// 	}
+			// }
 		}	
 		public static void RestTransform(Transform tra){
 			tra.localPosition=Vector3.zero;
