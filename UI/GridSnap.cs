@@ -9,7 +9,7 @@ namespace TRNTH{
 		RectTransform _rectTransform;
 		[ContextMenu("Layout")]
 		public void Layout(){
-			var length=transform.childCount;
+			float length=transform.childCount;
 			for (int i = 0; i < length; i++)
 			{
 				var x=i%Columns;
@@ -20,7 +20,7 @@ namespace TRNTH{
 				else tra.sizeDelta=Size;
 			}
 			var width=(Size.x+Space.x)*Columns-Space.x;
-			var height=(Size.y+Space.y)*length/Columns-Space.y;
+			var height=(Size.y+Space.y)*Mathf.Ceil(length/Columns)-Space.y;
 			if(!_rectTransform)_rectTransform=GetComponent<RectTransform>();
 			_rectTransform.sizeDelta=new Vector2(width,height);
 		}

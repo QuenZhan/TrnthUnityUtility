@@ -8,17 +8,53 @@ using System.Collections.Generic;
 namespace TRNTH{
 	public static class TrnthExtensions
 	{
+		public static void ToggleAll<T>(this IReadOnlyList<T> list,bool toggle) where T:Component{
+			var length=list.Count;
+			for (int i = 0; i < length; i++)
+			{
+				list[i].gameObject.SetActive(toggle);
+			}
+		}
+		public static void Freeze(this Transform tra){
+			tra.localPosition=Vector3.zero;
+			tra.localRotation=Quaternion.identity;
+			tra.localScale=Vector3.one;
+		}
+		public static void DestoryAll<T>(this IReadOnlyList<T> list) where T:UnityEngine.Object{
+			var length=list.Count;
+			for (int i = 0; i < length; i++)
+			{
+				if(Application.isPlaying)GameObject.Destroy(list[i]);
+				else GameObject.DestroyImmediate(list[i]);
+			}
+
+		}
+		
+		public static void ForEachNonAlloc<T>(this IReadOnlyList<T> list,IIterator<T> iterator){
+			var length=list.Count;
+			for (int i = 0; i < length; i++)
+			{
+				iterator.Each(i,list[i]);
+			}
+		}
 		public static void DestroyAllChildren(this Transform transform){
 			U.cleanChildren(transform);
 		}
-		public static Vector2 Clamp(this Vector2 vec,Vector2 smallTopRight,Vector2 smallBottomLeft,Vector2 TopRight,Vector2 BottomLeft){
+		public static Vector2 Clamp(this Vector2 vec
+		,Vector2 smallTopRight
+		,Vector2 smallBottomLeft
+		,Vector2 TopRight
+		,Vector2 BottomLeft
+		){
 			var _position=vec;
-			// var width=smallTopRight.x-smallBottomLeft.x;
-			// var height=smallTopRight.y-smallBottomLeft.y;
-			var left=BottomLeft.x+vec.x-smallBottomLeft.x;
-			var right=TopRight.x-(smallTopRight.x-vec.x);
-			var top=TopRight.y-(smallTopRight.y-vec.y);
-			var bot=BottomLeft.y+vec.y-smallBottomLeft.y;
+			var leftBorderWidth=vec.x-smallBottomLeft.x;
+			var rightBorder=smallTopRight.x-vec.x;
+			var topBorder=smallTopRight.y-vec.y;
+			var bottomBorer=vec.y-smallTopRight.y;
+			var left=BottomLeft.x+leftBorderWidth;
+			var right=TopRight.x-rightBorder;
+			var top=TopRight.y-topBorder;
+			var bot=BottomLeft.y+bottomBorer;
 			if(_position.x<left)_position.x=left;
 			if(_position.x>right)_position.x=right;
 			if(_position.y>top)_position.y=top;
@@ -194,5 +230,8 @@ namespace TRNTH{
 			}
 			return list;
 		}
-	}   
+	}
+	public interface IIterator<T>{
+		void Each(int index,T item);
+	}
 }
