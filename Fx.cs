@@ -47,7 +47,7 @@ public class Fx : TrnthMonoBehaviour,ISerializationCallbackReceiver {
 				_isPlaying=value;
 			}
 		}
-		bool _isPlaying=true;
+		[SerializeField]bool _isPlaying=true;
 		Vector2 _offest;
 		[ContextMenu("Play")]
 		public void Play(){
