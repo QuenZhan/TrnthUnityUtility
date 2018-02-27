@@ -8,11 +8,6 @@ namespace TRNTH
         public void SetArray(T[] value){
             _datas=value;
         }
-        // [System.Diagnostics.Conditional("UNITY_EDITOR")]
-        // public T[] GetArray()
-        //     {
-        //         return _datas;
-        //     }
 		[SerializeField]T[] _datas;
 		public NonAllocList():this(0){
 

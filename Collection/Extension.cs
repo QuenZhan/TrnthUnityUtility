@@ -57,6 +57,14 @@ namespace TRNTH.ContainerExtention
 			}
 			return false;
 		}
+		static public int IndexOf<T>(this IReadOnlyNonAllocList<T> list,T item){
+			var length=list.Count;
+			for (int i = 0; i < length; i++)
+			{
+				if(list[i].Equals(item))return i;
+			}
+			return -1;
+		}
 		static public bool Contains<T>(this IReadOnlyNonAllocList<T> list,T item){
 			if(list==null)return false;
 			var length=list.Count;
@@ -66,12 +74,20 @@ namespace TRNTH.ContainerExtention
 			}
 			return false;
 		}
-		static public void Clear<T>(this INonAllocList<T> list){
+		static public void DefaultAll<T>(this INonAllocList<T> list){
 			if(list==null)return;
 			var length=list.Count;
 			for (int i = 0; i < length; i++)
 			{
 				list[i]=default(T);
+			}
+		}
+		static public void CopyTo<T>(this IReadOnlyNonAllocList<T> from,T[] to){
+			if(to.Length<from.Count)throw new System.InvalidOperationException(string.Format("to.Length:{0}<from.Count:{0}",to.Length,from.Count));
+			var length=from.Count;
+			for (int i = 0; i < length; i++)
+			{
+				to[i]=from[i];
 			}
 		}
 		static public int CopyTo<T>(this IReadOnlyNonAllocList<T> from,INonAllocList<T> to){
