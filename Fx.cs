@@ -40,6 +40,11 @@ public class Fx : TrnthMonoBehaviour,ISerializationCallbackReceiver {
 				return _isPlaying;
 			}
 			set{
+				if(!Application.isPlaying){
+					gameObject.SetActive(value);
+					_isPlaying=value;
+					return;
+				}
 				if(_isPlaying!=value){
 					if(value)Play();
 					else End();

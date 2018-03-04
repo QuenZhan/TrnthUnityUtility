@@ -2,6 +2,18 @@ using System.Collections.Generic;
 namespace TRNTH.ContainerExtention
 {
     static class Extension{
+		public static void GetPage<T>(this IReadOnlyNonAllocList<T> list
+		,List<T> toHere
+		,int page
+		,int itemsPerPage
+		){
+			toHere.Clear();
+			for (int i = page*itemsPerPage; i < (page+1)*itemsPerPage; i++)
+			{
+				if(i>=list.Count)return;
+				toHere.Add(list[i]);
+			}
+		}
 		public static void ForEachNonAlloc<T>(this IReadOnlyNonAllocList<T> list,IIterator<T> iterator){
 			var length=list.Count;
 			for (int i = 0; i < length; i++)
