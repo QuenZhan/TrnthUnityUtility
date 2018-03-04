@@ -13,7 +13,17 @@ namespace TRNTH.ContainerExtention
 				if(i>=list.Count)return;
 				toHere.Add(list[i]);
 			}
+		} 
+		public static int NullCount<T>(this IReadOnlyNonAllocList<T> list) where T:class{
+			int count=0;
+			var length=list.Count;
+			for (int i = 0; i < length; i++)
+			{
+				if(list[i]==null)count++;
+			}
+			return count;
 		}
+
 		public static void ForEachNonAlloc<T>(this IReadOnlyNonAllocList<T> list,IIterator<T> iterator){
 			var length=list.Count;
 			for (int i = 0; i < length; i++)
