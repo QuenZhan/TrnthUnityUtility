@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TRNTH.Pooling;
+// using System.Diagnostics;
 
 namespace TRNTH{
 	[System.Flags]
@@ -41,6 +42,56 @@ namespace TRNTH{
 	}
 	public class U:Utility{}
 	public class Utility{
+		[System.Diagnostics.Conditional("UNITY_EDITOR")]
+		public static void GetAllAssets<T>(IList<T> toHere) where T:class{
+			var type=typeof(T);
+			var guids= UnityEditor.AssetDatabase.FindAssets(string.Format("t:{0}",type.Name));
+			toHere.Clear();
+			foreach(var guid in guids){
+				var path=UnityEditor.AssetDatabase.GUIDToAssetPath (guid);
+				var recipe=UnityEditor.AssetDatabase.LoadAssetAtPath(path,type) as T;
+				toHere.Add(recipe);
+			}
+		}
+		static public void CheckSerializingType<T>(ref T member,ref MonoBehaviour monoScript) where T:class{
+			#if UNITY_EDITOR
+			 if(monoScript!=null){
+				member=monoScript as T;
+                if(member==null){
+					monoScript=null;
+					Debug.LogErrorFormat("monoScript is not {1}",typeof(T).Name);
+				}
+            }
+			#endif
+		}
+		static public bool AutoFinding<T,T2>(bool _autoFinding,IList<T2> monoArray,Transform root) where T:class where T2:MonoBehaviour{
+			if(!_autoFinding)return false;
+			monoArray.Clear();
+			foreach (var item in root.GetComponentsInChildren<T2>())
+			{
+				if(item is T){
+					monoArray.Add(item);
+				}
+			}
+			return false;
+		}
+		static public bool RepeatCounterUpdate(ref float counter,float duration,float deltaSconds){
+			 counter-=deltaSconds;
+            if(counter<=0){
+                counter=duration;
+				return true;
+			}
+			return false;
+		}
+		static public void WorldToLocalScaledAnchoredPosition(Vector3 worldposition,Camera camera,RectTransform target){
+			var screenPoint=camera.WorldToScreenPoint(worldposition);
+			var rect=(target.parent as RectTransform).rect;
+			target.anchorMax=Vector2.zero;
+			target.anchorMin=Vector2.zero;
+			target.anchoredPosition=new Vector2(screenPoint.x/Screen.width*rect.width,screenPoint.y/Screen.height*rect.height);
+		}
+		public const int WaterLayer=4;
+		public readonly ContactFilter2D WaterFilter=new ContactFilter2D(){useLayerMask=true,layerMask=1<<WaterLayer,useTriggers=true};
 		public static string IntToStringNonAllocUnder1000(float number){
 					return IntToStringNonAllocUnder1000((int)number);
 				}
@@ -113,15 +164,35 @@ namespace TRNTH{
 				e.gameObject.SetActive(false);
 			}
 		}
+		static readonly List<Transform> _children=new List<Transform>();
 		public static void cleanChildren(Transform tra){
 			if(tra==null)return;
-			foreach(var e in tra.Cast<Transform>().ToArray()){
-				if(Application.isPlaying){
-					UnityEngine.Object.Destroy(e.gameObject);
-				}else{
-					UnityEngine.Object.DestroyImmediate(e.gameObject);
-				}
+			var length=tra.childCount;
+			// Debug.LogFormat("tra.childCount:{0}",length);
+			_children.Clear();
+			for (int i = 0; i < length; i++)
+			{
+				var child=tra.GetChild(i);
+				_children.Add(tra.GetChild(i));
 			}
+			length=_children.Count;
+			for (int i = 0; i < length; i++)
+			{
+				var child=_children[i];
+				if(Application.isPlaying){
+					UnityEngine.Object.Destroy(child.gameObject);
+				}else{
+					UnityEngine.Object.DestroyImmediate(child.gameObject);
+				}
+				
+			}
+			// foreach(var e in tra.Cast<Transform>().ToArray()){
+			// 	if(Application.isPlaying){
+			// 		UnityEngine.Object.Destroy(e.gameObject);
+			// 	}else{
+			// 		UnityEngine.Object.DestroyImmediate(e.gameObject);
+			// 	}
+			// }
 		}	
 		public static void RestTransform(Transform tra){
 			tra.localPosition=Vector3.zero;

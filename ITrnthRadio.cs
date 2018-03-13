@@ -1,10 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public interface ITrnthRadio  {
-	float rate{get;set;}
-	float value{get;set;}
-	float length{get;set;}
+public interface ITrnthRadio:IReadonlyTrnthRadio  {
+	new float rate{get;set;}
+	new float value{get;set;}
+	new float length{get;set;}
 	float min{get;set;}
 	float max{get;set;}
 	void clamp();
