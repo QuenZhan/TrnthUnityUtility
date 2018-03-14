@@ -55,6 +55,7 @@ namespace TRNTH{
 			}
 			#endif
 		}
+		[System.Diagnostics.Conditional("UNITY_EDITOR")]
 		public static void GetAllAssets<T>(MutableNonAllocList<T> toHere) where T:class{
 			#if UNITY_EDITOR
 			var type=typeof(T);
