@@ -9,9 +9,9 @@ namespace TRNTH.Pooling{
 	public class Pool<T>:IReadOnlyNonAllocList<T> {
 	
 		[SerializeField]List<T> _Instances=new List<T>();
-		public IReadOnlyList<T> Instances{
+		public IReadOnlyNonAllocList<T> Instances{
 			get{
-				return _Instances;
+				return this;
 			}
 		}
 

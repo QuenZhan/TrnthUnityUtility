@@ -8,7 +8,7 @@ using System.Collections.Generic;
 namespace TRNTH{
 	public static class TrnthExtensions
 	{
-		public static void ToggleAll<T>(this IReadOnlyList<T> list,bool toggle) where T:Component{
+		public static void ToggleAll<T>(this IList<T> list,bool toggle) where T:Component{
 			var length=list.Count;
 			for (int i = 0; i < length; i++)
 			{
@@ -20,7 +20,7 @@ namespace TRNTH{
 			tra.localRotation=Quaternion.identity;
 			tra.localScale=Vector3.one;
 		}
-		public static void DestoryAll<T>(this IReadOnlyList<T> list) where T:UnityEngine.Object{
+		public static void DestoryAll<T>(this IList<T> list) where T:UnityEngine.Object{
 			var length=list.Count;
 			for (int i = 0; i < length; i++)
 			{
@@ -30,7 +30,7 @@ namespace TRNTH{
 
 		}
 		
-		public static void ForEachNonAlloc<T>(this IReadOnlyList<T> list,IIterator<T> iterator){
+		public static void ForEachNonAlloc<T>(this IList<T> list,IIterator<T> iterator){
 			var length=list.Count;
 			for (int i = 0; i < length; i++)
 			{
@@ -93,7 +93,7 @@ namespace TRNTH{
 		// 		list.Add(toAdd[i]);
 		// 	}
 		// }
-		static public void AddRangeNonAlloc<T>(this ICollection<T> list,IReadOnlyList<T> toAdd){
+		static public void AddRangeNonAlloc<T>(this ICollection<T> list,INonAllocList<T> toAdd){
 			var length=toAdd.Count;
 			for (int i = 0; i < length; i++)
 			{

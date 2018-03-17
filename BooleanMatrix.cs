@@ -44,7 +44,7 @@ namespace TRNTH{
                 _indexes[i]=new MatrixIndex(i%Width,i/Width);
             }
         }
-        MatrixIndex[] _indexes;
+        [HideInInspector]MatrixIndex[] _indexes;
         public IEnumerator<MatrixIndex> GetEnumerator()
         {
             IEnumerable<MatrixIndex> en=_indexes;
@@ -56,9 +56,10 @@ namespace TRNTH{
             return _indexes.GetEnumerator();
         }
     }
-    public class ArrayMatrix<T>:MatrixBase,IReadonlyMatrix<T>{
-        [SerializeField]T[] _datas;
-        protected T[] Datas{get{return _datas;}}
+    public class ArrayMatrix<T>:MatrixBase,IReadonlyMatrix<T>,ISerializationCallbackReceiver{
+        [SerializeField]MatrixIndex _currentIndex;
+        [SerializeField]T _current;
+        [SerializeField][HideInInspector]T[] _datas;
         public ArrayMatrix(int width, int height) : base(width, height)
         {
             _datas=new T[width*height];
@@ -66,8 +67,18 @@ namespace TRNTH{
         public ArrayMatrix() : this(3, 3)
         {
         }
-        protected virtual void ItemSet(int index,T item){
+        void ItemSet(int index,T item){
 			_datas[index]=item;
+        }
+
+        public void OnBeforeSerialize()
+        {
+            _current=this[_currentIndex];
+        }
+
+        public void OnAfterDeserialize()
+        {
+            // throw new NotImplementedException();
         }
 
         public T this[MatrixIndex vec] { 

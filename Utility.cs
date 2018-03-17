@@ -29,9 +29,9 @@ namespace TRNTH{
 		void Select(IListCell cell);
 	}
 	public interface IUIContainer<TData,TCell>{
-		IReadOnlyList<TData> Datas{get;}
+		IReadOnlyNonAllocList<TData> Datas{get;}
 		void UpdateCell(int index,TData data,TCell cell);
-		IReadOnlyList<TCell> Cells{get;}
+		IReadOnlyNonAllocList<TCell> Cells{get;}
 	}
 	public interface IUIContainer<TCell>{
 		Transform Parent{get;}
@@ -44,6 +44,7 @@ namespace TRNTH{
 	public class Utility{
 		[System.Diagnostics.Conditional("UNITY_EDITOR")]
 		public static void GetAllAssets<T>(IList<T> toHere) where T:class{
+			#if UNITY_EDITOR
 			var type=typeof(T);
 			var guids= UnityEditor.AssetDatabase.FindAssets(string.Format("t:{0}",type.Name));
 			toHere.Clear();
@@ -52,6 +53,7 @@ namespace TRNTH{
 				var recipe=UnityEditor.AssetDatabase.LoadAssetAtPath(path,type) as T;
 				toHere.Add(recipe);
 			}
+			#endif
 		}
 		static public void CheckSerializingType<T>(ref T member,ref MonoBehaviour monoScript) where T:class{
 			#if UNITY_EDITOR

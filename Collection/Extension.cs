@@ -2,14 +2,14 @@ using System.Collections.Generic;
 namespace TRNTH.ContainerExtention
 {
     static class Extension{
-		public static void ForEachNonAlloc<T>(this IReadOnlyNonAllocList<T> list,IIterator<T> iterator){
+		public static void ForEachNonAlloc<T>(this IList<T> list,IIterator<T> iterator){
 			var length=list.Count;
 			for (int i = 0; i < length; i++)
 			{
 				iterator.Each(i,list[i]);
 			}
 		}
-		public static int Sum<T>(this IReadOnlyNonAllocList<T> list,T value){
+		public static int Sum<T>(this IList<T> list,T value){
 			var sum=0;
 			var length=list.Count;
 			for (int i = 0; i < length; i++)
@@ -18,14 +18,14 @@ namespace TRNTH.ContainerExtention
 			}
 			return sum;
 		}
-        public static void ForEach<T>(this IReadOnlyNonAllocList<T> list,IIterator<T> iterator){
+        public static void ForEach<T>(this IList<T> list,IIterator<T> iterator){
 			var length=list.Count;
 			for (int i = 0; i < length; i++)
 			{
 				iterator.Each(i,list[i]);
 			}
 		}
-		static public void AddRangeNonAlloc<T>(this ICollection<T> list,IReadOnlyNonAllocList<T> other){
+		static public void AddRangeNonAlloc<T>(this ICollection<T> list,IList<T> other){
 			var length=other.Count;
 			for (int i = 0; i < length; i++)
 			{
@@ -45,7 +45,7 @@ namespace TRNTH.ContainerExtention
 			}
 			return -1;
 		}
-		static public bool HasIntersection<T>(this IReadOnlyNonAllocList<T> a,IReadOnlyNonAllocList<T> b){
+		static public bool HasIntersection<T>(this IList<T> a,IList<T> b){
 			var lengtha=a.Count;
 			var lengthb=b.Count;
 			for (int ia = 0; ia < lengtha; ia++)
@@ -57,7 +57,7 @@ namespace TRNTH.ContainerExtention
 			}
 			return false;
 		}
-		static public bool Contains<T>(this IReadOnlyNonAllocList<T> list,T item){
+		static public bool Contains<T>(this IList<T> list,T item){
 			if(list==null)return false;
 			var length=list.Count;
 			for (int i = 0; i < length; i++)
@@ -74,7 +74,7 @@ namespace TRNTH.ContainerExtention
 				list[i]=default(T);
 			}
 		}
-		static public int CopyTo<T>(this IReadOnlyNonAllocList<T> from,INonAllocList<T> to){
+		static public int CopyTo<T>(this IList<T> from,INonAllocList<T> to){
 			if(from==null)return -1;
 			var length=from.Count;
 			if(to.Count<length)length=to.Count;
