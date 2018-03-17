@@ -100,6 +100,14 @@ namespace TRNTH{
 				list.Add(toAdd[i]);
 			}
 		}
+		public static void GetPage<T>(this IList<T> list,List<T> toHere,int page,int itemsPerPage){
+			toHere.Clear();
+			for (int i = page*itemsPerPage; i < (page+1)*itemsPerPage; i++)
+			{
+				if(i>=list.Count)return;
+				toHere.Add(list[i]);
+			}
+		}
 		public static IEnumerable<T> Page<T>(this IEnumerable<T> list,int page,int sizePerPage){
 			var startIndex=page*sizePerPage;
 			if(list.Count() >=startIndex){

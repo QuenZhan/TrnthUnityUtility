@@ -2,7 +2,29 @@ using System.Collections.Generic;
 namespace TRNTH.ContainerExtention
 {
     static class Extension{
-		public static void ForEachNonAlloc<T>(this IList<T> list,IIterator<T> iterator){
+		public static void GetPage<T>(this IReadOnlyNonAllocList<T> list
+		,List<T> toHere
+		,int page
+		,int itemsPerPage
+		){
+			toHere.Clear();
+			for (int i = page*itemsPerPage; i < (page+1)*itemsPerPage; i++)
+			{
+				if(i>=list.Count)return;
+				toHere.Add(list[i]);
+			}
+		} 
+		public static int NullCount<T>(this IReadOnlyNonAllocList<T> list) where T:class{
+			int count=0;
+			var length=list.Count;
+			for (int i = 0; i < length; i++)
+			{
+				if(list[i]==null)count++;
+			}
+			return count;
+		}
+
+		public static void ForEachNonAlloc<T>(this IReadOnlyNonAllocList<T> list,IIterator<T> iterator){
 			var length=list.Count;
 			for (int i = 0; i < length; i++)
 			{
@@ -57,7 +79,15 @@ namespace TRNTH.ContainerExtention
 			}
 			return false;
 		}
-		static public bool Contains<T>(this IList<T> list,T item){
+		static public int IndexOf<T>(this IReadOnlyNonAllocList<T> list,T item){
+			var length=list.Count;
+			for (int i = 0; i < length; i++)
+			{
+				if(list[i].Equals(item))return i;
+			}
+			return -1;
+		}
+		static public bool Contains<T>(this IReadOnlyNonAllocList<T> list,T item){
 			if(list==null)return false;
 			var length=list.Count;
 			for (int i = 0; i < length; i++)
@@ -66,7 +96,7 @@ namespace TRNTH.ContainerExtention
 			}
 			return false;
 		}
-		static public void Clear<T>(this INonAllocList<T> list){
+		static public void DefaultAll<T>(this INonAllocList<T> list){
 			if(list==null)return;
 			var length=list.Count;
 			for (int i = 0; i < length; i++)
@@ -74,7 +104,15 @@ namespace TRNTH.ContainerExtention
 				list[i]=default(T);
 			}
 		}
-		static public int CopyTo<T>(this IList<T> from,INonAllocList<T> to){
+		static public void CopyTo<T>(this IReadOnlyNonAllocList<T> from,T[] to){
+			if(to.Length<from.Count)throw new System.InvalidOperationException(string.Format("to.Length:{0}<from.Count:{0}",to.Length,from.Count));
+			var length=from.Count;
+			for (int i = 0; i < length; i++)
+			{
+				to[i]=from[i];
+			}
+		}
+		static public int CopyTo<T>(this IReadOnlyNonAllocList<T> from,INonAllocList<T> to){
 			if(from==null)return -1;
 			var length=from.Count;
 			if(to.Count<length)length=to.Count;

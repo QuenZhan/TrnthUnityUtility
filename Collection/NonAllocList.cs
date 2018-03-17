@@ -4,15 +4,12 @@ namespace TRNTH
 {
     public class NonAllocList<T> : INonAllocList<T>
     {
+        #if UNITY_EDITOR
         [System.Diagnostics.Conditional("UNITY_EDITOR")]
         public void SetArray(T[] value){
             _datas=value;
         }
-        // [System.Diagnostics.Conditional("UNITY_EDITOR")]
-        // public T[] GetArray()
-        //     {
-        //         return _datas;
-        //     }
+        #endif
 		[SerializeField]T[] _datas;
 		public NonAllocList():this(0){
 

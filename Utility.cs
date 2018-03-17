@@ -55,6 +55,19 @@ namespace TRNTH{
 			}
 			#endif
 		}
+		[System.Diagnostics.Conditional("UNITY_EDITOR")]
+		public static void GetAllAssets<T>(MutableNonAllocList<T> toHere) where T:class{
+			#if UNITY_EDITOR
+			var type=typeof(T);
+			var guids= UnityEditor.AssetDatabase.FindAssets(string.Format("t:{0}",type.Name));
+			toHere.Clear();
+			foreach(var guid in guids){
+				var path=UnityEditor.AssetDatabase.GUIDToAssetPath (guid);
+				var recipe=UnityEditor.AssetDatabase.LoadAssetAtPath(path,type) as T;
+				toHere.Add(recipe);
+			}
+			#endif
+		}
 		static public void CheckSerializingType<T>(ref T member,ref MonoBehaviour monoScript) where T:class{
 			#if UNITY_EDITOR
 			 if(monoScript!=null){
