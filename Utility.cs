@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TRNTH.Pooling;
-// using System.Diagnostics;
 
 namespace TRNTH{
 	[System.Flags]
