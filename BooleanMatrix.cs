@@ -16,20 +16,7 @@ namespace TRNTH{
 	{
 		int Width{get;}
 		int Height{get;}
-		// T this[MatrixIndex vec]{get;}
         T this[int x,int y]{get;}
-    }
-	// public class MatrixUtility{
-    //     // public IReadOnlyCollection<T> GetDistinct<T>(IReadonlyMatrix<T> matrix){
-
-        // }
-        // public static void Copy(IReadonlyMatrix<bool> from, IReadonlyMatrix<bool> to)
-        // {
-        //     foreach(var e in to){
-        //         if(e.x>=from.Width || e.y>=from.Height)continue;
-        //         to[e]=from[e];
-        //     }
-        // }
     }
     public abstract class MatrixBase{
         public int Width{get;private set;}
@@ -37,9 +24,9 @@ namespace TRNTH{
         protected MatrixBase(int width,int height){
             this.Width=width;
             this.Height=height;
+        }
     }
     public class ArrayMatrix<T>:MatrixBase
-    // ,IReadonlyMatrix<T>
     ,ISerializationCallbackReceiver
     ,IMatrix<T>
     ,INonAllocList<T>
@@ -229,6 +216,21 @@ namespace TRNTH{
         }
         public static T GetValue<T>(this IReadonlyMatrix<T> matrix,MatrixIndex byIndex){
             return matrix[byIndex.x,byIndex.y];
+        }
+        readonly static System.Text.StringBuilder _stringBuilder=new System.Text.StringBuilder();
+        public static string ToHumanString(this IReadonlyMatrix<bool> booleanMatrix){
+            var height=booleanMatrix.Height;
+            var width=booleanMatrix.Width;
+            _stringBuilder.Length=0;
+            for (int y = height - 1; y >= 0 ; y--)
+            {
+                for (int x = 0; x < width; x++)
+                {
+                    _stringBuilder.Append(booleanMatrix[x,y]?'1':'0');
+                }
+                _stringBuilder.Append('\n');
+            }
+            return _stringBuilder.ToString();
         }
     }
 }
