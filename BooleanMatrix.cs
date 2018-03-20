@@ -12,7 +12,7 @@ namespace TRNTH{
 			this.y=y;
 		}
 	}
-	public interface IReadonlyMatrix<T>:IEnumerable<MatrixIndex>
+	public interface IReadonlyMatrix<T>
 	{
 		int Width{get;}
 		int Height{get;}
@@ -31,7 +31,7 @@ namespace TRNTH{
         //     }
         // }
     }
-    public abstract class MatrixBase:IEnumerable{
+    public abstract class MatrixBase{
         public int Width{get;private set;}
         public int Height{get;private set;}
         protected MatrixBase(int width,int height){
@@ -45,21 +45,12 @@ namespace TRNTH{
             }
         }
         [HideInInspector]MatrixIndex[] _indexes;
-        public IEnumerator<MatrixIndex> GetEnumerator()
-        {
-            IEnumerable<MatrixIndex> en=_indexes;
-			return en.GetEnumerator();
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return _indexes.GetEnumerator();
-        }
     }
     public class ArrayMatrix<T>:MatrixBase,IReadonlyMatrix<T>,ISerializationCallbackReceiver{
         [SerializeField]MatrixIndex _currentIndex;
         [SerializeField]T _current;
         [SerializeField][HideInInspector]T[] _datas;
+
         public ArrayMatrix(int width, int height) : base(width, height)
         {
             _datas=new T[width*height];
@@ -97,6 +88,15 @@ namespace TRNTH{
                 ItemSet(x+y*Width,value);
 			}
 		}
+        public T this[int index]{
+            get{
+                return _datas[index];
+            }
+            set{
+                _datas[index]=value;
+            }
+        }
+        public int Count{get{return _datas.Length;}}
     }
 
     public interface IReadonlyBitMatrix:IReadonlyMatrix<bool>{
@@ -173,5 +173,11 @@ namespace TRNTH{
                 if(i<vec.y)_ints[i]=0;
             }
         }
+    }
+    public static class MatrixExtension{
+        public static string ExportToHumanString(this IReadonlyBitMatrix booleanMatrix)  {
+            
+        }
+        public static void ImportFromHumanString(this )
     }
 }

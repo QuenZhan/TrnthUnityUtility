@@ -2,6 +2,11 @@ using System.Collections.Generic;
 namespace TRNTH.ContainerExtention
 {
     static class Extension{
+		public static T RandomChoose<T>(this IReadOnlyNonAllocList<T> list){
+			if(list.Count<1)return default(T);
+			var index=UnityEngine.Random.Range(0,list.Count);
+			return list[index];
+		}
 		public static void GetPage<T>(this IReadOnlyNonAllocList<T> list
 		,List<T> toHere
 		,int page
