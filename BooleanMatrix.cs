@@ -12,25 +12,25 @@ namespace TRNTH{
 			this.y=y;
 		}
 	}
-	public interface IReadonlyMatrix<T>:IEnumerable<MatrixIndex>
+	public interface IReadonlyMatrix<T>
 	{
 		int Width{get;}
 		int Height{get;}
-		T this[MatrixIndex vec]{get;}
+		// T this[MatrixIndex vec]{get;}
         T this[int x,int y]{get;}
     }
-	public class MatrixUtility{
-        // public IReadOnlyCollection<T> GetDistinct<T>(IReadonlyMatrix<T> matrix){
+	// public class MatrixUtility{
+    //     // public IReadOnlyCollection<T> GetDistinct<T>(IReadonlyMatrix<T> matrix){
 
-        // }
-        // public static void Copy(IReadonlyMatrix<bool> from, IReadonlyMatrix<bool> to)
-        // {
-        //     foreach(var e in to){
-        //         if(e.x>=from.Width || e.y>=from.Height)continue;
-        //         to[e]=from[e];
-        //     }
-        // }
-    }
+    //     // }
+    //     // public static void Copy(IReadonlyMatrix<bool> from, IReadonlyMatrix<bool> to)
+    //     // {
+    //     //     foreach(var e in to){
+    //     //         if(e.x>=from.Width || e.y>=from.Height)continue;
+    //     //         to[e]=from[e];
+    //     //     }
+    //     // }
+    // }
     public abstract class MatrixBase:IEnumerable{
         public int Width{get;private set;}
         public int Height{get;private set;}
@@ -89,11 +89,11 @@ namespace TRNTH{
     }
 
     public interface IReadonlyBitMatrix:IReadonlyMatrix<bool>{
-        int[] Ints{get;}
-        bool IsAnd(IReadonlyBitMatrix other);
+        // int[] Ints{get;}
+        // bool IsAnd(IReadonlyBitMatrix other);
     }
     [System.Serializable]
-    public class IntFieledMatrix : MatrixBase,IReadonlyBitMatrix
+    public class IntFieledMatrix : MatrixBase,IReadonlyBitMatrix,IMatrix<bool>
     {
         [SerializeField]int[] _ints;
         public int[] Ints{get{return _ints;}}
@@ -132,7 +132,7 @@ namespace TRNTH{
               }
             }
 
-        public bool IsAnd(IReadonlyBitMatrix other)
+        public bool IsAnd(IntFieledMatrix other)
         {
             for (int i = 0; i < Height; i++)
             {
@@ -161,6 +161,27 @@ namespace TRNTH{
                 _ints[i+vec.y]=_ints[i]>>vec.x;
                 if(i<vec.y)_ints[i]=0;
             }
+        }
+    }
+    public interface IMatrix<T>:IReadonlyMatrix<T>{
+        new T this[int x,int y]{get;set;}
+    }
+    public static class MatrixExtension{
+        public static void CopyTo<T>(this IReadonlyMatrix<T> from,IMatrix<T> to){
+            var length=from.Width*to.Height;
+            for (int i = 0; i < length; i++)
+            {
+                to.SetValue(i,from.GetValue(i));
+            }
+        }
+        public static T GetValue<T>(this IReadonlyMatrix<T> matrix,int byIndex){
+            return matrix[byIndex%matrix.Width,byIndex/matrix.Width];
+        }
+        public static void SetValue<T>(this IMatrix<T> matrix,int byIndex,T value){
+            matrix[byIndex%matrix.Width,byIndex/matrix.Width]=value;
+        }
+        public static T GetValue<T>(this IReadonlyMatrix<T> matrix,MatrixIndex byIndex){
+            return matrix[byIndex.x,byIndex.y];
         }
     }
 }
