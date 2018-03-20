@@ -31,34 +31,36 @@ namespace TRNTH{
     //     //     }
     //     // }
     // }
-    public abstract class MatrixBase:IEnumerable{
+    public abstract class MatrixBase{
         public int Width{get;private set;}
         public int Height{get;private set;}
         protected MatrixBase(int width,int height){
             this.Width=width;
             this.Height=height;
-            var length=width*height;
-            _indexes=new MatrixIndex[length];
-            for (int i = 0; i < length; i++)
-            {
-                _indexes[i]=new MatrixIndex(i%Width,i/Width);
-            }
+            // var length=width*height;
+            // _indexes=new MatrixIndex[length];
+            // for (int i = 0; i < length; i++)
+            // {
+            //     _indexes[i]=new MatrixIndex(i%Width,i/Width);
+            // }
         }
-        MatrixIndex[] _indexes;
-        public IEnumerator<MatrixIndex> GetEnumerator()
-        {
-            IEnumerable<MatrixIndex> en=_indexes;
-			return en.GetEnumerator();
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return _indexes.GetEnumerator();
-        }
+        // MatrixIndex[] _indexes;
     }
-    public class ArrayMatrix<T>:MatrixBase,IReadonlyMatrix<T>{
+    public class ArrayMatrix<T>:MatrixBase
+    ,IMatrix<T>
+    ,INonAllocList<T>
+    {
         [SerializeField]T[] _datas;
         protected T[] Datas{get{return _datas;}}
+
+        public int Count
+        {
+            get
+            {
+                return _datas.Length;
+            }
+        }
+
         public ArrayMatrix(int width, int height) : base(width, height)
         {
             _datas=new T[width*height];
@@ -78,6 +80,12 @@ namespace TRNTH{
                 ItemSet(vec.x+vec.y*Width,value);
 			}
 		}
+        public T this[int index]{
+            get{return _datas[index];}
+            set{
+                _datas[index]=value;
+            }
+        }
         public T this[int x,int y] { 
 			get {
 				return _datas[x+y*Width];
@@ -88,15 +96,33 @@ namespace TRNTH{
 		}
     }
 
-    public interface IReadonlyBitMatrix:IReadonlyMatrix<bool>{
-        // int[] Ints{get;}
-        // bool IsAnd(IReadonlyBitMatrix other);
-    }
+    // public interface IReadonlyBitMatrix:IReadonlyMatrix<bool>{
+    //     // int[] Ints{get;}
+    //     // bool IsAnd(IReadonlyBitMatrix other);
+    // }
     [System.Serializable]
-    public class IntFieledMatrix : MatrixBase,IReadonlyBitMatrix,IMatrix<bool>
+    public class IntFieledMatrix : MatrixBase
+    ,IMatrix<bool>
+    ,INonAllocList<int>
     {
         [SerializeField]int[] _ints;
-        public int[] Ints{get{return _ints;}}
+        int[] Ints{get{return _ints;}}
+
+        public int Count {get{return _ints.Length;}}
+
+        public int this[int index]
+        {
+            get
+            {
+                return _ints[index];
+            }
+
+            set
+            {
+                _ints[index]=value;
+            }
+        }
+
         public IntFieledMatrix(int width, int height,bool toggle=false) : base(width, height)
         {
             if(width>30)throw new System.IndexOutOfRangeException(width.ToString());
