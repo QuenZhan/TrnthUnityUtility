@@ -12,7 +12,7 @@ namespace TRNTH{
 		public virtual void Reset(){
 			_TimeRecored = 0;
 		}
-		public void Stop(){
+		public virtual void Stop(){
 			_TimeRecored=Mathf.NegativeInfinity;
 		}
 		public virtual void Update(float deltaTime){

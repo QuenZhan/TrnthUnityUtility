@@ -17,4 +17,5 @@ public class TrnthMonoBehaviour:UnityEngine.MonoBehaviour{
 			tra.position=value;
 		}
 	}
+	
 }
