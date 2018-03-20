@@ -72,6 +72,7 @@ namespace TRNTH{
 			_datas[index]=item;
         }
 
+
         public T this[MatrixIndex vec] { 
 			get {
 				return _datas[vec.x+vec.y*Width];
@@ -105,6 +106,19 @@ namespace TRNTH{
     ,IMatrix<bool>
     ,INonAllocList<int>
     {
+        static readonly char[] seperator=new char[]{'\n','\r'};
+        public static IntFieledMatrix CreateFrom(string fromHumanString){
+            var spit=fromHumanString.Split(seperator);
+            var booleanMatrix=new IntFieledMatrix(spit[0].Length,spit.Length);
+            for (int y = 0; y < booleanMatrix.Height; y++)
+            {
+                for (int x = 0; x < booleanMatrix.Width; x++)
+                {
+                    booleanMatrix[x,y]=spit[y][x]=='1';
+                }
+            }
+            return booleanMatrix;
+        }
         [SerializeField]int[] _ints;
         int[] Ints{get{return _ints;}}
 
@@ -190,6 +204,7 @@ namespace TRNTH{
         }
     }
     public interface IMatrix<T>:IReadonlyMatrix<T>{
+        // void ChangeSize(int width,int height);
         new T this[int x,int y]{get;set;}
     }
     public static class MatrixExtension{
@@ -209,5 +224,18 @@ namespace TRNTH{
         public static T GetValue<T>(this IReadonlyMatrix<T> matrix,MatrixIndex byIndex){
             return matrix[byIndex.x,byIndex.y];
         }
+        // static readonly char[] seperator=new char[]{'\n','\r'};
+        // public static void Load (this IMatrix<bool> booleanMatrix,string fromHumanString){
+        //     var spit=fromHumanString.Split(seperator);
+        //     // _volume=new IntFieledMatrix(spit[0].Length,spit.Length);
+        //     // booleanMatrix.ChangeSize(spit[0].Length,spit.Length);
+        //     for (int y = 0; y < booleanMatrix.Height; y++)
+        //     {
+        //         for (int x = 0; x < booleanMatrix.Width; x++)
+        //         {
+        //             booleanMatrix[x,y]=spit[y][x]=='1';
+        //         }
+        //     }
+        // }
     }
 }
