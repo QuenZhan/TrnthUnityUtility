@@ -23,7 +23,7 @@ namespace TRNTH
 	// 	void Remove(T item);
 	// 	void Clear();
 	// }
-	public class MutableNonAllocList<T>:INonAllocList<T>{
+	[System.Serializable]public class MutableNonAllocList<T>:INonAllocList<T>{
 		[UnityEngine.SerializeField]List<T> _list=new List<T>(10);
 		public MutableNonAllocList(int max=10){
 			this.Max=max;

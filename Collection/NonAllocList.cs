@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 namespace TRNTH
 {
-    public class NonAllocList<T> : INonAllocList<T>
+    [System.Serializable]public class NonAllocList<T> : INonAllocList<T>
     {
         #if UNITY_EDITOR
         [System.Diagnostics.Conditional("UNITY_EDITOR")]
@@ -37,10 +37,10 @@ namespace TRNTH
     public interface INonAllocDicionary<TKey,TValue>:IReadonlyNonAllocDicionary<TKey,TValue>{
         new TValue this[TKey index]{get;set;}
     }
-    public abstract class NonAllocFixedSizeDictionary<TKey,TValue>:ISerializationCallbackReceiver
+    [System.Serializable]public abstract class NonAllocFixedSizeDictionary<TKey,TValue>:ISerializationCallbackReceiver
     ,INonAllocDicionary<TKey,TValue>{
-		[SerializeField]TKey[] _keys;
-        [SerializeField]List<TValue> _values;
+		[SerializeField]TKey[] _keys=new TKey[0];
+        [SerializeField]List<TValue> _values=new List<TValue>();
         readonly Dictionary<TKey,TValue> _dic=new Dictionary<TKey,TValue>();
         public TValue this[TKey index]
         {
