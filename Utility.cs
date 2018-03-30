@@ -29,9 +29,9 @@ namespace TRNTH{
 		void Select(IListCell cell);
 	}
 	public interface IUIContainer<TData,TCell>{
-		IReadOnlyList<TData> Datas{get;}
+		IReadOnlyNonAllocList<TData> Datas{get;}
 		void UpdateCell(int index,TData data,TCell cell);
-		IReadOnlyList<TCell> Cells{get;}
+		IReadOnlyNonAllocList<TCell> Cells{get;}
 	}
 	public interface IUIContainer<TCell>{
 		Transform Parent{get;}
@@ -42,27 +42,6 @@ namespace TRNTH{
 	}
 	public class U:Utility{}
 	public class Utility{
-		// public static void GetAllObjectsInScene<T>(List<T> objectsInScene) where T:UnityEngine.Object
-		// {
-		// 	// List<GameObject> objectsInScene = new List<GameObject>();
-
-		// 	foreach (T go in Resources.FindObjectsOfTypeAll<T>() )
-		// 	{
-		// 		if (go.hideFlags != HideFlags.None){
-		// 			continue;
-		// 		}
-
-		// 		if (UnityEditor.PrefabUtility.GetPrefabType(go) == UnityEditor.PrefabType.Prefab 
-		// 		|| UnityEditor.PrefabUtility.GetPrefabType(go) == PrefabType.ModelPrefab){
-		// 			continue;
-
-		// 		}
-
-		// 		objectsInScene.Add(go);
-		// 	}
-		// 	return objectsInScene;
-		// }
-
 		[System.Diagnostics.Conditional("UNITY_EDITOR")]
 		public static void GetAllAssets<T>(IList<T> toHere) where T:class{
 			#if UNITY_EDITOR

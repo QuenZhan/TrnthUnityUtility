@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 
 namespace TRNTH
@@ -7,22 +7,13 @@ namespace TRNTH
 		bool Contains(T item);
 		int Count{get;}
 	}
-	public class HashSet<T>:System.Collections.Generic.HashSet<T>,IReadonlyHashSet<T>{
-
-	}
-	public interface IReadOnlyNonAllocList<T>{
+    public interface IReadOnlyNonAllocList<T>{
 		T this[int index]{get;}
 		int Count{get;}
 	}
 	public interface INonAllocList<T>:IReadOnlyNonAllocList<T>{
 		new T this[int index]{get;set;}
 	}
-	// public interface IMutableNonAllocList<T>:INonAllocList<T>{
-	// 	void Add(T item);
-	// 	void RemoveAt(int index);
-	// 	void Remove(T item);
-	// 	void Clear();
-	// }
 	[System.Serializable]public class MutableNonAllocList<T>:INonAllocList<T>{
 		[UnityEngine.SerializeField]List<T> _list=new List<T>(10);
 		public MutableNonAllocList(int max=10){

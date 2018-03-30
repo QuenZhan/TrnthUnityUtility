@@ -27,13 +27,15 @@ namespace TRNTH
 
             set
             {
+                #if UNITY_EDITOR
+                if(index<0 || index>Count)throw new System.IndexOutOfRangeException(string.Format("index:{0},Count:{1}",index,Count));
+                #endif
                 _datas[index]=value;
             }
         }
         public int Count {get{return _datas.Length;}}
     }
     public interface IReadonlyNonAllocDicionary<TKey,TValue>{
-        // TValue this[TKey key]{get;}
         bool TryGetValue(TKey key,out TValue value);
     }
     public interface INonAllocDicionary<TKey,TValue>:IReadonlyNonAllocDicionary<TKey,TValue>{
@@ -154,39 +156,34 @@ namespace TRNTH
                _values.Add(default(TValue)) ;
             }
         }
+    }
+    public class MutableNonAllocDictionary<TKey,TValue>:INonAllocDicionary<TKey,TValue>,IReadOnlyNonAllocList<TKey>{
+        readonly Dictionary<TKey,TValue> _dictionary=new Dictionary<TKey,TValue>();
+        readonly List<TKey> _keys=new List<TKey>();
 
-        public TKey this[int index]
+        public TValue this[TKey key]
         {
-            get
+
+            set
             {
+                if(!_dictionary.ContainsKey(key)){
+                    _keys.Add(key);
+                }
+                _dictionary[key]=value;
+            }
+        }
+
+        public TKey this[int index] {
+            get{
                 return _keys[index];
             }
         }
 
-        public int Count {get{return _keys.Count;}}
+        public int Count{get{return _keys.Count;}}
 
-        // public void OnAfterDeserialize()
-        // {
-        //     _dic.Clear();
-        //     var length=_keys.Length;
-        //     for (int i = 0; i < length; i++)
-        //     {
-        //         if(i>=_values.Count)continue;
-        //         _dic.Add(_keys[i],_values[i]);
-        //     }
-        // }
-
-        // public void OnBeforeSerialize()
-        // {
-        //     var length=_keys.Length;
-        //     _values.Clear();
-        //     for (int i = 0; i < length; i++)
-        //     {
-        //         TValue value=default(TValue);
-        //         if(_keys[i]!=null)_dic.TryGetValue(_keys[i],out value);
-        //         _values.Add(value);
-        //     }
-        // }
-
+        public bool TryGetValue(TKey key, out TValue value)
+        {
+            return _dictionary.TryGetValue(key,out value);
+        }
     }
 }

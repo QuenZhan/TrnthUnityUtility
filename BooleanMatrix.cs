@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 namespace TRNTH{
     [System.Serializable]public struct MatrixIndex{
-    /// Start from left - top is 0:0 ;
+    /// Start from left - bottom is 0:0 ;
 		public int x;
 		public int y;
 		public MatrixIndex(int x,int y){
@@ -12,53 +12,39 @@ namespace TRNTH{
 			this.y=y;
 		}
 	}
-	public interface IReadonlyMatrix<T>:IEnumerable<MatrixIndex>
+	public interface IReadonlyMatrix<T>
 	{
 		int Width{get;}
 		int Height{get;}
-		T this[MatrixIndex vec]{get;}
         T this[int x,int y]{get;}
     }
-	public class MatrixUtility{
-        // public IReadOnlyCollection<T> GetDistinct<T>(IReadonlyMatrix<T> matrix){
-
-        // }
-        // public static void Copy(IReadonlyMatrix<bool> from, IReadonlyMatrix<bool> to)
-        // {
-        //     foreach(var e in to){
-        //         if(e.x>=from.Width || e.y>=from.Height)continue;
-        //         to[e]=from[e];
-        //     }
-        // }
-    }
-    public abstract class MatrixBase:IEnumerable{
+    public abstract class MatrixBase{
         public int Width{get;private set;}
         public int Height{get;private set;}
         protected MatrixBase(int width,int height){
             this.Width=width;
             this.Height=height;
-            var length=width*height;
-            _indexes=new MatrixIndex[length];
-            for (int i = 0; i < length; i++)
-            {
-                _indexes[i]=new MatrixIndex(i%Width,i/Width);
-            }
-        }
-        MatrixIndex[] _indexes;
-        public IEnumerator<MatrixIndex> GetEnumerator()
-        {
-            IEnumerable<MatrixIndex> en=_indexes;
-			return en.GetEnumerator();
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return _indexes.GetEnumerator();
         }
     }
-    public class ArrayMatrix<T>:MatrixBase,IReadonlyMatrix<T>{
-        [SerializeField]T[] _datas;
+    public class ArrayMatrix<T>:MatrixBase
+    ,ISerializationCallbackReceiver
+    ,IMatrix<T>
+    ,INonAllocList<T>
+    {
+        [SerializeField]MatrixIndex _currentIndex;
+        [SerializeField]T _current;
+        [SerializeField][HideInInspector]T[] _datas;
+        // [SerializeField]T[] _datas;
         protected T[] Datas{get{return _datas;}}
+
+        public int Count
+        {
+            get
+            {
+                return _datas.Length;
+            }
+        }
+
         public ArrayMatrix(int width, int height) : base(width, height)
         {
             _datas=new T[width*height];
@@ -66,8 +52,18 @@ namespace TRNTH{
         public ArrayMatrix() : this(3, 3)
         {
         }
-        protected virtual void ItemSet(int index,T item){
+        void ItemSet(int index,T item){
 			_datas[index]=item;
+        }
+
+        public void OnBeforeSerialize()
+        {
+            _current=this[_currentIndex];
+        }
+
+        public void OnAfterDeserialize()
+        {
+            // throw new NotImplementedException();
         }
 
         public T this[MatrixIndex vec] { 
@@ -78,6 +74,12 @@ namespace TRNTH{
                 ItemSet(vec.x+vec.y*Width,value);
 			}
 		}
+        public T this[int index]{
+            get{return _datas[index];}
+            set{
+                _datas[index]=value;
+            }
+        }
         public T this[int x,int y] { 
 			get {
 				return _datas[x+y*Width];
@@ -88,15 +90,46 @@ namespace TRNTH{
 		}
     }
 
-    public interface IReadonlyBitMatrix:IReadonlyMatrix<bool>{
-        int[] Ints{get;}
-        bool IsAnd(IReadonlyBitMatrix other);
-    }
+    // public interface IReadonlyBitMatrix:IReadonlyMatrix<bool>{
+    //     // int[] Ints{get;}
+    //     // bool IsAnd(IReadonlyBitMatrix other);
+    // }
     [System.Serializable]
-    public class IntFieledMatrix : MatrixBase,IReadonlyBitMatrix
+    public class IntFieledMatrix : MatrixBase
+    ,IMatrix<bool>
+    ,INonAllocList<int>
     {
+        static readonly char[] seperator=new char[]{'\n','\r'};
+        public static IntFieledMatrix CreateFrom(string fromHumanString){
+            var spit=fromHumanString.Split(seperator);
+            var booleanMatrix=new IntFieledMatrix(spit[0].Length,spit.Length);
+            for (int y = 0; y < booleanMatrix.Height; y++)
+            {
+                for (int x = 0; x < booleanMatrix.Width; x++)
+                {
+                    booleanMatrix[x,y]=spit[y][x]=='1';
+                }
+            }
+            return booleanMatrix;
+        }
         [SerializeField]int[] _ints;
-        public int[] Ints{get{return _ints;}}
+        int[] Ints{get{return _ints;}}
+
+        public int Count {get{return _ints.Length;}}
+
+        public int this[int index]
+        {
+            get
+            {
+                return _ints[index];
+            }
+
+            set
+            {
+                _ints[index]=value;
+            }
+        }
+
         public IntFieledMatrix(int width, int height,bool toggle=false) : base(width, height)
         {
             if(width>30)throw new System.IndexOutOfRangeException(width.ToString());
@@ -132,7 +165,7 @@ namespace TRNTH{
               }
             }
 
-        public bool IsAnd(IReadonlyBitMatrix other)
+        public bool IsAnd(IntFieledMatrix other)
         {
             for (int i = 0; i < Height; i++)
             {
@@ -161,6 +194,43 @@ namespace TRNTH{
                 _ints[i+vec.y]=_ints[i]>>vec.x;
                 if(i<vec.y)_ints[i]=0;
             }
+        }
+    }
+    public interface IMatrix<T>:IReadonlyMatrix<T>{
+        // void ChangeSize(int width,int height);
+        new T this[int x,int y]{get;set;}
+    }
+    public static class MatrixExtension{
+        public static void CopyTo<T>(this IReadonlyMatrix<T> from,IMatrix<T> to){
+            var length=from.Width*to.Height;
+            for (int i = 0; i < length; i++)
+            {
+                to.SetValue(i,from.GetValue(i));
+            }
+        }
+        public static T GetValue<T>(this IReadonlyMatrix<T> matrix,int byIndex){
+            return matrix[byIndex%matrix.Width,byIndex/matrix.Width];
+        }
+        public static void SetValue<T>(this IMatrix<T> matrix,int byIndex,T value){
+            matrix[byIndex%matrix.Width,byIndex/matrix.Width]=value;
+        }
+        public static T GetValue<T>(this IReadonlyMatrix<T> matrix,MatrixIndex byIndex){
+            return matrix[byIndex.x,byIndex.y];
+        }
+        readonly static System.Text.StringBuilder _stringBuilder=new System.Text.StringBuilder();
+        public static string ToHumanString(this IReadonlyMatrix<bool> booleanMatrix){
+            var height=booleanMatrix.Height;
+            var width=booleanMatrix.Width;
+            _stringBuilder.Length=0;
+            for (int y = height - 1; y >= 0 ; y--)
+            {
+                for (int x = 0; x < width; x++)
+                {
+                    _stringBuilder.Append(booleanMatrix[x,y]?'1':'0');
+                }
+                _stringBuilder.Append('\n');
+            }
+            return _stringBuilder.ToString();
         }
     }
 }

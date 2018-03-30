@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-namespace TRNTH.ContainerExtention
+namespace TRNTH
 {
     static class Extension{
 		public static bool TryGetValue<T>(this IReadOnlyNonAllocList<T> list,int index,out T value){
@@ -9,6 +9,11 @@ namespace TRNTH.ContainerExtention
 			}
 			value=list[index];
 			return true;
+		}
+		public static T RandomChoose<T>(this IReadOnlyNonAllocList<T> list){
+			if(list.Count<1)return default(T);
+			var index=UnityEngine.Random.Range(0,list.Count);
+			return list[index];
 		}
 		public static void GetPage<T>(this IReadOnlyNonAllocList<T> list
 		,List<T> toHere

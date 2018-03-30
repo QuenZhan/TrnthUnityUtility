@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEditor;
 using System;
 using UnityEditor.SceneManagement;
-using TRNTH.DungeonMeal;
 
 namespace TRNTH{
 	public class HierarchyPlayModeEditor : EditorWindowBase {
@@ -83,11 +82,11 @@ namespace TRNTH{
 		void OnFocus(){			
 			EditorApplication.playModeStateChanged-=StateChanged;
 			EditorApplication.playModeStateChanged+=StateChanged;
-			BattleManager.CanLoadScene=false;
+			// BattleManager.CanLoadScene=false;
 		}
 		void OnDestroy()
 		{
-			BattleManager.CanLoadScene=true;
+			// BattleManager.CanLoadScene=true;
 		}
 		bool AutoPipeline=true;
 		private void StateChanged(PlayModeStateChange playmode)
