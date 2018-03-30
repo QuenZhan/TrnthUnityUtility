@@ -2,6 +2,14 @@ using System.Collections.Generic;
 namespace TRNTH.ContainerExtention
 {
     static class Extension{
+		public static bool TryGetValue<T>(this IReadOnlyNonAllocList<T> list,int index,out T value){
+			if(index<1 ||  index >=list.Count){
+				value=default(T);
+				return false;
+			}
+			value=list[index];
+			return true;
+		}
 		public static void GetPage<T>(this IReadOnlyNonAllocList<T> list
 		,List<T> toHere
 		,int page

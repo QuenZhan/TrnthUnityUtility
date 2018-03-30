@@ -42,6 +42,27 @@ namespace TRNTH{
 	}
 	public class U:Utility{}
 	public class Utility{
+		// public static void GetAllObjectsInScene<T>(List<T> objectsInScene) where T:UnityEngine.Object
+		// {
+		// 	// List<GameObject> objectsInScene = new List<GameObject>();
+
+		// 	foreach (T go in Resources.FindObjectsOfTypeAll<T>() )
+		// 	{
+		// 		if (go.hideFlags != HideFlags.None){
+		// 			continue;
+		// 		}
+
+		// 		if (UnityEditor.PrefabUtility.GetPrefabType(go) == UnityEditor.PrefabType.Prefab 
+		// 		|| UnityEditor.PrefabUtility.GetPrefabType(go) == PrefabType.ModelPrefab){
+		// 			continue;
+
+		// 		}
+
+		// 		objectsInScene.Add(go);
+		// 	}
+		// 	return objectsInScene;
+		// }
+
 		[System.Diagnostics.Conditional("UNITY_EDITOR")]
 		public static void GetAllAssets<T>(IList<T> toHere) where T:class{
 			#if UNITY_EDITOR
