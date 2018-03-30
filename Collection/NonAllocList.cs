@@ -4,6 +4,9 @@ namespace TRNTH
 {
     public class NonAllocList<T> : INonAllocList<T>
     {
+        public void Sort(IComparer<T> campareer){
+            System.Array.Sort(_datas,campareer);
+        }
         #if UNITY_EDITOR
         [System.Diagnostics.Conditional("UNITY_EDITOR")]
         public void SetArray(T[] value){

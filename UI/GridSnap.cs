@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-namespace TRNTH{
-	public class GridSnap : TrnthMonoBehaviour {
+namespace TRNTH
+{
+    public class GridSnap : TrnthMonoBehaviour {
 		[SerializeField]Vector2 Space;
 		Vector2 Size;
 		[SerializeField]int Columns=4;

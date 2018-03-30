@@ -139,9 +139,19 @@ namespace TRNTH{
 		static string[] StringNumber; 
 		const string OutOfRange="--";
 		static public Ray MousePositionRay(Camera c){
-			Vector2 mousePos = new Vector2();
-			mousePos.x = Input.mousePosition.x;
-			mousePos.y = Input.mousePosition.y;
+			Vector2 mousePos = Input.mousePosition;
+			return MousePositionRay(mousePos,c);
+			// Vector2 mousePos = new Vector2();
+			// mousePos.x = Input.mousePosition.x;
+			// mousePos.y = Input.mousePosition.y;
+			// var worldPosition=c.ScreenToWorldPoint(new Vector3(mousePos.x,mousePos.y,c.nearClipPlane));
+			// var ray=new Ray(worldPosition,c.transform.TransformDirection(Vector3.forward));
+			// return ray;
+		}
+		static public Ray MousePositionRay(Vector2 mousePos,Camera c){
+			// Vector2 mousePos = new Vector2();
+			// mousePos.x = Input.mousePosition.x;
+			// mousePos.y = Input.mousePosition.y;
 			var worldPosition=c.ScreenToWorldPoint(new Vector3(mousePos.x,mousePos.y,c.nearClipPlane));
 			var ray=new Ray(worldPosition,c.transform.TransformDirection(Vector3.forward));
 			return ray;
