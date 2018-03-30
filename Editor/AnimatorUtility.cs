@@ -85,7 +85,7 @@ namespace TRNTH{
 				AssetDatabase.AddObjectToAsset(toIdleTransition,path);
 				// EditorUtility.SetDirty(toIdleTransition);
 				// EditorUtility.SetDirty(destinationState);
-				EditorUtility.SetDirty(animatorController);
+				UnityEditor.EditorUtility.SetDirty(animatorController);
 			}
 		}
 	}

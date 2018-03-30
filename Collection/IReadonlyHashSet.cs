@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace TRNTH
 {
-    public interface IReadonlyHashSet<T> {
+    public interface IReadonlyHashSet<T>  {
 		bool Contains(T item);
 		int Count{get;}
 	}
@@ -13,7 +14,7 @@ namespace TRNTH
 	public interface INonAllocList<T>:IReadOnlyNonAllocList<T>{
 		new T this[int index]{get;set;}
 	}
-	public class MutableNonAllocList<T>:INonAllocList<T>{
+	[System.Serializable]public class MutableNonAllocList<T>:INonAllocList<T>{
 		[UnityEngine.SerializeField]List<T> _list=new List<T>(10);
 		public MutableNonAllocList(int max=10){
 			this.Max=max;

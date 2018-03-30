@@ -1,7 +1,15 @@
 using System.Collections.Generic;
-namespace TRNTH.ContainerExtention
+namespace TRNTH
 {
     static class Extension{
+		public static bool TryGetValue<T>(this IReadOnlyNonAllocList<T> list,int index,out T value){
+			if(index<1 ||  index >=list.Count){
+				value=default(T);
+				return false;
+			}
+			value=list[index];
+			return true;
+		}
 		public static T RandomChoose<T>(this IReadOnlyNonAllocList<T> list){
 			if(list.Count<1)return default(T);
 			var index=UnityEngine.Random.Range(0,list.Count);
@@ -36,7 +44,7 @@ namespace TRNTH.ContainerExtention
 				iterator.Each(i,list[i]);
 			}
 		}
-		public static int Sum<T>(this IList<T> list,T value){
+		public static int Sum<T>(this IReadOnlyNonAllocList<T> list,T value){
 			var sum=0;
 			var length=list.Count;
 			for (int i = 0; i < length; i++)
@@ -45,14 +53,14 @@ namespace TRNTH.ContainerExtention
 			}
 			return sum;
 		}
-        public static void ForEach<T>(this IList<T> list,IIterator<T> iterator){
+        public static void ForEach<T>(this IReadOnlyNonAllocList<T> list,IIterator<T> iterator){
 			var length=list.Count;
 			for (int i = 0; i < length; i++)
 			{
 				iterator.Each(i,list[i]);
 			}
 		}
-		static public void AddRangeNonAlloc<T>(this ICollection<T> list,IList<T> other){
+		static public void AddRangeNonAlloc<T>(this ICollection<T> list,IReadOnlyNonAllocList<T> other){
 			var length=other.Count;
 			for (int i = 0; i < length; i++)
 			{
@@ -72,7 +80,7 @@ namespace TRNTH.ContainerExtention
 			}
 			return -1;
 		}
-		static public bool HasIntersection<T>(this IList<T> a,IList<T> b){
+		static public bool HasIntersection<T>(this IReadOnlyNonAllocList<T> a,IReadOnlyNonAllocList<T> b){
 			var lengtha=a.Count;
 			var lengthb=b.Count;
 			for (int ia = 0; ia < lengtha; ia++)
