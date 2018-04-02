@@ -10,8 +10,8 @@ namespace TRNTH.UI
 		[SerializeField]float _min=0;
 		[SerializeField]float _Max=1;
 		[SerializeField]Text _percentage;
-		[SerializeField]Color _textColorLower;
-		[SerializeField]Color _textColorHigher;
+		[SerializeField]Color _textColorLower=Color.black;
+		[SerializeField]Color _textColorHigher=Color.white;
 		public void Refresh(float zeroToOne){
 			if(_image){
 				_image.fillAmount=Mathf.Lerp(_min,_Max,zeroToOne);

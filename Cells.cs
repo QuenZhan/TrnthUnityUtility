@@ -6,7 +6,8 @@ namespace TRNTH.Components
     public interface ICellsManager
 	{
 		void CellDown(int index);
-	}
+        void CellHover(int index);
+    }
 	public sealed class Cells : MonoBehaviour {
 		 public void Init(ICellsManager manager){
             var length=_cells.Count;
