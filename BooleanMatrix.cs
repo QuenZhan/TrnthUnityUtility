@@ -37,7 +37,6 @@ namespace TRNTH
         [SerializeField]MatrixIndex _currentIndex;
         [SerializeField]T _current;
         [SerializeField][HideInInspector]T[] _datas;
-        // [SerializeField]T[] _datas;
         protected T[] Datas{get{return _datas;}}
 
         public int Count
