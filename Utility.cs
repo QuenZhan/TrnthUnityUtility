@@ -213,7 +213,7 @@ namespace TRNTH{
 			for (int i = 0; i < length; i++)
 			{
 				var child=tra.GetChild(i);
-				_children.Add(tra.GetChild(i));
+				_children.Add(child);
 			}
 			length=_children.Count;
 			for (int i = 0; i < length; i++)
