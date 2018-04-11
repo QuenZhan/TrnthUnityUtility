@@ -104,8 +104,17 @@ namespace TRNTH
                 to.SetValue(i,from.GetValue(i));
             }
         }
+        public static bool IsValid<T>(this IReadonlyMatrix<T> matrix,int x,int y){
+            return x>0 && x<matrix.Width && y>0 && y<matrix.Height;
+        }
         public static T GetValue<T>(this IReadonlyMatrix<T> matrix,int byIndex){
             return matrix[byIndex%matrix.Width,byIndex/matrix.Width];
+        }
+        public static bool TryGetValue<T>(this IReadonlyMatrix<T> matrix,int x,int y,out T ouput){
+            ouput=default(T);
+            if(x<0 || x>=matrix.Width || y<0 || y>=matrix.Height)return false;
+            ouput=matrix[x,y];
+            return true;
         }
         public static void SetValue<T>(this IMatrix<T> matrix,int byIndex,T value){
             matrix[byIndex%matrix.Width,byIndex/matrix.Width]=value;

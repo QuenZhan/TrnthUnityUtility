@@ -40,6 +40,33 @@ namespace TRNTH{
 		public static void DestroyAllChildren(this Transform transform){
 			U.cleanChildren(transform);
 		}
+		public static void Clamp(this RectTransform smaller,Vector2 TopRight,Vector2 BottomLeft){
+			smaller.pivot=new Vector2(.5f,.5f);
+			var halfsize=smaller.sizeDelta*.5f;
+			Vector2 localPosition=smaller.localPosition;
+			var smallRightotp=localPosition+new Vector2(halfsize.x,halfsize.y);
+			var smallLeftBot=localPosition-new Vector2(halfsize.x,halfsize.y);
+			smaller.localPosition=localPosition.Clamp(smallRightotp,smallLeftBot,TopRight,BottomLeft);
+			// var size=smaller.sizeDelta;
+			// var offsetMax=smaller.offsetMax;
+			// var xx=offsetMax.x<0;
+			// var yy=offsetMax.y<0;
+			// if(xx || yy){
+			// 	if(xx)offsetMax.x=0;
+			// 	if(yy)offsetMax.y=0;
+			// 	smaller.offsetMax=offsetMax;
+			// 	smaller.sizeDelta=size;	
+			// }
+			// var offsetMin=smaller.offsetMin;
+			// xx=offsetMin.x<0;
+			// yy=offsetMin.y<0;
+			// if(xx || yy){
+			// 	if(xx)offsetMin.x=0;
+			// 	if(yy)offsetMin.y=0;
+			// 	smaller.offsetMin=offsetMin;
+			// 	smaller.sizeDelta=size;	
+			// }
+		}
 		public static Vector2 Clamp(this Vector2 vec
 		,Vector2 smallTopRight
 		,Vector2 smallBottomLeft
@@ -50,7 +77,7 @@ namespace TRNTH{
 			var leftBorderWidth=vec.x-smallBottomLeft.x;
 			var rightBorder=smallTopRight.x-vec.x;
 			var topBorder=smallTopRight.y-vec.y;
-			var bottomBorer=vec.y-smallTopRight.y;
+			var bottomBorer=vec.y-smallBottomLeft.y;
 			var left=BottomLeft.x+leftBorderWidth;
 			var right=TopRight.x-rightBorder;
 			var top=TopRight.y-topBorder;

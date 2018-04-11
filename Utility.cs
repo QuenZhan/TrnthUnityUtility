@@ -42,6 +42,21 @@ namespace TRNTH{
 	}
 	public class U:Utility{}
 	public class Utility{
+		// public static void UIClampChild(RectTransform child,RectTransform parent){
+		// 	var anchorMax=child.anchorMax;
+		// 	var anchorMin=child.anchorMin;
+		// 	var parentAnchoredPosition=parent.anchoredPosition;
+		// 	var parentSizeDelta=parent.sizeDelta;
+		// 	var left=parentAnchoredPosition.x-parentSizeDelta.x;
+		// 	var right=parentAnchoredPosition.x+parentSizeDelta.x;
+		// 	var top=parentAnchoredPosition.y+parentSizeDelta.y;
+		// 	var bot=parentAnchoredPosition.y-parentSizeDelta.y;
+		// 	if(anchorMax.x>1 
+		// 	|| anchorMax.y>1
+		// 	|| anchorMin.x<0
+		// 	|| anchorMin.y<0
+		// 	)parent.anchoredPosition
+		// }
 		[System.Diagnostics.Conditional("UNITY_EDITOR")]
 		public static void GetAllAssets<T>(IList<T> toHere) where T:class{
 			#if UNITY_EDITOR
