@@ -21,7 +21,6 @@ namespace TRNTH.Pooling
 			{
 				if(_instances[i])DestroyImmediate(_instances[i]);
 				UnityEditor.PrefabUtility.GetPrefabObject(_Prefab);
-				// UnityEditor.PrefabUtility.IsComponentAddedToPrefabInstance
 				if(string.IsNullOrEmpty(_Prefab.scene.name)){
 					_instances[i]=UnityEditor.PrefabUtility.InstantiatePrefab(_Prefab) as GameObject;
 				}
@@ -29,7 +28,6 @@ namespace TRNTH.Pooling
 					_instances[i]=Instantiate(_Prefab);
 				}
 				_instances[i].transform.SetParent(this.transform);
-				// _instances[i].transform.Freeze();
 			}
 		}
 		public void GetSpawnees<T>(List<T> _list)where T:Component,ISpawnee{
