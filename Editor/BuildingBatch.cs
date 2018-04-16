@@ -1,9 +1,10 @@
 using UnityEditor;
+using UnityEngine;
 using System.Collections.Generic;
 namespace TRNTH
 {
     public class BuildingBatch{
-        public string RootPath="";
+        public string RootPath="Builds/";
         string[] getAllScenePath(){
             var list=new List<string>();
             foreach(var e in EditorBuildSettings.scenes){
@@ -15,28 +16,32 @@ namespace TRNTH
         public void MacBuild(){
             BuildPlayerOptions buildPlayerOptions = new BuildPlayerOptions();
             buildPlayerOptions.scenes = getAllScenePath();
-            buildPlayerOptions.locationPathName = "Mac/";
+            buildPlayerOptions.locationPathName = RootPath+"Mac/"+Application.productName;
             buildPlayerOptions.target = BuildTarget.StandaloneOSX;
             buildPlayerOptions.options = BuildOptions.None;
-            BuildPipeline.BuildPlayer(buildPlayerOptions);
+            Debug.Log(BuildPipeline.BuildPlayer(buildPlayerOptions)) ;
         }
          public void BuildWindows(){
             BuildPlayerOptions buildPlayerOptions = new BuildPlayerOptions();
             buildPlayerOptions.scenes = getAllScenePath();
-            buildPlayerOptions.locationPathName = "Windows/";
+            buildPlayerOptions.locationPathName = RootPath+"Windows/"+Application.productName;
             buildPlayerOptions.target = BuildTarget.StandaloneWindows64;
             buildPlayerOptions.options = BuildOptions.None;
             BuildPipeline.BuildPlayer(buildPlayerOptions);
         }
-        [MenuItem("TRNTH/BuildingBatch/Start")]
-            
-        static void _Start(){
-            var instance=new BuildingBatch();
-            instance.Start();
+        public bool Mac=true;
+        public bool Windows=true;
+        public string versionPrefix="0.1.";
+        public const int Max=1000;
+        public int VersionNumber{
+            get{return PlayerPrefs.GetInt("BuildNumber");}
+            set{PlayerPrefs.SetInt("BuildNumber",value);}
         }
         public void Start(){
-            MacBuild();
-            BuildWindows();
+            PlayerSettings.bundleVersion=versionPrefix+VersionNumber++;
+            VersionNumber%=Max;
+            if(Mac)MacBuild();
+            if(Windows)BuildWindows();
         }
     }
 }
