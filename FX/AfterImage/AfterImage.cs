@@ -5,6 +5,7 @@ namespace TRNTH.Effects
     [System.Serializable]public class AfterImage:TrnthMonoBehaviour,Pooling.ISpawnee{
         [SerializeField]SpriteRenderer _SpriteRenderer;
         public void Play(SpriteRenderer rdr,Vector3 worldPosition,bool flipx){
+            gobj.SetActive(false);
             gobj.SetActive(true);
             tra.position=worldPosition;
             _SpriteRenderer.sprite=rdr.sprite;
@@ -16,6 +17,7 @@ namespace TRNTH.Effects
 
         public void Spawning()
         {
+            // gobj.SetActive(true);
             // throw new System.NotImplementedException();
         }
     }

@@ -5,25 +5,23 @@ namespace TRNTH.Effects
 {
 
     public class AfterImageFx : TrnthMonoBehaviour {
-		[SerializeField]FxPool _pool;
+		[SerializeField]Pooling.PoolMananger _pool;
 		public float IntervalSeconds=0.1f;
 		public SpriteRenderer SpriteRenderer;
+		[SerializeField]List<AfterImage> _afterImages;
 		public IFacer FaceRotator;
 		private void Start() {
-			_pool.UnparentAll();
+			_pool.GetSpawnees(_afterImages);
 		}
 		float counter;
 		private void Update() {
 			counter-=Time.deltaTime;
 			if(counter>0)return;
 			counter=IntervalSeconds;
-			var fx=_pool.Spawn();
+			var fx=_pool.FifoSpawn(_afterImages);
 			var flilpx=SpriteRenderer.flipX;
 			if(FaceRotator!=null)flilpx=!FaceRotator.FaceRight;
 			fx.Play(this.SpriteRenderer,SpriteRenderer.transform.position,flilpx);
-		}
-		[System.Serializable]class FxPool:Pooling.ComponentsPool<AfterImage>{
-
 		}
 	}
 }
