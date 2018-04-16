@@ -2,7 +2,6 @@
 using UnityEditor;
 using System.Collections.Generic;
 public class TrnthUtilityEditor : Editor {
-    
 	[MenuItem("TRNTH/Log Profiler")]
 	private static void LogProfiler() {
 	    UnityEngine.Profiling.Profiler.logFile = Application.dataPath + "/_Profiler/profilerLog.txt";

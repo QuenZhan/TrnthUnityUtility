@@ -16,6 +16,7 @@ namespace TRNTH.Pooling
 			}
 		}
 		[ContextMenu("Generate")]void Generate(){
+			#if UNITY_EDITOR
 			var length=_instances.Length;
 			for (int i = 0; i < length; i++)
 			{
@@ -30,6 +31,7 @@ namespace TRNTH.Pooling
 				}
 				_instances[i].transform.SetParent(this.transform);
 			}
+			#endif
 		}
 		public void GetSpawnees<T>(List<T> _list)where T:Component,ISpawnee{
 			_list.Clear();
