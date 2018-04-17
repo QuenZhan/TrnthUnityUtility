@@ -29,78 +29,51 @@ namespace TRNTH
             _height=height;
         }
     }
-    public class ArrayMatrix<T>:MatrixBase
-    ,ISerializationCallbackReceiver
-    ,IMatrix<T>
-    ,INonAllocList<T>
-    {
-        [SerializeField]MatrixIndex _currentIndex;
-        [SerializeField]T _current;
-        [SerializeField][HideInInspector]T[] _datas;
-        protected T[] Datas{get{return _datas;}}
-
-        public int Count
-        {
-            get
-            {
-                return _datas.Length;
-            }
-        }
-
-        public ArrayMatrix(int width, int height) : base(width, height)
-        {
-            _datas=new T[width*height];
-        }
-        public ArrayMatrix() : this(3, 3)
-        {
-        }
-        void ItemSet(int index,T item){
-			_datas[index]=item;
-        }
-
-        public void OnBeforeSerialize()
-        {
-            _current=this[_currentIndex];
-        }
-
-        public void OnAfterDeserialize()
-        {
-            // throw new NotImplementedException();
-        }
-
-        public T this[MatrixIndex vec] { 
-			get {
-				return _datas[vec.x+vec.y*Width];
-			}
-			set {
-                ItemSet(vec.x+vec.y*Width,value);
-			}
-		}
-        public T this[int index]{
-            get{return _datas[index];}
-            set{
-                _datas[index]=value;
-            }
-        }
-        public T this[int x,int y] { 
-			get {
-				return _datas[x+y*Width];
-			}
-			set {
-                ItemSet(x+y*Width,value);
-			}
-		}
-    }
     public interface IMatrix<T>:IReadonlyMatrix<T>{
-        // void ChangeSize(int width,int height);
         new T this[int x,int y]{get;set;}
     }
     public static class MatrixExtension{
-        public static void CopyTo<T>(this IReadonlyMatrix<T> from,IMatrix<T> to){
-            var length=from.Width*to.Height;
-            for (int i = 0; i < length; i++)
+        public static string HumanOutput(this IReadonlyMatrix<bool> booleanMatrix){
+            // var spit=fromHumanString.Split(seperator);
+            // var booleanMatrix=booleanMatrix;
+            var lines=new string[booleanMatrix.Height];
+            var height=booleanMatrix.Height;
+            for (int y = 0; y <height; y++)
             {
-                to.SetValue(i,from.GetValue(i));
+                for (int x = 0; x < booleanMatrix.Width; x++)
+                {
+                    lines[y]+=booleanMatrix[x,height-y-1]?'1':'0';
+                }
+            }
+            return string.Join("\n",lines);
+        }
+        public static bool TryGetValue<T>(this IReadonlyMatrix<T> matrix,int x,int y,out T value){
+            value=default(T);
+            if(matrix.IsValid(x,y)){
+                value=matrix[x,y];
+                return true;
+            }
+            return false;
+        }
+        public static bool TrySetValue<T>(this IMatrix<T> matrix,int x,int y,T value){
+            if(matrix.IsValid(x,y)){
+                matrix[x,y]=value;
+                return true;
+            }
+            return false;
+        }
+        public static bool IsValid<T>(this IReadonlyMatrix<T> matrix,int x,int y){  
+            return x>0 && x<matrix.Width && y>0 && y<matrix.Height;
+        }
+        public static void CopyTo<T>(this IReadonlyMatrix<T> from,IMatrix<T> to){
+            var width=from.Width;
+            var height=from.Height;
+            for (int x = 0; x < width; x++)
+            {
+                for (int y = 0; y < height; y++)
+                {
+                    to.TrySetValue(x,y,from[x,y]);
+                }
             }
         }
         public static bool IsValid<T>(this IReadonlyMatrix<T> matrix,int x,int y){

@@ -42,6 +42,7 @@ namespace TRNTH.Components
 		[ContextMenu("RegenerateCells")]
 		void RegenerateCells(){
 			#if UNITY_EDITOR
+			if(!_parent)_parent=transform;
 			var parent=_parent;
 			var length=_cells.Count;
 			for (int i = 0; i < length; i++)

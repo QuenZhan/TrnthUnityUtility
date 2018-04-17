@@ -5,16 +5,19 @@ namespace TRNTH
     public class IntFieledMatrix : MatrixBase
     ,IMatrix<bool>
     ,INonAllocList<int>
+    ,ISerializationCallbackReceiver
     {
+        [SerializeField][Multiline(5)]string _humanOutput;
         static readonly char[] seperator=new char[]{'\n','\r'};
         public static IntFieledMatrix CreateFrom(string fromHumanString){
             var spit=fromHumanString.Split(seperator);
             var booleanMatrix=new IntFieledMatrix(spit[0].Length,spit.Length);
-            for (int y = 0; y < booleanMatrix.Height; y++)
+            var height=booleanMatrix.Height;
+            for (int y = 0; y <height; y++)
             {
                 for (int x = 0; x < booleanMatrix.Width; x++)
                 {
-                    booleanMatrix[x,y]=spit[y][x]=='1';
+                    booleanMatrix[x,height-y-1]=spit[y][x]=='1';
                 }
             }
             return booleanMatrix;
@@ -57,7 +60,7 @@ namespace TRNTH
                  this[vec.x,vec.y]=value;
              }
              }
-        const int FirstOne=1<<30;
+        public const int FirstOne=1<<30;
         public bool this[int x, int y] {
              get {
                  return (_ints[y] & FirstOne>>x)!=0;
@@ -101,6 +104,19 @@ namespace TRNTH
                 _ints[i+vec.y]=_ints[i]>>vec.x;
                 if(i<vec.y)_ints[i]=0;
             }
+        }
+
+        public void OnBeforeSerialize()
+        {
+            #if UNITY_EDITOR
+            _humanOutput=this.HumanOutput();
+            #endif
+            // throw new System.NotImplementedException();
+        }
+
+        public void OnAfterDeserialize()
+        {
+            // throw new System.NotImplementedException();
         }
     }
 }

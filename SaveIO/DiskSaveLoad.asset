@@ -8,9 +8,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4ea8d424a25ec4623ae8174dc4a2fb89, type: 3}
+  m_Script: {fileID: 11500000, guid: 77c4f57f0c34f4400ad4c75bf763999b, type: 3}
   m_Name: DiskSaveLoad
   m_EditorClassIdentifier: 
-  _SaveFileFormmat: 0
-  Cached: 0
-  _SaveFilePath: 
+  _DiskSaveLoad:
+    _SaveFileFormmat: 0
+    _path: 
+    _fileName: gamesave.save

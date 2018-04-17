@@ -4,8 +4,9 @@ using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Xml.Serialization;
 using UnityEngine;
-namespace TRNTH{
-	[CreateAssetMenu]public class DiskSaveLoad:ScriptableObject{
+namespace TRNTH
+{
+    [System.Serializable]public class DiskSaveLoad{
 		enum SaveFileFormmat{
 			Binary,XML
 		}
@@ -32,23 +33,19 @@ namespace TRNTH{
 				return (T)serializerXml.Deserialize(file);
 			default:return default(T);
 			}
-		}	
-		// [SerializeField]bool Cached=false;
-		// [SerializeField]string _SaveFilePath=null;
+		}
 		[SerializeField]string _path;
 		string SaveFilePath{
 			get{
 				if(string.IsNullOrEmpty(_path)){
 					_path=Application.persistentDataPath +"/";
-					// _SaveFilePath=Application.persistentDataPath +"/gamesave.save";
-					// Cached=true;
 				}
 				return _path+_fileName;
 			}
 		}
 		const string DefaultFileName="gamesave.save";
 		[SerializeField]string _fileName=DefaultFileName;
-		[ContextMenu("Save")]public void SaveToFile(object userdata,string filename=DefaultFileName){
+		public void SaveToFile(object userdata,string filename=DefaultFileName){
 			_fileName=filename;
 			if(File.Exists(SaveFilePath))File.Delete(SaveFilePath);
 			using(FileStream file = File.Create( SaveFilePath)) {
@@ -56,7 +53,7 @@ namespace TRNTH{
 				file.Close();
 			}
 		}
-		[ContextMenu("Load")]
+		
 		public T LoadFromFile<T>(string filename=DefaultFileName){
 			_fileName=filename;
 			T UserData=default(T);
@@ -67,7 +64,6 @@ namespace TRNTH{
 						UserData=Deserialize<T>(file);
 					}
 					catch(System.Exception e){
-						// UserData=default(T);
 						Debug.LogWarning(e);
 					}
 					file.Close();
