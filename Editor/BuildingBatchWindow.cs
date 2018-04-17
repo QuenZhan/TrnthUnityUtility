@@ -10,8 +10,8 @@ namespace TRNTH
         }
         readonly BuildingBatch _BuildingBatch=new BuildingBatch();
         private void OnGUI() {
-             GUILayout.BeginHorizontal();
-             GUILayout.Label("Version Prefix : ");
+            GUILayout.BeginHorizontal();
+            GUILayout.Label("Version Prefix : ");
             _BuildingBatch.versionPrefix=GUILayout.TextField(_BuildingBatch.versionPrefix);
             GUILayout.EndHorizontal();
             GUILayout.BeginHorizontal();
