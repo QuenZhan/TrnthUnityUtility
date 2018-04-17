@@ -8,7 +8,7 @@ namespace TRNTH
         private static void ShowWindow() {
             GetWindow<BuildingBatchWindow>().Show();
         }
-        readonly BuildingBatch _BuildingBatch=new BuildingBatch();
+        BuildingBatch _BuildingBatch=new BuildingBatch();
         private void OnGUI() {
             GUILayout.BeginHorizontal();
             GUILayout.Label("Version Prefix : ");
@@ -25,6 +25,16 @@ namespace TRNTH
                 _BuildingBatch.Start();
                 // _BuildingBatch.MacBuild();
             }
+        }
+        const string fileName="_BuildingBatchSetting";
+        private void Awake() {
+            var loader=new DiskSaveLoad();
+            _BuildingBatch=loader.LoadFromFile<BuildingBatch>(fileName);
+            if(_BuildingBatch==null)_BuildingBatch=new BuildingBatch();
+        }
+        private void OnDestroy() {
+            var loader=new DiskSaveLoad();
+            loader.SaveToFile(_BuildingBatch,fileName);
         }
     }
 }

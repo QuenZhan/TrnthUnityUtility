@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 namespace TRNTH{
-	public sealed class LocomotionAnimator : MonoBehaviour {
-		[SerializeField]protected Animator _animator;
+	public class LocomotionAnimator : MonoBehaviour {
+		[SerializeField]Animator _animator;
 		[SerializeField]public string AnimatorParameterSpeed="Speed";
 		[SerializeField]Locomotion _locomotion;
 		public void UpdateWith(float value){

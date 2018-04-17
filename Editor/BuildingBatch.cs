@@ -3,7 +3,7 @@ using UnityEngine;
 using System.Collections.Generic;
 namespace TRNTH
 {
-    public class BuildingBatch{
+    [System.Serializable]public class BuildingBatch{
         public string RootPath="Builds/";
         string[] getAllScenePath(){
             var list=new List<string>();
@@ -33,15 +33,12 @@ namespace TRNTH
         public bool Windows=true;
         public string versionPrefix="0.1.";
         public const int Max=1000;
-        public int VersionNumber{
-            get{return PlayerPrefs.GetInt("BuildNumber");}
-            set{PlayerPrefs.SetInt("BuildNumber",value);}
-        }
+        public int VersionNumber;
         public void Start(){
-            PlayerSettings.bundleVersion=versionPrefix+VersionNumber++;
             VersionNumber%=Max;
             if(Mac)MacBuild();
             if(Windows)BuildWindows();
+            PlayerSettings.bundleVersion=versionPrefix+VersionNumber++;
         }
     }
 }
