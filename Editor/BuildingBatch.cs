@@ -24,7 +24,7 @@ namespace TRNTH
          public void BuildWindows(){
             BuildPlayerOptions buildPlayerOptions = new BuildPlayerOptions();
             buildPlayerOptions.scenes = getAllScenePath();
-            buildPlayerOptions.locationPathName = RootPath+"Windows/"+Application.productName;
+            buildPlayerOptions.locationPathName = RootPath+"Windows/"+Application.productName+".exe";
             buildPlayerOptions.target = BuildTarget.StandaloneWindows64;
             buildPlayerOptions.options = BuildOptions.None;
             BuildPipeline.BuildPlayer(buildPlayerOptions);
