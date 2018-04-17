@@ -16,22 +16,39 @@ namespace TRNTH
         public void MacBuild(){
             BuildPlayerOptions buildPlayerOptions = new BuildPlayerOptions();
             buildPlayerOptions.scenes = getAllScenePath();
-            buildPlayerOptions.locationPathName = RootPath+"Mac/"+Application.productName;
             buildPlayerOptions.target = BuildTarget.StandaloneOSX;
+            buildPlayerOptions.locationPathName = RootPath+"MacDev/"+Application.productName;
+            buildPlayerOptions.options=BuildOptions.Development  | BuildOptions.ConnectWithProfiler | BuildOptions.AllowDebugging;
+            Debug.Log(BuildPipeline.BuildPlayer(buildPlayerOptions)) ;
+            buildPlayerOptions.locationPathName = RootPath+"Mac/"+Application.productName;
             buildPlayerOptions.options = BuildOptions.None;
             Debug.Log(BuildPipeline.BuildPlayer(buildPlayerOptions)) ;
         }
          public void BuildWindows(){
             BuildPlayerOptions buildPlayerOptions = new BuildPlayerOptions();
             buildPlayerOptions.scenes = getAllScenePath();
-            buildPlayerOptions.locationPathName = RootPath+"Windows/"+Application.productName+".exe";
             buildPlayerOptions.target = BuildTarget.StandaloneWindows64;
+            buildPlayerOptions.locationPathName = RootPath+"WindowsDev/"+Application.productName+".exe";
+            buildPlayerOptions.options=BuildOptions.Development  | BuildOptions.ConnectWithProfiler | BuildOptions.AllowDebugging;
+            var result=BuildPipeline.BuildPlayer(buildPlayerOptions);
+            buildPlayerOptions.locationPathName = RootPath+"Windows/"+Application.productName+".exe";
             buildPlayerOptions.options = BuildOptions.None;
-            BuildPipeline.BuildPlayer(buildPlayerOptions);
+            result=BuildPipeline.BuildPlayer(buildPlayerOptions);
+            Debug.Log(result);
         }
         public bool Mac=true;
         public bool Windows=true;
-        public string versionPrefix="0.1.";
+        public bool DebugBuild;
+        public string versionPrefix{
+            get{
+                var key="versionPrefix";
+                if(!PlayerPrefs.HasKey(key)){
+                    versionPrefix="0.1.";
+                }
+                return PlayerPrefs.GetString(key);
+            }
+            set{PlayerPrefs.SetString("versionPrefix",value);}
+        }
         public const int Max=1000;
         public int VersionNumber;
         public void Start(){
