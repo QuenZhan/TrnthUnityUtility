@@ -30,15 +30,50 @@ namespace TRNTH
         }
     }
     public interface IMatrix<T>:IReadonlyMatrix<T>{
-        // void ChangeSize(int width,int height);
         new T this[int x,int y]{get;set;}
     }
     public static class MatrixExtension{
-        public static void CopyTo<T>(this IReadonlyMatrix<T> from,IMatrix<T> to){
-            var length=from.Width*to.Height;
-            for (int i = 0; i < length; i++)
+        public static string HumanOutput(this IReadonlyMatrix<bool> booleanMatrix){
+            // var spit=fromHumanString.Split(seperator);
+            // var booleanMatrix=booleanMatrix;
+            var lines=new string[booleanMatrix.Height];
+            var height=booleanMatrix.Height;
+            for (int y = 0; y <height; y++)
             {
-                to.SetValue(i,from.GetValue(i));
+                for (int x = 0; x < booleanMatrix.Width; x++)
+                {
+                    lines[y]+=booleanMatrix[x,height-y-1]?'1':'0';
+                }
+            }
+            return string.Join("\n",lines);
+        }
+        public static bool TryGetValue<T>(this IReadonlyMatrix<T> matrix,int x,int y,out T value){
+            value=default(T);
+            if(matrix.IsValid(x,y)){
+                value=matrix[x,y];
+                return true;
+            }
+            return false;
+        }
+        public static bool TrySetValue<T>(this IMatrix<T> matrix,int x,int y,T value){
+            if(matrix.IsValid(x,y)){
+                matrix[x,y]=value;
+                return true;
+            }
+            return false;
+        }
+        public static bool IsValid<T>(this IReadonlyMatrix<T> matrix,int x,int y){  
+            return x>0 && x<matrix.Width && y>0 && y<matrix.Height;
+        }
+        public static void CopyTo<T>(this IReadonlyMatrix<T> from,IMatrix<T> to){
+            var width=from.Width;
+            var height=from.Height;
+            for (int x = 0; x < width; x++)
+            {
+                for (int y = 0; y < height; y++)
+                {
+                    to.TrySetValue(x,y,from[x,y]);
+                }
             }
         }
         public static T GetValue<T>(this IReadonlyMatrix<T> matrix,int byIndex){

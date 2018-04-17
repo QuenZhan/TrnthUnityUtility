@@ -5,7 +5,9 @@ namespace TRNTH
     public class IntFieledMatrix : MatrixBase
     ,IMatrix<bool>
     ,INonAllocList<int>
+    ,ISerializationCallbackReceiver
     {
+        [SerializeField][Multiline(5)]string _humanOutput;
         static readonly char[] seperator=new char[]{'\n','\r'};
         public static IntFieledMatrix CreateFrom(string fromHumanString){
             var spit=fromHumanString.Split(seperator);
@@ -102,6 +104,19 @@ namespace TRNTH
                 _ints[i+vec.y]=_ints[i]>>vec.x;
                 if(i<vec.y)_ints[i]=0;
             }
+        }
+
+        public void OnBeforeSerialize()
+        {
+            #if UNITY_EDITOR
+            _humanOutput=this.HumanOutput();
+            #endif
+            // throw new System.NotImplementedException();
+        }
+
+        public void OnAfterDeserialize()
+        {
+            // throw new System.NotImplementedException();
         }
     }
 }

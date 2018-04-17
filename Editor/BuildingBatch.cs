@@ -39,16 +39,7 @@ namespace TRNTH
         public bool Mac=true;
         public bool Windows=true;
         public bool DebugBuild;
-        public string versionPrefix{
-            get{
-                var key="versionPrefix";
-                if(!PlayerPrefs.HasKey(key)){
-                    versionPrefix="0.1.";
-                }
-                return PlayerPrefs.GetString(key);
-            }
-            set{PlayerPrefs.SetString("versionPrefix",value);}
-        }
+        public string versionPrefix="0.1.";
         public const int Max=1000;
         public int VersionNumber;
         public void Start(){

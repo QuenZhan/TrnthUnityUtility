@@ -6,7 +6,11 @@ namespace TRNTH
     ,IMatrix<T>
     ,INonAllocList<T>
     {
+        void Set(){
+            this[_currentIndex]=_current;
+        }
         [SerializeField]MatrixIndex _currentIndex;
+        [ContextMenuItem("Set","Set")]
         [SerializeField]T _current;
         [SerializeField][HideInInspector]T[] _datas;
         protected T[] Datas{get{return _datas;}}
@@ -32,7 +36,8 @@ namespace TRNTH
 
         public void OnBeforeSerialize()
         {
-            _current=this[_currentIndex];
+            
+            this.TryGetValue(_currentIndex.x,_currentIndex.y,out _current);
         }
 
         public void OnAfterDeserialize()
